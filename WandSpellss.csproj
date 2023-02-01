@@ -127,7 +127,6 @@
     <Compile Include="Lumos.cs" />
     <Compile Include="MagicText.cs" />
     <Compile Include="Morsmordre.cs" />
-    <Compile Include="NewVoiceTesting.cs" />
     <Compile Include="Nox.cs" />
     <Compile Include="NPCWands.cs" />
     <Compile Include="Protego.cs" />
@@ -142,6 +141,7 @@
     <Compile Include="Levicorpus.cs" />
     <Compile Include="Expelliarmus.cs" />
     <Compile Include="Spell.cs" />
+    <Compile Include="SpellEntry.cs" />
     <Compile Include="Stupefy.cs" />
     <Compile Include="StunDamager.cs" />
     <Compile Include="SpellDespawn.cs" />

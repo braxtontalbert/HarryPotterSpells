@@ -56,10 +56,10 @@ namespace WandSpellss
         SpeechRecognitionEngine recognizer;
         public string knownCurrent;
         Dictionary<string, Type> spellDict = new Dictionary<string, System.Type>();
-        NewVoiceTesting itemStuff;
+        SpellEntry itemStuff;
         public string fileLocation;
         public Coroutines couroutineManager;
-        public NewVoiceTesting nvt;
+        public SpellEntry nvt;
         GameObject coroutineManagerGO = new GameObject();
         Item paramItem;
 
@@ -137,7 +137,7 @@ namespace WandSpellss
                 {
                     foreach (Item wand in LevelModuleScript.local.currentlyHeldWands)
                     {
-                        wand.gameObject.GetComponent<NewVoiceTesting>().TypeSelection(spellDict[e.Result.Text], e.Result.Text);
+                        wand.gameObject.GetComponent<SpellEntry>().TypeSelection(spellDict[e.Result.Text], e.Result.Text);
                     }
                 }
 
@@ -146,7 +146,7 @@ namespace WandSpellss
                     
                     try
                     {
-                        paramItem = Item.allActive.Where(item => item.GetComponent<NewVoiceTesting>() != null).OrderBy(item => Vector3.Distance(item.transform.position, Player.currentCreature.handRight.transform.position)).First();
+                        paramItem = Item.allActive.Where(item => item.GetComponent<SpellEntry>() != null).OrderBy(item => Vector3.Distance(item.transform.position, Player.currentCreature.handRight.transform.position)).First();
 
                     }
                     catch (InvalidOperationException) { }
