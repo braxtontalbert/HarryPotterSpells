@@ -16,7 +16,7 @@ namespace WandSpellss
         SpeechRecognitionEngine recognizer;
         public string knownCurrent;
         Dictionary<string, Type> spellDict = new Dictionary<string, System.Type>();
-        NewVoiceTesting itemStuff;
+        SpellEntry itemStuff;
 
         public void Start()
         {
@@ -79,7 +79,7 @@ namespace WandSpellss
                 {
                     foreach (Item wand in LevelModuleScript.local.currentlyHeldWands)
                     {
-                        wand.gameObject.GetComponent<NewVoiceTesting>().TypeSelection(spellDict[e.Result.Text], e.Result.Text);
+                        wand.gameObject.GetComponent<SpellEntry>().TypeSelection(spellDict[e.Result.Text], e.Result.Text);
                     }
                 }
             }

@@ -17,7 +17,7 @@ namespace WandSpellss
         public override void OnItemLoaded(Item item)
         {
             base.OnItemLoaded(item);
-            item.gameObject.AddComponent<NewVoiceTesting>().Setup(spellSpeed, magicEffect, expelliarmusPower);
+            item.gameObject.AddComponent<SpellEntry>().Setup(spellSpeed, magicEffect, expelliarmusPower);
             Player.local.creature.gameObject.AddComponent<Soul>();
 
 

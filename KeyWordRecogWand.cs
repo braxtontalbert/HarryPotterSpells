@@ -79,7 +79,7 @@ namespace WandSpellss
 
             if (spellDict.ContainsKey(knownCurrent)) {
 
-                this.GetComponentInParent<NewVoiceTesting>().TypeSelection(spellDict[knownCurrent], knownCurrent);
+                this.GetComponentInParent<SpellEntry>().TypeSelection(spellDict[knownCurrent], knownCurrent);
 
             } 
 
