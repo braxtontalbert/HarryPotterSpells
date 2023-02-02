@@ -63,7 +63,6 @@ namespace WandSpellss
         GameObject coroutineManagerGO = new GameObject();
         Item paramItem;
 
-
         public override IEnumerator OnLoadCoroutine()
         {
             local = this;
