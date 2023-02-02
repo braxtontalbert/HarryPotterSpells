@@ -66,14 +66,8 @@ namespace WandSpellss
                     castCounter = 0;
 
                 }
-
-
             }
-
-
         }
-
-
     }
 
 }
