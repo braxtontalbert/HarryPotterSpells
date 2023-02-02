@@ -121,7 +121,7 @@ namespace WandSpellss
 
             Application.quitting += () => Process.GetCurrentProcess().Kill();
 
-            CustomDebug.debugOn = false;
+            CustomDebug.debugOn = true;
 
             yield return base.OnLoadCoroutine();
         }

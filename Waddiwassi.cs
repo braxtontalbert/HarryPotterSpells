@@ -8,16 +8,17 @@ using ThunderRoad;
 
 namespace WandSpellss
 {
-    public class Waddiwassi : MonoBehaviour
+     class Waddiwassi : Spell
     {
         Item item;
+        public static SpellType spellType = SpellType.Raycast;
         public void Start()
         {
             item = GetComponent<Item>();
             CastRay();
         }
 
-        internal void CastRay()
+        new public void CastRay()
         {
             RaycastHit hit;
             Transform parent;
@@ -27,16 +28,29 @@ namespace WandSpellss
 
                 CustomDebug.Debug("Did hit.");
                 CustomDebug.Debug(hit.collider.gameObject.transform.parent.name);
-
-                if(hit.collider.GetComponentInParent<Creature>() is Creature creature)
+                try
                 {
-                    Item itemToForce = (Item)Item.allActive.Where(item => item != null && Vector3.Distance(item.transform.position, creature.transform.position) < 2f)?.First();
+                    if (hit.collider.GetComponentInParent<Creature>() is Creature creature)
+                    {
+                        Item itemToForce = (Item)Item.allActive.Where(item => item != null && (creature.ragdoll.headPart.transform.position - item.transform.position).magnitude < 10f)?.First();
 
-                    Vector3 direction = (creature.transform.position - itemToForce.transform.position);
-                    itemToForce.rb.AddForce(direction * 8f, ForceMode.Impulse);
+                        Vector3 direction = (creature.ragdoll.headPart.transform.position - itemToForce.transform.position);
+                        itemToForce.rb.AddForce(direction * 10f, ForceMode.Acceleration);
+                    }
+                }
+
+
+                catch {
+
+                    CustomDebug.Debug("Did not hit creature");
                 }
 
             }
+        }
+
+        public override Spell AddGameObject(GameObject gameObject)
+        {
+            throw new NotImplementedException();
         }
     }
 
