@@ -123,7 +123,8 @@ namespace WandSpellss
 
                     projectile.transform.position = wand.flyDirRef.transform.position;
                     projectile.transform.rotation = wand.flyDirRef.transform.rotation;
-                    projectile.IgnoreObjectCollision(wand); 
+                    projectile.IgnoreObjectCollision(wand);
+                    projectile.IgnoreRagdollCollision(Player.currentCreature.ragdoll);
                     
                     projectile.Throw();
 
