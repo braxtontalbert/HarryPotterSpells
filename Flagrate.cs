@@ -15,7 +15,7 @@ namespace WandSpellss
         bool allowStart;
         Vector3 startPoint;
         Vector3 lastPoint;
-        List<Vector3> positions;
+        List<Vector3> positions = new List<Vector3>();
         public override Spell AddGameObject(GameObject gameObject)
         {
             throw new NotImplementedException();
@@ -60,6 +60,7 @@ namespace WandSpellss
                 if (pointDistance >= 0.001f) {
                     if (!positions.Contains(lastPoint))
                     {
+                        CustomDebug.Debug("Got past checking empty positions");
                         positions.Add(lastPoint);
                         positions.Add(item.flyDirRef.transform.position);
                     }
