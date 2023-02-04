@@ -104,9 +104,9 @@ namespace WandSpellss
                 floater2.AddComponent<FixedJoint>();
 
 
-                LevelModuleScript.local.floaters.Add(floater1);
-                LevelModuleScript.local.floaters.Add(floater2);
-                LevelModuleScript.local.levicorpusedCreatures.Add(creature);
+                Loader.local.floaters.Add(floater1);
+                Loader.local.floaters.Add(floater2);
+                Loader.local.levicorpusedCreatures.Add(creature);
 
                 creature.OnDespawnEvent += Creature_OnDespawnEvent;
 
@@ -114,7 +114,7 @@ namespace WandSpellss
 
             }
 
-            LevelModuleScript.local.couroutineManager.StartCustomCoroutine(SpawnSparkEffect(LevelModuleScript.local.levicorpusSparks, c.contacts[0].point));
+            Loader.local.couroutineManager.StartCustomCoroutine(SpawnSparkEffect(Loader.local.levicorpusSparks, c.contacts[0].point));
 
         }
 

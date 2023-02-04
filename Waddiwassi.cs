@@ -8,65 +8,42 @@ using ThunderRoad;
 
 namespace WandSpellss
 {
-    public class Waddiwassi : MonoBehaviour
+     class Waddiwassi : Spell
     {
         Item item;
-        Creature target;
-        Item shootItem;
-        internal Vector3 startPoint;
-        internal Vector3 endPoint;
-        internal GameObject parentLocal;
-        int castCounter;
+        public static SpellType spellType = SpellType.Raycast;
         public void Start()
         {
             item = GetComponent<Item>();
-            castCounter = 0;
-
+            CastRay();
         }
 
-
-        internal void CastRay()
+        new public void CastRay()
         {
-
-            castCounter++;
             RaycastHit hit;
             Transform parent;
 
-            if (Physics.Raycast(item.flyDirRef.position, item.flyDirRef.forward, out hit))
+            if (Physics.Raycast(item.flyDirRef.transform.position, item.flyDirRef.transform.forward, out hit, float.MaxValue, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore))
             {
 
-                Debug.Log("Did hit.");
-                Debug.Log(hit.collider.gameObject.transform.parent.name);
+                CustomDebug.Debug("Did hit.");
+                CustomDebug.Debug(hit.collider.gameObject.transform.parent.name);
 
-                parent = hit.collider.gameObject.transform.parent;
-                parentLocal = parent.gameObject;
+                if (hit.collider.GetComponentInParent<Creature>() is Creature creature)
+                {
+                    float distance = (creature.ragdoll.headPart.transform.position - item.transform.position).magnitude;
+                    List<Item> itemsToForce = Item.allActive.Where(item => item != null && distance < 3f && !Player.currentCreature.equipment.GetAllHolsteredItems().Contains(item))?.ToList();
+                    Item itemToForce = itemsToForce[UnityEngine.Random.Range(0, itemsToForce.Count - 1)];
 
-                if (parentLocal.GetComponent<Item>() != null) {
-
-
-
-                    shootItem = parentLocal.GetComponent<Item>();
-
-
-
-                }
-
-                else if (parentLocal.GetComponentInParent<Creature>() != null) {
-
-                    target = parentLocal.GetComponentInParent<Creature>();
-                
-                
-                }
-                
-                if (shootItem != null && target != null) {
-
-                    shootItem.gameObject.AddComponent<WaddiwassiPerItem>();
-                    shootItem.gameObject.GetComponent<WaddiwassiPerItem>().target = target;
-                    
-                    castCounter = 0;
-
+                    Vector3 direction = (creature.ragdoll.headPart.transform.position - itemToForce.transform.position).normalized;
+                    itemToForce.rb.AddForce(direction * itemToForce.rb.mass * (10f * distance), ForceMode.Impulse);
                 }
             }
+        }
+
+        public override Spell AddGameObject(GameObject gameObject)
+        {
+            throw new NotImplementedException();
         }
     }
 

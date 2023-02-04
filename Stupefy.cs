@@ -32,7 +32,7 @@ namespace WandSpellss
                 SpellEffect(creature);
             }
 
-            LevelModuleScript.local.couroutineManager.StartCustomCoroutine(SpawnSparkEffect(LevelModuleScript.local.stupefySparks, c.contacts[0].point));
+            Loader.local.couroutineManager.StartCustomCoroutine(SpawnSparkEffect(Loader.local.stupefySparks, c.contacts[0].point));
             
 
         }

@@ -25,7 +25,7 @@ namespace WandSpellss
         public void Start()
         {
             item = GetComponent<Item>();
-            bubble = LevelModuleScript.local.bubbleHeadEffect;
+            bubble = Loader.local.bubbleHeadEffect;
             activated = false;
             CastRay();
         }
@@ -44,7 +44,7 @@ namespace WandSpellss
                 {
                     Player.currentCreature.data.waterDrowningDamage = defaultDamage;
                     Player.currentCreature.data.waterDrowningStartTime = float.MaxValue;
-                    LevelModuleScript.local.spellsOnPlayer.Add(typeof(Sanuspirantes));
+                    Loader.local.spellsOnPlayer.Add(typeof(Sanuspirantes));
                 }
 
             }
@@ -56,7 +56,7 @@ namespace WandSpellss
 
             Player.currentCreature.data.waterDrowningDamage = defaultDamage;
             Player.currentCreature.data.waterDrowningStartTime = defaultTime;
-            LevelModuleScript.local.StartBubbleHeadDestroy(bubbleUpdate);
+            Loader.local.StartBubbleHeadDestroy(bubbleUpdate);
         }
 
         internal void CastRay()

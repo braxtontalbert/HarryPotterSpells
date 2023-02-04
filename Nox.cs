@@ -21,9 +21,9 @@ namespace WandSpellss
 
         void Start() {
 
-            if (LevelModuleScript.local.currentTipper is Item item && item.GetComponent<Lumos>())
+            if (Loader.local.currentTipper is Item item && item.GetComponent<Lumos>())
             {
-                foreach (AudioSource c in LevelModuleScript.local.currentWand.GetComponentsInChildren<AudioSource>())
+                foreach (AudioSource c in Loader.local.currentWand.GetComponentsInChildren<AudioSource>())
                 {
 
                     switch (c.name)

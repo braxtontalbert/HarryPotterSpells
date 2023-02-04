@@ -43,7 +43,7 @@ namespace WandSpellss
                 StartCoroutine(Timer(creature, c));
 
             }
-            LevelModuleScript.local.couroutineManager.StartCustomCoroutine(SpawnSparkEffect(LevelModuleScript.local.petrificusSparks, c.contacts[0].point));
+            Loader.local.couroutineManager.StartCustomCoroutine(SpawnSparkEffect(Loader.local.petrificusSparks, c.contacts[0].point));
 
         }
 

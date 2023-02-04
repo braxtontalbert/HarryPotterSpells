@@ -42,12 +42,13 @@ namespace WandSpellss
 
 
                 creature.ragdoll.SetState(Ragdoll.State.Destabilized);
-                foreach (Rigidbody rigidbody in c.gameObject.GetComponentInParent<Creature>().ragdoll.parts.Select(part => part.rb))
+                /*foreach (Rigidbody rigidbody in c.gameObject.GetComponentInParent<Creature>().ragdoll.parts.Select(part => part.rb))
                 {
 
                     CustomDebug.Debug("Rigidbody name: " + rigidbody.name);
                     rigidbody.AddForce(item.flyDirRef.transform.forward * (power), ForceMode.Impulse);
-                }
+                }*/
+                creature.ragdoll.targetPart.rb.AddForce(item.flyDirRef.transform.forward * power * 4f, ForceMode.Impulse);
 
 
             }
@@ -60,7 +61,7 @@ namespace WandSpellss
             
             }
 
-            LevelModuleScript.local.couroutineManager.StartCustomCoroutine(SpawnSparkEffect(LevelModuleScript.local.expelliarmusSparks, c.contacts[0].point));
+            Loader.local.couroutineManager.StartCustomCoroutine(SpawnSparkEffect(Loader.local.expelliarmusSparks, c.contacts[0].point));
 
         }
 

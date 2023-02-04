@@ -19,7 +19,7 @@ namespace WandSpellss
         void Start() {
 
             wand = GetComponent<Item>();
-            effect = LevelModuleScript.local.incendioEffect;
+            effect = Loader.local.incendioEffect;
 
             SpawnEffect(effect);
         }

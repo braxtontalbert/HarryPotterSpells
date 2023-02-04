@@ -24,7 +24,6 @@ namespace WandSpellss
         public static SpellType spellType = SpellType.Raycast;
 
        
-
         public void Start()
         {
             item = GetComponent<Item>();

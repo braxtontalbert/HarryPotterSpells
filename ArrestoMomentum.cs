@@ -20,7 +20,7 @@ namespace WandSpellss
 
         void Start() {
             Player.local.locomotion.OnGroundEvent += Locomotion_OnGroundEvent;
-            LevelModuleScript.local.spellsOnPlayer.Add(typeof(ArrestoMomentum));
+            Loader.local.spellsOnPlayer.Add(typeof(ArrestoMomentum));
             canSlow = true;
 
         }

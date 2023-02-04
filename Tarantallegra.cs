@@ -39,7 +39,7 @@ namespace WandSpellss
 
             }
 
-            LevelModuleScript.local.couroutineManager.StartCustomCoroutine(SpawnSparkEffect(LevelModuleScript.local.tarantallegraSparks, c.contacts[0].point));
+            Loader.local.couroutineManager.StartCustomCoroutine(SpawnSparkEffect(Loader.local.tarantallegraSparks, c.contacts[0].point));
 
         }
 

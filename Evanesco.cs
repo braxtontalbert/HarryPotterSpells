@@ -31,7 +31,7 @@ namespace WandSpellss
         {
             item = GetComponent<Item>();
             //Catalog.LoadAssetAsync<Material>("apoz123Wand.SpellEffect.Evanesco.Mat", callback => { this.evanescoDissolve = callback; }, "HarryPotterSpells");
-            evanescoDissolve = LevelModuleScript.local.evanescoDissolveMat.DeepCopyByExpressionTree();
+            evanescoDissolve = Loader.local.evanescoDissolveMat.DeepCopyByExpressionTree();
             CastRay();
 
         }

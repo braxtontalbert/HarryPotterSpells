@@ -63,6 +63,7 @@ namespace WandSpellss
         GameObject coroutineManagerGO = new GameObject();
         Item paramItem;
 
+
         public override IEnumerator OnLoadCoroutine()
         {
             local = this;
@@ -120,7 +121,7 @@ namespace WandSpellss
 
             Application.quitting += () => Process.GetCurrentProcess().Kill();
 
-            CustomDebug.debugOn = false;
+            CustomDebug.debugOn = true;
 
             yield return base.OnLoadCoroutine();
         }
