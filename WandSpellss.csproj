@@ -111,6 +111,7 @@
     <Compile Include="Evanesco.cs" />
     <Compile Include="EvanescoPerItem.cs" />
     <Compile Include="FiniteIncantatum.cs" />
+    <Compile Include="Flagrate.cs" />
     <Compile Include="Geminiocs.cs" />
     <Compile Include="HorcruxData.cs" />
     <Compile Include="IgnoreRagdoll.cs" />
@@ -124,6 +125,7 @@
     <Compile Include="KeyWordRecogWand.cs" />
     <Compile Include="LevelModuleScript.cs" />
     <Compile Include="Liberacorpus.cs" />
+    <Compile Include="Loader.cs" />
     <Compile Include="Lumos.cs" />
     <Compile Include="MagicText.cs" />
     <Compile Include="Morsmordre.cs" />

@@ -26,7 +26,7 @@ namespace WandSpellss
         void Start() {
 
             item = GetComponent<Item>();
-            LevelModuleScript.local.currentTipper = item;
+            Loader.local.currentTipper = item;
         }
 
         void Update() {

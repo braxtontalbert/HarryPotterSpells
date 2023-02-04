@@ -19,7 +19,7 @@ namespace WandSpellss
 
         void Start() {
 
-            LevelModuleScript.local.DestroyLevicorpus();
+            Loader.local.DestroyLevicorpus();
         
         }
     }

@@ -31,7 +31,6 @@ namespace WandSpellss
 
         public void Awake()
         {
-            
             item = GetComponent<Item>();
             item.rb.collisionDetectionMode = CollisionDetectionMode.ContinuousSpeculative;
             item.rb.isKinematic = true;
@@ -39,7 +38,7 @@ namespace WandSpellss
             source = GetComponent<AudioSource>();
             source.loop = true;
             item.gameObject.AddComponent<IgnoreCollider>();
-            LevelModuleScript.local.finiteSpells.Add(typeof(Protego));
+            Loader.local.finiteSpells.Add(typeof(Protego));
             StartCoroutine(Timer());
         }
 

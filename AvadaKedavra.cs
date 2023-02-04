@@ -39,7 +39,7 @@ namespace WandSpellss
                 creature.Kill();
             }
 
-            LevelModuleScript.local.couroutineManager.StartCustomCoroutine(SpawnSparkEffect(LevelModuleScript.local.avadaSparks, c.contacts[0].point));
+            Loader.local.couroutineManager.StartCustomCoroutine(SpawnSparkEffect(Loader.local.avadaSparks, c.contacts[0].point));
             
         }
 

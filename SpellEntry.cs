@@ -51,21 +51,21 @@ namespace WandSpellss
             //recogWand = wand.gameObject.AddComponent<KeyWordRecogWand>();
             wand.OnGrabEvent += Wand_OnGrabEvent;
             wand.OnUngrabEvent += Wand_OnUngrabEvent;
-            selectorMaterial = LevelModuleScript.local.selectorMat;
+            selectorMaterial = Loader.local.selectorMat;
             debug = false;
         }
 
         private void Wand_OnUngrabEvent(Handle handle, RagdollHand ragdollHand, bool throwing)
         {
             //recogWand.isEnabled = false;
-            LevelModuleScript.local.currentlyHeldWands.Remove(this.wand);
-            LevelModuleScript.local.currentlyHeldWands.TrimExcess();
+            Loader.local.currentlyHeldWands.Remove(this.wand);
+            Loader.local.currentlyHeldWands.TrimExcess();
         }
 
         private void Wand_OnGrabEvent(Handle handle, RagdollHand ragdollHand)
         {
-            LevelModuleScript.local.currentWand = this.wand;
-            LevelModuleScript.local.currentlyHeldWands.Add(this.wand);
+            Loader.local.currentWand = this.wand;
+            Loader.local.currentlyHeldWands.Add(this.wand);
             //recogWand.isEnabled = true;
         }
 

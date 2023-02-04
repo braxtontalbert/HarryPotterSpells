@@ -77,7 +77,7 @@ namespace WandSpellss
                 Debug.Log(e.Result.Text);
                 if (spellDict.ContainsKey(e.Result.Text))
                 {
-                    foreach (Item wand in LevelModuleScript.local.currentlyHeldWands)
+                    foreach (Item wand in Loader.local.currentlyHeldWands)
                     {
                         wand.gameObject.GetComponent<SpellEntry>().TypeSelection(spellDict[e.Result.Text], e.Result.Text);
                     }
