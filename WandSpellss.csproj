@@ -115,6 +115,7 @@
     <Compile Include="Geminiocs.cs" />
     <Compile Include="HorcruxData.cs" />
     <Compile Include="IgnoreRagdoll.cs" />
+    <Compile Include="Impedimenta.cs" />
     <Compile Include="Incendio.cs" />
     <Compile Include="ItemJSONFormat.cs" />
     <Compile Include="Horcrux.cs" />
