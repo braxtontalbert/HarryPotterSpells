@@ -26,6 +26,7 @@ namespace WandSpellss
         public Material selectorMat;
         public GameObject incendioEffect;
         public GameObject bubbleHeadEffect;
+        public GameObject impedimentaEffect;
         public List<GameObject> sparksEffect = new List<GameObject>();
         public GameObject stupefySparks;
         public GameObject expelliarmusSparks;
@@ -56,62 +57,52 @@ namespace WandSpellss
             local = this;
             // do whatever you want to setup, listen to events etc
             local = this;
-            couroutineManager = coroutineManagerGO.AddComponent<Coroutines>();
-            Catalog.LoadAssetAsync<Material>("apoz123Wand.SpellEffect.Evanesco.Mat", callback => { evanescoDissolveMat = callback; }, "Evanesco");
-            Catalog.LoadAssetAsync<Material>("apoz123Wand.Selector.Mat", callback => { selectorMat = callback; }, "Selector");
-            Catalog.LoadAssetAsync<GameObject>("apoz123Wand.Incendio.SpellEffect", callback => { incendioEffect = callback; }, "Incendio");
-            Catalog.LoadAssetAsync<GameObject>("apoz123Wand.SpellEffect.BubbleHead", callback => { bubbleHeadEffect = callback; }, "BubbleHead");
-            Catalog.LoadAssetAsync<GameObject>("apoz123Wand.SpellEffect.Sparks.Stupefy", callback => { stupefySparks = callback; }, "StupefySparks");
-            Catalog.LoadAssetAsync<GameObject>("apoz123Wand.SpellEffect.Sparks.Expelliarmus", callback => { expelliarmusSparks = callback; }, "ExpelliarmusSparks");
-            Catalog.LoadAssetAsync<GameObject>("apoz123Wand.SpellEffect.Sparks.AvadaKedavra", callback => { avadaSparks = callback; }, "AvadaKedavraSparks");
-            Catalog.LoadAssetAsync<GameObject>("apoz123Wand.SpellEffect.Sparks.PetrificusTotalus", callback => { petrificusSparks = callback; }, "PetrificusTotalusSparks");
-            Catalog.LoadAssetAsync<GameObject>("apoz123Wand.SpellEffect.Sparks.Levicorpus", callback => { levicorpusSparks = callback; }, "LevicorpusSparks");
-            Catalog.LoadAssetAsync<GameObject>("apoz123Wand.SpellEffect.Sparks.Tarantallegra", callback => { tarantallegraSparks = callback; }, "TarantallegraSparks");
-
-            Choices spells = new Choices();
-            List<JSONSpell> loadedSpells = Catalog.GetData<SpellListData>("CustomSpells").spellList;
-
-            foreach (JSONSpell spell in loadedSpells)
-            {
-                var spellType = Type.GetType("WandSpellss." + spell.classType + "");
-                CustomDebug.Debug("Spell type is: " + spellType.ToString());
-                spellDict.Add(spell.name, spellType);
-                spells.Add(spell.name);
-                CustomDebug.Debug("Choices count: " + spells.ToString());
-            }
-
-            spells.Add("Accio Wand");
-            spells.Add("Accio Nimbus");
-
-
-
-            recognizer = new SpeechRecognitionEngine();
-            // Create a SpeechRecognitionEngine object for the default recognizer in the en-US locale.
-
-            // Create a grammar for finding services in different cities.
-
-
-            Grammar servicesGrammar = new Grammar(new GrammarBuilder(spells));
-
-
-            recognizer.RequestRecognizerUpdate();
-            // Create a Grammar object from the GrammarBuilder and load it to the recognizer.
-
-            recognizer.LoadGrammarAsync(servicesGrammar);
-
-            // Configure the input to the speech recognizer.
-            recognizer.SetInputToDefaultAudioDevice();
-
-            // Start asynchronous, continuous speech recognition.
-            recognizer.RecognizeAsync(RecognizeMode.Multiple);
-
-            // Add a handler for the speech recognized event.
-            recognizer.SpeechRecognized += Recognizer_SpeechRecognized;
-
-            Application.quitting += () => Process.GetCurrentProcess().Kill();
-
+            AsyncSetup();
+            
             CustomDebug.debugOn = true;
 
+        }
+
+        async void AsyncSetup() {
+
+            await Task.Run(() => {
+                couroutineManager = coroutineManagerGO.AddComponent<Coroutines>();
+                Catalog.LoadAssetAsync<Material>("apoz123Wand.SpellEffect.Evanesco.Mat", callback => { evanescoDissolveMat = callback; }, "Evanesco");
+                Catalog.LoadAssetAsync<Material>("apoz123Wand.Selector.Mat", callback => { selectorMat = callback; }, "Selector");
+                Catalog.LoadAssetAsync<GameObject>("apoz123Wand.Incendio.SpellEffect", callback => { incendioEffect = callback; }, "Incendio");
+                Catalog.LoadAssetAsync<GameObject>("apoz123Wand.SpellEffect.BubbleHead", callback => { bubbleHeadEffect = callback; }, "BubbleHead");
+                Catalog.LoadAssetAsync<GameObject>("apoz123Wand.SpellEffect.Sparks.Stupefy", callback => { stupefySparks = callback; }, "StupefySparks");
+                Catalog.LoadAssetAsync<GameObject>("apoz123Wand.SpellEffect.Sparks.Expelliarmus", callback => { expelliarmusSparks = callback; }, "ExpelliarmusSparks");
+                Catalog.LoadAssetAsync<GameObject>("apoz123Wand.SpellEffect.Sparks.AvadaKedavra", callback => { avadaSparks = callback; }, "AvadaKedavraSparks");
+                Catalog.LoadAssetAsync<GameObject>("apoz123Wand.SpellEffect.Sparks.PetrificusTotalus", callback => { petrificusSparks = callback; }, "PetrificusTotalusSparks");
+                Catalog.LoadAssetAsync<GameObject>("apoz123Wand.SpellEffect.Sparks.Levicorpus", callback => { levicorpusSparks = callback; }, "LevicorpusSparks");
+                Catalog.LoadAssetAsync<GameObject>("apoz123Wand.SpellEffect.Sparks.Tarantallegra", callback => { tarantallegraSparks = callback; }, "TarantallegraSparks");
+                Catalog.LoadAssetAsync<GameObject>("apoz123Wand.SpellEffect.Impedimenta",callback => { impedimentaEffect = callback;}, "ImpedimentaEffect");
+
+                Choices spells = new Choices();
+                List<JSONSpell> loadedSpells = Catalog.GetData<SpellListData>("CustomSpells").spellList;
+
+                foreach (JSONSpell spell in loadedSpells)
+                {
+                    var spellType = Type.GetType("WandSpellss." + spell.classType + "");
+                    CustomDebug.Debug("Spell type is: " + spellType.ToString());
+                    spellDict.Add(spell.name, spellType);
+                    spells.Add(spell.name);
+                    CustomDebug.Debug("Choices count: " + spells.ToString());
+                }
+
+                spells.Add("Accio Wand");
+                spells.Add("Accio Nimbus");
+                recognizer = new SpeechRecognitionEngine();
+
+                Grammar servicesGrammar = new Grammar(new GrammarBuilder(spells));
+                recognizer.RequestRecognizerUpdate();
+                recognizer.LoadGrammarAsync(servicesGrammar);
+                recognizer.SetInputToDefaultAudioDevice();
+                recognizer.RecognizeAsync(RecognizeMode.Multiple);
+                recognizer.SpeechRecognized += Recognizer_SpeechRecognized;
+                Application.quitting += () => Process.GetCurrentProcess().Kill();
+            });
         }
        
 
@@ -143,6 +134,19 @@ namespace WandSpellss
                     catch (InvalidOperationException) { }
 
                     if (paramItem) couroutineManager.StartAccio(paramItem, Player.currentCreature.handRight);
+                }
+
+                else if (e.Result.Text.Contains("Accio") && e.Result.Text.Length > 5 && currentlyHeldWands.Count == 1) {
+
+                    try
+                    {
+                        paramItem = Item.allActive.Where(item => item.name.Contains(e.Result.Text.Split(' ')[1])).OrderBy(item => Vector3.Distance(item.transform.position, currentlyHeldWands[0].mainHandler.otherHand.transform.position)).First();
+
+                    }
+                    catch (InvalidOperationException) { }
+
+                    if (paramItem) couroutineManager.StartAccio(paramItem, Player.currentCreature.handRight);
+
                 }
 
 
