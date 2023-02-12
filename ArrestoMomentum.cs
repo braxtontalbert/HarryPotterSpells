@@ -8,15 +8,10 @@ using ThunderRoad;
 
 namespace WandSpellss
 {
-    class ArrestoMomentum : Spell
+    class ArrestoMomentum : MonoBehaviour
     {
         public static SpellType spellType = SpellType.Raycast;
         bool canSlow;
-
-        public override Spell AddGameObject(GameObject gameObject)
-        {
-            throw new NotImplementedException();
-        }
 
         void Start() {
             Player.local.locomotion.OnGroundEvent += Locomotion_OnGroundEvent;
@@ -44,5 +39,25 @@ namespace WandSpellss
             if (canSlow) StartArrestoMomentum();
         }
 
+    }
+
+    public class ArrestoMomentumHandler : Spell
+    {
+        public static SpellType spellType = SpellType.Raycast;
+        public override Spell AddGameObject(GameObject gameObject)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void SpawnSpell(Type type, string name, Item wand, float spellSpeed)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void UpdateSpell(Type type, string name, Item wand)
+        {
+            if (wand.gameObject.GetComponent(type)) UnityEngine.Object.Destroy(wand.gameObject.GetComponent(type));
+            wand.gameObject.AddComponent(type);
+        }
     }
 }

@@ -9,7 +9,7 @@ using System.Collections;
 
 namespace WandSpellss
 {
-    class WingardiumLeviosa : Spell
+    class WingardiumLeviosa : MonoBehaviour
     {
         Item item;
         Item wand;
@@ -112,14 +112,26 @@ namespace WandSpellss
                 }
 
         }
+    }
 
-
+    public class WingardiumLeviosaHandler : Spell
+    {
+        public static SpellType spellType = SpellType.Raycast;
         public override Spell AddGameObject(GameObject gameObject)
         {
-            return gameObject.AddComponent<WingardiumLeviosa>();
+            throw new NotImplementedException();
         }
 
+        public override void SpawnSpell(Type type, string name, Item wand, float spellSpeed)
+        {
+            throw new NotImplementedException();
+        }
 
+        public override void UpdateSpell(Type type, string name, Item wand)
+        {
+            if (wand.gameObject.GetComponent(type)) UnityEngine.Object.Destroy(wand.gameObject.GetComponent(type));
+            wand.gameObject.AddComponent(type);
+        }
     }
 
 }

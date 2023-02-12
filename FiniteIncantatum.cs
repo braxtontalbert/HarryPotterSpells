@@ -9,13 +9,9 @@ using static ThunderRoad.ItemMagicAreaProjectile;
 
 namespace WandSpellss
 {
-    class FiniteIncantatum : Spell
+    class FiniteIncantatum : MonoBehaviour
     {
         public static SpellType spellType = SpellType.Raycast;
-        public override Spell AddGameObject(GameObject gameObject)
-        {
-            throw new NotImplementedException();
-        }
 
         Item item;
 
@@ -80,4 +76,24 @@ namespace WandSpellss
         
         }
     }
+    public class FiniteIncantatumHandler : Spell
+    {
+        public static SpellType spellType = SpellType.Raycast;
+        public override Spell AddGameObject(GameObject gameObject)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void SpawnSpell(Type type, string name, Item wand, float spellSpeed)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void UpdateSpell(Type type, string name, Item wand)
+        {
+            if (wand.gameObject.GetComponent(type)) UnityEngine.Object.Destroy(wand.gameObject.GetComponent(type));
+            wand.gameObject.AddComponent(type);
+        }
+    }
+
 }

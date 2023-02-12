@@ -11,16 +11,12 @@ using static ThunderRoad.PlayerControl;
 
 namespace WandSpellss
 {
-    class Stupefy : Spell
+    class Stupefy : MonoBehaviour
     {
         public static SpellType spellType = SpellType.Shoot;
         GameObject toUpdate;
-        public void Awake() {
-            base.spellObject = GetComponent<Item>();
-            spellType = SpellType.Shoot;
-        }
 
-        public override void SpellEffect(Creature creature)
+        public void SpellEffect(Creature creature)
         {
             creature.ragdoll.SetState(Ragdoll.State.Destabilized);
             creature.TryElectrocute(1, 3, true, false);
@@ -31,21 +27,11 @@ namespace WandSpellss
             {
                 SpellEffect(creature);
             }
-
             Loader.local.couroutineManager.StartCustomCoroutine(SpawnSparkEffect(Loader.local.stupefySparks, c.contacts[0].point));
-            
-
-        }
-
-        public override Spell AddGameObject(GameObject gameObject)
-        {
-            
-            return gameObject.AddComponent<Stupefy>();
         }
 
         public IEnumerator SpawnSparkEffect(GameObject effect, Vector3 position)
         {
-
             effect.transform.position = position;
             toUpdate = GameObject.Instantiate(effect);
             
@@ -57,9 +43,51 @@ namespace WandSpellss
             UnityEngine.GameObject.Destroy(toUpdate);
 
         }
+    }
+    public class StupefyHandler : Spell
+    {
+        public static SpellType spellType = SpellType.Shoot;
+        public override Spell AddGameObject(GameObject gameObject)
+        {
+            throw new NotImplementedException();
+        }
 
-        
+        public override void SpawnSpell(Type type, string name, Item wand,float spellSpeed)
+        {
+            Debug.Log("Got to spawn spell method");
+            try
+            {
+                Catalog.GetData<ItemData>(name + "Object")?.SpawnAsync(projectile =>
+                {
+                    
+                    projectile.gameObject.AddComponent(type);
 
+                    projectile.transform.position = wand.flyDirRef.transform.position;
+                    projectile.transform.rotation = wand.flyDirRef.transform.rotation;
+                    projectile.IgnoreObjectCollision(wand);
+                    projectile.IgnoreRagdollCollision(Player.currentCreature.ragdoll);
 
+                    projectile.Throw();
+
+                    projectile.rb.useGravity = false;
+                    projectile.rb.drag = 0.0f;
+
+                    foreach (AudioSource c in wand.GetComponentsInChildren<AudioSource>())
+                    {
+
+                        if (c.name == name) c.Play();
+                    }
+
+                    projectile.GetComponent<Rigidbody>().AddForce(wand.flyDirRef.forward * spellSpeed, ForceMode.Impulse);
+                    projectile.gameObject.AddComponent<SpellDespawn>();
+                });
+            }
+            catch (NullReferenceException e) { Debug.Log(e.Message); }
+        }
+
+        public override void UpdateSpell(Type type, string name, Item wand)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

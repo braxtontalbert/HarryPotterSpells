@@ -8,22 +8,16 @@ using ThunderRoad;
 using UnityEngine;
 using UnityEngine.Animations;
 using UnityEngine.VFX;
-using static ThunderRoad.ItemMagicAreaProjectile;
-using static ThunderRoad.TextData;
 
 
 namespace WandSpellss
 {
-    class Impedimenta : Spell
+    class Impedimenta : MonoBehaviour
     {
         public static SpellType spellType = SpellType.Raycast;
         List<Creature> foundTargets = new List<Creature>();
         ThunderRoad.Item item;
         GameObject go;
-        public override Spell AddGameObject(GameObject gameObject)
-        {
-            throw new NotImplementedException();
-        }
 
         void Start() {
             item = GetComponent<ThunderRoad.Item>();
@@ -65,6 +59,26 @@ namespace WandSpellss
         {
             collisionInstance.targetCollider.GetComponentInParent<Creature>().animator.speed = 1f;
             collisionInstance.targetCollider.GetComponentInParent<Creature>().locomotion.RemoveSpeedModifier(this);
+        }
+    }
+
+    public class ImpedimentaHandler : Spell
+    {
+        public static SpellType spellType = SpellType.Raycast;
+        public override Spell AddGameObject(GameObject gameObject)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void SpawnSpell(Type type, string name, Item wand, float spellSpeed)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void UpdateSpell(Type type, string name, Item wand)
+        {
+            if (wand.gameObject.GetComponent(type)) UnityEngine.Object.Destroy(wand.gameObject.GetComponent(type));
+            wand.gameObject.AddComponent(type);
         }
     }
 }

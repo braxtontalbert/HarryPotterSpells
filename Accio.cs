@@ -5,10 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 using ThunderRoad;
+using static ThunderRoad.TutorialInteraction;
 
 namespace WandSpellss
 {
-    class Accio : Spell
+    class Accio : MonoBehaviour
     {
         Item item;
         internal Item wand;
@@ -24,10 +25,6 @@ namespace WandSpellss
 
         public static SpellType spellType = SpellType.Raycast;
 
-        public override Spell AddGameObject(GameObject gameObject)
-        {
-            throw new NotImplementedException();
-        }
 
         public void Start()
         {
@@ -135,6 +132,26 @@ namespace WandSpellss
         }
 
 
+    }
+
+    public class AccioHandler : Spell
+    {
+        public static SpellType spellType = SpellType.Raycast;
+        public override Spell AddGameObject(GameObject gameObject)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void SpawnSpell(Type type, string name, Item wand, float spellSpeed)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void UpdateSpell(Type type, string name, Item wand)
+        {
+            if (wand.gameObject.GetComponent(type)) UnityEngine.Object.Destroy(wand.gameObject.GetComponent(type));
+            wand.gameObject.AddComponent(type);
+        }
     }
 
 }

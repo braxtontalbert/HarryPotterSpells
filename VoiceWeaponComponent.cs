@@ -71,7 +71,6 @@ namespace WandSpellss
 
         void Start() {
 
-            spellDict.Add("Stupefy", new Stupefy());
             //Horcrux info setup
             playerSoul = Player.local.creature.gameObject.GetComponent<Soul>();
             canMakeHorcrux = false;
