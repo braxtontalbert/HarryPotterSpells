@@ -125,7 +125,8 @@
     <Compile Include="JSONParser.cs" />
     <Compile Include="LerpMovement.cs" />
     <Compile Include="KeyWordRecogWand.cs" />
-    <Compile Include="LevelModuleScript.cs" />
+    <Compile Include="Levioso.cs" />
+    <Compile Include="LeviosoUpdate.cs" />
     <Compile Include="Liberacorpus.cs" />
     <Compile Include="Loader.cs" />
     <Compile Include="Lumos.cs" />
