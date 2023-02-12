@@ -8,19 +8,35 @@ using ThunderRoad;
 
 namespace WandSpellss
 {
-    class Liberacorpus : Spell
+    class Liberacorpus : MonoBehaviour
     {
 
+        public static SpellType spellType = SpellType.Raycast;
+
+        void Start() {
+
+            Loader.local.DestroyLevicorpus();
+        
+        }
+    }
+
+    public class LiberacorpusHandler : Spell
+    {
         public static SpellType spellType = SpellType.Raycast;
         public override Spell AddGameObject(GameObject gameObject)
         {
             throw new NotImplementedException();
         }
 
-        void Start() {
+        public override void SpawnSpell(Type type, string name, Item wand, float spellSpeed)
+        {
+            throw new NotImplementedException();
+        }
 
-            Loader.local.DestroyLevicorpus();
-        
+        public override void UpdateSpell(Type type, string name, Item wand)
+        {
+            if (wand.gameObject.GetComponent(type)) UnityEngine.Object.Destroy(wand.gameObject.GetComponent(type));
+            wand.gameObject.AddComponent(type);
         }
     }
 }

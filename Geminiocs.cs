@@ -8,7 +8,7 @@ using ThunderRoad;
 
 namespace WandSpellss
 {
-    class Geminio : Spell
+    class Geminio : MonoBehaviour
     {
         Item item;
         internal GameObject parentLocal;
@@ -19,11 +19,6 @@ namespace WandSpellss
 
         public static SpellType spellType = SpellType.Raycast;
 
-
-        public override Spell AddGameObject(GameObject gameObject)
-        {
-            throw new NotImplementedException();
-        }
         public void Start()
         {
             item = GetComponent<Item>();
@@ -106,6 +101,25 @@ namespace WandSpellss
         }
 
 
+    }
+    public class GeminioHandler : Spell
+    {
+        public static SpellType spellType = SpellType.Raycast;
+        public override Spell AddGameObject(GameObject gameObject)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void SpawnSpell(Type type, string name, Item wand, float spellSpeed)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void UpdateSpell(Type type, string name, Item wand)
+        {
+            if (wand.gameObject.GetComponent(type)) UnityEngine.Object.Destroy(wand.gameObject.GetComponent(type));
+            wand.gameObject.AddComponent(type);
+        }
     }
 
 }

@@ -8,7 +8,7 @@ using ThunderRoad;
 
 namespace WandSpellss
 {
-    class Evanesco : Spell
+    class Evanesco : MonoBehaviour
     {
         Item item;
         Item npcItem;
@@ -22,10 +22,6 @@ namespace WandSpellss
 
         public static SpellType spellType = SpellType.Raycast;
 
-        public override Spell AddGameObject(GameObject gameObject)
-        {
-            throw new NotImplementedException();
-        }
 
         public void Start()
         {
@@ -220,6 +216,26 @@ namespace WandSpellss
         }
 
 
+    }
+
+    public class EvanescoHandler : Spell
+    {
+        public static SpellType spellType = SpellType.Raycast;
+        public override Spell AddGameObject(GameObject gameObject)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void SpawnSpell(Type type, string name, Item wand, float spellSpeed)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void UpdateSpell(Type type, string name, Item wand)
+        {
+            if (wand.gameObject.GetComponent(type)) UnityEngine.Object.Destroy(wand.gameObject.GetComponent(type));
+            wand.gameObject.AddComponent(type);
+        }
     }
 
 }

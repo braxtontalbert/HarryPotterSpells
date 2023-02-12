@@ -71,28 +71,22 @@ namespace WandSpellss
 
         public void TypeSelection(Type spell, string name) {
 
-            var field = spell.GetField("spellType", BindingFlags.Public | BindingFlags.Static);
+            var spellHandler = Type.GetType("WandSpellss." + name + "Handler");
+            var field = spellHandler.GetField("spellType", BindingFlags.Public | BindingFlags.Static);
             var spellType = field.GetValue(null);
 
+            Debug.Log(spellHandler);
+            Debug.Log(spellType);
             if ((SpellType)spellType == SpellType.Shoot)
             {
-
-                SpawnSpell(spell, name);
+                SpellHandler.SpawnSpell(spellHandler, spell, name, Loader.local.currentlyHeldWands, spellSpeed);
 
             }
 
             else if ((SpellType)spellType == SpellType.Raycast)
             {
 
-                CastSpell(spell, name);
-            }
-
-            else {
-
-
-                UpdateSpell(spell,name);
-            
-            
+                SpellHandler.UpdateSpell(spellHandler, spell, name, Loader.local.currentlyHeldWands);
             }
 
         }
@@ -108,7 +102,6 @@ namespace WandSpellss
             float sectumPower = 1f;
             try
             {
-                
                 if (name == "Lumos" && currentLumos) return;
                 Catalog.GetData<ItemData>(name + "Object")?.SpawnAsync(projectile =>
                 {
@@ -133,7 +126,6 @@ namespace WandSpellss
 
                     foreach (AudioSource c in wand.GetComponentsInChildren<AudioSource>())
                     {
-
                         if (c.name == name) sourceCurrent = c;
                     }
                     if (sourceCurrent != null) sourceCurrent.Play();

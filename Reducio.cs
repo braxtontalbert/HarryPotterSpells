@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace WandSpellss
 {
-    class Reducio : Spell
+    class Reducio : MonoBehaviour
     {
 
         Item item;
@@ -24,11 +24,6 @@ namespace WandSpellss
         internal string command;
 
         public static SpellType spellType = SpellType.Raycast;
-
-        public override Spell AddGameObject(GameObject gameObject)
-        {
-            throw new NotImplementedException();
-        }
 
         public void Start()
         {
@@ -122,5 +117,24 @@ namespace WandSpellss
 
         }
 
+    }
+    public class ReducioHandler : Spell
+    {
+        public static SpellType spellType = SpellType.Raycast;
+        public override Spell AddGameObject(GameObject gameObject)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void SpawnSpell(Type type, string name, Item wand, float spellSpeed)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void UpdateSpell(Type type, string name, Item wand)
+        {
+            if (wand.gameObject.GetComponent(type)) UnityEngine.Object.Destroy(wand.gameObject.GetComponent(type));
+            wand.gameObject.AddComponent(type);
+        }
     }
 }

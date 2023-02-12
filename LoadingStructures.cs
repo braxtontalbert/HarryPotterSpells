@@ -11,6 +11,7 @@ using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement;
 
 
+
 namespace WandSpellss
 {
     public class SpellListData : CustomData
@@ -24,6 +25,7 @@ namespace WandSpellss
 
         public string name;
         public string classType;
+        public string nameSpace;
 
     }
 }

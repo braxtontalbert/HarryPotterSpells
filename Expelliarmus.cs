@@ -1,4 +1,4 @@
-﻿using System;
+﻿﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,7 +10,7 @@ using UnityEngine.VFX;
 
 namespace WandSpellss
 {
-    class Expelliarmus : Spell
+    class Expelliarmus : MonoBehaviour
     {
         Item item;
         Item npcItem;
@@ -77,6 +77,57 @@ namespace WandSpellss
 
             UnityEngine.GameObject.Destroy(effect);
 
+        }
+    }
+    public class ExpelliarmusHandler : Spell
+    {
+        public static SpellType spellType = SpellType.Shoot;
+        private float expelliarmusPower = 30f;
+
+        public override Spell AddGameObject(GameObject gameObject)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void SpawnSpell(Type type, string name, Item wand, float spellSpeed)
+        {
+            try
+            {
+                Catalog.GetData<ItemData>(name + "Object")?.SpawnAsync(projectile =>
+                {
+                    projectile.gameObject.AddComponent(type);
+
+                    projectile.transform.position = wand.flyDirRef.transform.position;
+                    projectile.transform.rotation = wand.flyDirRef.transform.rotation;
+                    projectile.IgnoreObjectCollision(wand);
+                    projectile.IgnoreRagdollCollision(Player.currentCreature.ragdoll);
+
+                    projectile.Throw();
+
+                    projectile.rb.useGravity = false;
+                    projectile.rb.drag = 0.0f;
+
+                    if (projectile.gameObject.GetComponent<Expelliarmus>() is Expelliarmus exp)
+                    {
+                        exp.power = expelliarmusPower;
+                    }
+
+                    foreach (AudioSource c in wand.GetComponentsInChildren<AudioSource>())
+                    {
+
+                        if (c.name == name) c.Play();
+                    }
+
+                    projectile.GetComponent<Rigidbody>().AddForce(wand.flyDirRef.forward * spellSpeed, ForceMode.Impulse);
+                    projectile.gameObject.AddComponent<SpellDespawn>();
+                });
+            }
+            catch (NullReferenceException e) { Debug.Log(e.Message); }
+        }
+
+        public override void UpdateSpell(Type type, string name, Item wand)
+        {
+            throw new NotImplementedException();
         }
     }
 

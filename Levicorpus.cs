@@ -10,7 +10,7 @@ using UnityEngine.VFX;
 
 namespace WandSpellss
 {
-    class Levicorpus : Spell
+    class Levicorpus : MonoBehaviour
     {
         Item item;
         Item npcItem;
@@ -24,19 +24,12 @@ namespace WandSpellss
 
         public static SpellType spellType = SpellType.Shoot;
 
-        public override Spell AddGameObject(GameObject gameObject)
-        {
-            throw new NotImplementedException();
-        }
-
         public void Start()
         {
             item = GetComponent<Item>();
 
 
         }
-
-
         public void OnCollisionEnter(Collision c)
         {
 
@@ -52,42 +45,21 @@ namespace WandSpellss
                 floater1.GetComponent<Rigidbody>().useGravity = false;
 
                 
-
                 floater2 = new GameObject();
                 floater2.AddComponent<Rigidbody>();
                 floater2.GetComponent<Rigidbody>().useGravity = false;
-
-
-                
-
-
 
                 creature.ragdoll.SetState(Ragdoll.State.Destabilized);
                 joint =  creature.footLeft.gameObject.AddComponent<SpringJoint>();
                 joint2 = creature.footRight.gameObject.AddComponent<SpringJoint>();
 
-
-                //Debug.Log("Floater 1 pre: " + floater1.transform.position);
-                //Debug.Log("Floater 2 pre: " + floater2.transform.position);
                 floater1.transform.position = new Vector3(creature.ragdoll.headPart.transform.position.x, creature.ragdoll.headPart.transform.position.y + 2f, creature.ragdoll.headPart.transform.position.z);
                 floater2.transform.position = new Vector3(creature.ragdoll.headPart.transform.position.x, creature.ragdoll.headPart.transform.position.y + 2f, creature.ragdoll.headPart.transform.position.z);
-
-                
-
-               // Debug.Log("Floater 1 post: " + floater1.transform.position);
-               // Debug.Log("Floater 2 post: " + floater2.transform.position);
-
-                //Debug.Log("footLeft transform: " + creature.footLeft.transform.position);
-                //Debug.Log("footLeft transform joint: " + creature.footLeft.gameObject.GetComponent<SpringJoint>().transform.position);
-
-
 
 
                 joint.connectedBody = floater1.GetComponent<Rigidbody>();
                 joint.autoConfigureConnectedAnchor = false;
                 joint.connectedAnchor = new Vector3(0,0,0);
-               // Debug.Log("Creature connected Anchor: " + joint.connectedAnchor);
-
                 joint.spring = 3000f;
                 joint.damper = 100f;
 
@@ -95,7 +67,6 @@ namespace WandSpellss
                 joint2.connectedBody = floater2.GetComponent<Rigidbody>();
                 joint2.autoConfigureConnectedAnchor = false;
                 joint2.connectedAnchor = new Vector3(0, 0, 0);
-                //Debug.Log("Creature connected Anchor: " + creature.footRight.gameObject.GetComponent<SpringJoint>().connectedAnchor);
                 joint2.spring = 3000f;
                 joint2.damper = 100f;
 
@@ -109,9 +80,6 @@ namespace WandSpellss
                 Loader.local.levicorpusedCreatures.Add(creature);
 
                 creature.OnDespawnEvent += Creature_OnDespawnEvent;
-
-
-
             }
 
             Loader.local.couroutineManager.StartCustomCoroutine(SpawnSparkEffect(Loader.local.levicorpusSparks, c.contacts[0].point));
@@ -141,6 +109,52 @@ namespace WandSpellss
 
                 Destroy(despawnCreature.footRight.gameObject.GetComponent<SpringJoint>());
             }
+        }
+    }
+
+    public class LevicorpusHandler : Spell
+    {
+        public static SpellType spellType = SpellType.Shoot;
+
+        public override Spell AddGameObject(GameObject gameObject)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void SpawnSpell(Type type, string name, Item wand, float spellSpeed)
+        {
+            try
+            {
+                Catalog.GetData<ItemData>(name + "Object")?.SpawnAsync(projectile =>
+                {
+                    projectile.gameObject.AddComponent(type);
+
+                    projectile.transform.position = wand.flyDirRef.transform.position;
+                    projectile.transform.rotation = wand.flyDirRef.transform.rotation;
+                    projectile.IgnoreObjectCollision(wand);
+                    projectile.IgnoreRagdollCollision(Player.currentCreature.ragdoll);
+
+                    projectile.Throw();
+
+                    projectile.rb.useGravity = false;
+                    projectile.rb.drag = 0.0f;
+
+                    foreach (AudioSource c in wand.GetComponentsInChildren<AudioSource>())
+                    {
+
+                        if (c.name == name) c.Play();
+                    }
+
+                    projectile.GetComponent<Rigidbody>().AddForce(wand.flyDirRef.forward * spellSpeed, ForceMode.Impulse);
+                    projectile.gameObject.AddComponent<SpellDespawn>();
+                });
+            }
+            catch (NullReferenceException e) { Debug.Log(e.Message); }
+        }
+
+        public override void UpdateSpell(Type type, string name, Item wand)
+        {
+            throw new NotImplementedException();
         }
     }
 

@@ -23,8 +23,6 @@ namespace WandSpellss
             cantWaddiwassi = false;
 
         }
-
-
         void Update()
         {
 
