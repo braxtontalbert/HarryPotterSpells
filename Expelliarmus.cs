@@ -1,4 +1,4 @@
-﻿using System;
+﻿﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,13 +16,18 @@ namespace WandSpellss
         Item npcItem;
         internal AudioSource source;
         GameObject effect;
-        
+        public static SpellType spellType = SpellType.Shoot;
 
         internal float power;
 
         public void Start()
         {
             item = GetComponent<Item>();
+        }
+
+        public override Spell AddGameObject(GameObject gameObject)
+        {
+            throw new NotImplementedException();
         }
 
         public void OnCollisionEnter(Collision c)
@@ -49,10 +54,10 @@ namespace WandSpellss
 
             else if (c.gameObject.GetComponentInParent<Item>() is Item itemIn) {
 
-                
+
                 itemIn.mainHandler.otherHand.otherHand.UnGrab(false);
                 itemIn.mainHandler.otherHand.creature.ragdoll.SetState(Ragdoll.State.Destabilized);
-            
+
             }
 
             Loader.local.couroutineManager.StartCustomCoroutine(SpawnSparkEffect(Loader.local.expelliarmusSparks, c.contacts[0].point));
@@ -74,13 +79,10 @@ namespace WandSpellss
 
         }
     }
-
-
     public class ExpelliarmusHandler : Spell
     {
         public static SpellType spellType = SpellType.Shoot;
         private float expelliarmusPower = 30f;
-        //AudioSource sourceCurrent;
 
         public override Spell AddGameObject(GameObject gameObject)
         {
@@ -93,14 +95,7 @@ namespace WandSpellss
             {
                 Catalog.GetData<ItemData>(name + "Object")?.SpawnAsync(projectile =>
                 {
-                    
                     projectile.gameObject.AddComponent(type);
-
-                    
-                    if (projectile.gameObject.GetComponent<Expelliarmus>() is Expelliarmus exp)
-                    {
-                        exp.power = expelliarmusPower;
-                    }
 
                     projectile.transform.position = wand.flyDirRef.transform.position;
                     projectile.transform.rotation = wand.flyDirRef.transform.rotation;
@@ -112,20 +107,22 @@ namespace WandSpellss
                     projectile.rb.useGravity = false;
                     projectile.rb.drag = 0.0f;
 
+                    if (projectile.gameObject.GetComponent<Expelliarmus>() is Expelliarmus exp)
+                    {
+                        exp.power = expelliarmusPower;
+                    }
+
                     foreach (AudioSource c in wand.GetComponentsInChildren<AudioSource>())
                     {
 
                         if (c.name == name) c.Play();
                     }
 
-
                     projectile.GetComponent<Rigidbody>().AddForce(wand.flyDirRef.forward * spellSpeed, ForceMode.Impulse);
                     projectile.gameObject.AddComponent<SpellDespawn>();
                 });
-
             }
-            
-            catch (NullReferenceException e) { Debug.Log(e.Message);}
+            catch (NullReferenceException e) { Debug.Log(e.Message); }
         }
 
         public override void UpdateSpell(Type type, string name, Item wand)
