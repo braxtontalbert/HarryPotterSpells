@@ -54,10 +54,10 @@ namespace WandSpellss
 
             else if (c.gameObject.GetComponentInParent<Item>() is Item itemIn) {
 
-                
+
                 itemIn.mainHandler.otherHand.otherHand.UnGrab(false);
                 itemIn.mainHandler.otherHand.creature.ragdoll.SetState(Ragdoll.State.Destabilized);
-            
+
             }
 
             Loader.local.couroutineManager.StartCustomCoroutine(SpawnSparkEffect(Loader.local.expelliarmusSparks, c.contacts[0].point));
