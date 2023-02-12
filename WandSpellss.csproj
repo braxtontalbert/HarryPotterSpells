@@ -112,6 +112,7 @@
     <Compile Include="EvanescoPerItem.cs" />
     <Compile Include="FiniteIncantatum.cs" />
     <Compile Include="Flagrate.cs" />
+    <Compile Include="Flipendo.cs" />
     <Compile Include="Geminiocs.cs" />
     <Compile Include="HorcruxData.cs" />
     <Compile Include="IgnoreRagdoll.cs" />
