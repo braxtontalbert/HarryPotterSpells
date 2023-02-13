@@ -84,7 +84,7 @@ namespace WandSpellss
 
                 foreach (JSONSpell spell in loadedSpells)
                 {
-                    var spellType = Type.GetType("WandSpellss." + spell.classType + "");
+                    var spellType = Type.GetType(spell.nameSpace + "." + spell.classType + "");
                     CustomDebug.Debug("Spell type is: " + spellType.ToString());
                     spellDict.Add(spell.name, spellType);
                     spells.Add(spell.name);

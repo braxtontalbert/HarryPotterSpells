@@ -71,7 +71,7 @@ namespace WandSpellss
 
         public void TypeSelection(Type spell, string name) {
 
-            var spellHandler = Type.GetType("WandSpellss." + name + "Handler");
+            var spellHandler = Type.GetType(spell.Namespace + "." + name + "Handler");
             var field = spellHandler.GetField("spellType", BindingFlags.Public | BindingFlags.Static);
             var spellType = field.GetValue(null);
 
@@ -80,15 +80,12 @@ namespace WandSpellss
             if ((SpellType)spellType == SpellType.Shoot)
             {
                 SpellHandler.SpawnSpell(spellHandler, spell, name, Loader.local.currentlyHeldWands, spellSpeed);
-
             }
 
             else if ((SpellType)spellType == SpellType.Raycast)
             {
-
                 SpellHandler.UpdateSpell(spellHandler, spell, name, Loader.local.currentlyHeldWands);
             }
-
         }
 
         public void UpdateSpell(Type spell, string name) {

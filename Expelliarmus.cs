@@ -25,11 +25,6 @@ namespace WandSpellss
             item = GetComponent<Item>();
         }
 
-        public override Spell AddGameObject(GameObject gameObject)
-        {
-            throw new NotImplementedException();
-        }
-
         public void OnCollisionEnter(Collision c)
         {
             if (c.gameObject.GetComponentInParent<Creature>() is Creature creature)

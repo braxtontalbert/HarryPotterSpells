@@ -125,11 +125,6 @@
     <Compile Include="JSONParser.cs" />
     <Compile Include="LerpMovement.cs" />
     <Compile Include="KeyWordRecogWand.cs" />
-<<<<<<< HEAD
-=======
-    <Compile Include="Levioso.cs" />
-    <Compile Include="LeviosoUpdate.cs" />
->>>>>>> main
     <Compile Include="Liberacorpus.cs" />
     <Compile Include="Loader.cs" />
     <Compile Include="LoadingStructures.cs" />
