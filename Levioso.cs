@@ -7,16 +7,34 @@ namespace WandSpellss
     public class Levioso : MonoBehaviour
     {
         private GameObject leviosoUpdate;
+        private Rigidbody currentCreature;
+        private bool startLevitate;
+        private GameObject go;
+        private Vector3 position;
         public void Start()
         {
+            go = new GameObject();
+            startLevitate = false;
             leviosoUpdate = new GameObject();
         }
 
         private void OnCollisionEnter(Collision collision)
         {
-            Rigidbody rigid = collision.gameObject.GetComponent<Rigidbody>();
-
-            leviosoUpdate.AddComponent<LeviosoUpdate>();
+            if (collision.gameObject.GetComponentInParent<Creature>() is Creature creature)
+            {
+                creature.ragdoll.SetState(Ragdoll.State.Destabilized);
+                currentCreature = creature.ragdoll.targetPart.rb;
+                startLevitate = true;
+                position = creature.ragdoll.targetPart.transform.position;
+            }
+            else if(collision.gameObject.GetComponentInParent<Item>() is Item item)
+            {
+                currentCreature = item.rb;
+                startLevitate = true;
+                position = item.transform.position;
+            }
+            go.AddComponent<LeviosoUpdate>().Setup(startLevitate, currentCreature,position);
+            leviosoUpdate = GameObject.Instantiate(go);
 
         }
     }
@@ -24,12 +42,17 @@ namespace WandSpellss
     public class LeviosoUpdate : MonoBehaviour
     {
         private Rigidbody rigidbody;
+        private bool startLevitate;
+        private Vector3 position;
         
-        public void Setup()
+        public void Setup(bool startLevitate, Rigidbody rigid, Vector3 pos)
         {
+            this.rigidbody = rigid;
+            this.startLevitate = startLevitate;
+            this.position = pos;
         }
 
-        void Update()
+        private void Update()
         {
             
         }
