@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using ThunderRoad;
 
@@ -34,7 +35,6 @@ namespace WandSpellss
                 position = item.transform.position;
             }
             go.AddComponent<LeviosoUpdate>().Setup(startLevitate, currentCreature,position);
-            leviosoUpdate = GameObject.Instantiate(go);
 
         }
     }
@@ -44,7 +44,12 @@ namespace WandSpellss
         private Rigidbody rigidbody;
         private bool startLevitate;
         private Vector3 position;
-        
+
+        private void Start()
+        {
+            Loader.local.couroutineManager.StartCustomCoroutine(Loader.local.couroutineManager.StopLeviate(this.gameObject));
+        }
+
         public void Setup(bool startLevitate, Rigidbody rigid, Vector3 pos)
         {
             this.rigidbody = rigid;
@@ -54,10 +59,12 @@ namespace WandSpellss
 
         private void Update()
         {
-            
+            if (rigidbody)
+            {
+                rigidbody.velocity = ((position + (Vector3.up * 4f)) - rigidbody.transform.position) * 5f;
+            }
         }
     }
-
     public class LeviosoHandler : Spell
     {
         public static SpellType spellType = SpellType.Shoot;
@@ -86,7 +93,6 @@ namespace WandSpellss
                     projectile.rb.drag = 0.0f;
                     foreach (AudioSource c in wand.GetComponentsInChildren<AudioSource>())
                     {
-
                         if (c.name == name) c.Play();
                     }
 

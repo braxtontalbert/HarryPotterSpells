@@ -17,6 +17,17 @@ namespace WandSpellss
             StartCoroutine(methodIn);
 
         }
+        
+        public IEnumerator StopLeviate(GameObject go)
+        {
+            
+            Debug.Log(go);
+            Debug.Log("Starting levioso timer");
+            yield return new WaitForSeconds(10f);
+            Debug.Log("Got past timer for levioso");
+            UnityEngine.GameObject.Destroy(go);
+            
+        }
 
         public bool startAccio;
         public Item currentWand;
@@ -26,6 +37,13 @@ namespace WandSpellss
             startAccio = true;
             currentWand= wand;
             currentHandPosition = handPosition;
+        }
+        IEnumerator StopLeviate(Rigidbody currentCreature, GameObject leviosoUpdate)
+        {
+            Debug.Log("Starting levioso timer");
+            yield return new WaitForSeconds(10f);
+            UnityEngine.GameObject.Destroy(leviosoUpdate);
+            
         }
 
         void Update() {

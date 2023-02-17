@@ -84,7 +84,7 @@ namespace WandSpellss
 
                 foreach (JSONSpell spell in loadedSpells)
                 {
-                    var spellType = Type.GetType(spell.nameSpace + "." + spell.classType + "");
+                    var spellType = Type.GetType("WandSpellss." + spell.classType + "");
                     CustomDebug.Debug("Spell type is: " + spellType.ToString());
                     spellDict.Add(spell.name, spellType);
                     spells.Add(spell.name);
@@ -92,6 +92,7 @@ namespace WandSpellss
                 }
 
                 spells.Add("Accio Wand");
+                spells.Add("Accio Nimbus");
                 recognizer = new SpeechRecognitionEngine();
 
                 Grammar servicesGrammar = new Grammar(new GrammarBuilder(spells));
@@ -133,6 +134,19 @@ namespace WandSpellss
                     catch (InvalidOperationException) { }
 
                     if (paramItem) couroutineManager.StartAccio(paramItem, Player.currentCreature.handRight);
+                }
+
+                else if (e.Result.Text.Contains("Accio") && e.Result.Text.Length > 5 && currentlyHeldWands.Count == 1) {
+
+                    try
+                    {
+                        paramItem = Item.allActive.Where(item => item.name.Contains(e.Result.Text.Split(' ')[1])).OrderBy(item => Vector3.Distance(item.transform.position, currentlyHeldWands[0].mainHandler.otherHand.transform.position)).First();
+
+                    }
+                    catch (InvalidOperationException) { }
+
+                    if (paramItem) couroutineManager.StartAccio(paramItem, Player.currentCreature.handRight);
+
                 }
 
 
