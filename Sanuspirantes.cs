@@ -74,7 +74,7 @@ namespace WandSpellss
             }
         }
     }
-    public class SanuspiranteHandler : Spell
+    public class SanuspirantesHandler : Spell
     {
         public static SpellType spellType = SpellType.Raycast;
         public override Spell AddGameObject(GameObject gameObject)

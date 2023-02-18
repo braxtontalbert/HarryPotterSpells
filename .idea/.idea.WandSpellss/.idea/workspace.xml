@@ -2,24 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="97b2aadb-1ca7-4325-8f87-693aac7a20f4" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.WandSpellss/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.WandSpellss/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Coroutines.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Coroutines.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Expelliarmus.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Expelliarmus.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/KeyWordRecogWand.cs" beforeDir="false" afterPath="$PROJECT_DIR$/KeyWordRecogWand.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Loader.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Loader.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Lumos.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Lumos.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Nox.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Nox.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PetrificusTotalus.cs" beforeDir="false" afterPath="$PROJECT_DIR$/PetrificusTotalus.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Spell.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Spell.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SpellEntry.cs" beforeDir="false" afterPath="$PROJECT_DIR$/SpellEntry.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/VoiceWeaponComponent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/VoiceWeaponComponent.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WandSpellss.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/WandSpellss.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WingardiumLeviosa.cs" beforeDir="false" afterPath="$PROJECT_DIR$/WingardiumLeviosa.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/Debug/WandSpellss.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/WandSpellss.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/Debug/WandSpellss.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/WandSpellss.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/Debug/WandSpellss.csproj.CoreCompileInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/WandSpellss.csproj.CoreCompileInputs.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/Debug/WandSpellss.dll" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/WandSpellss.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/Debug/WandSpellss.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/WandSpellss.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sanuspirantes.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Sanuspirantes.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
