@@ -1,20 +1,57 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="97b2aadb-1ca7-4325-8f87-693aac7a20f4" name="Changes" comment="" />
+    <list default="true" id="97b2aadb-1ca7-4325-8f87-693aac7a20f4" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.WandSpellss/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.WandSpellss/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Coroutines.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Coroutines.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Expelliarmus.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Expelliarmus.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/KeyWordRecogWand.cs" beforeDir="false" afterPath="$PROJECT_DIR$/KeyWordRecogWand.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Loader.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Loader.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Lumos.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Lumos.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Nox.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Nox.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PetrificusTotalus.cs" beforeDir="false" afterPath="$PROJECT_DIR$/PetrificusTotalus.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spell.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Spell.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SpellEntry.cs" beforeDir="false" afterPath="$PROJECT_DIR$/SpellEntry.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/VoiceWeaponComponent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/VoiceWeaponComponent.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WandSpellss.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/WandSpellss.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WingardiumLeviosa.cs" beforeDir="false" afterPath="$PROJECT_DIR$/WingardiumLeviosa.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/WandSpellss.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/WandSpellss.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/WandSpellss.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/WandSpellss.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/WandSpellss.csproj.CoreCompileInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/WandSpellss.csproj.CoreCompileInputs.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/WandSpellss.dll" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/WandSpellss.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/WandSpellss.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/WandSpellss.pdb" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/25a85da7c6f04932b86e339dfd12957d11b088/90/9dcecc14/Mesh.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/d54d0fdb83e2423c91a21b369a8394a31ff800/ba/083d318a/Brain.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Accio.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/ArrestoMomentum.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/AvadaKedavra.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Coroutines.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/braxt/source/repos/WandSpellss/Expelliarmus.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Expelliarmus.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/braxt/source/repos/WandSpellss/Expelliarmus.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/ItemModule.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/ItemVoiceModule.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/KeyWordRecogWand.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Levicorpus.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Levioso.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Loader.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/MeshToSDF.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/NPCWands.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/SDFTexture.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/SpeechRecogWands.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/VoiceWeaponComponent.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
+  <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="false" />
   <component name="ProblemsViewState">
     <option name="selectedTabId" value="Toolset" />
   </component>
@@ -23,23 +60,23 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "settings.editor.selected.configurable": "SolutionBuilderGeneralOptionsPage",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;SolutionBuilderGeneralOptionsPage&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "rider.external.source.directories": [
-      "C:\\Users\\braxt\\AppData\\Roaming\\JetBrains\\Rider2022.3\\resharper-host\\DecompilerCache",
-      "C:\\Users\\braxt\\AppData\\Roaming\\JetBrains\\Rider2022.3\\resharper-host\\SourcesCache",
-      "C:\\Users\\braxt\\AppData\\Local\\Symbols\\src"
+  &quot;keyToStringList&quot;: {
+    &quot;rider.external.source.directories&quot;: [
+      &quot;C:\\Users\\braxt\\AppData\\Roaming\\JetBrains\\Rider2022.3\\resharper-host\\DecompilerCache&quot;,
+      &quot;C:\\Users\\braxt\\AppData\\Roaming\\JetBrains\\Rider2022.3\\resharper-host\\SourcesCache&quot;,
+      &quot;C:\\Users\\braxt\\AppData\\Local\\Symbols\\src&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
       <option name="allowRunningInParallel" value="false" />
@@ -68,6 +105,7 @@
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+  <component name="UnityCheckinConfiguration" checkUnsavedScenes="false" />
   <component name="UnityUnitTestConfiguration" currentTestLauncher="NUnit" />
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />

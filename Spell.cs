@@ -37,20 +37,15 @@ namespace WandSpellss
 
     public static class SpellHandler
     {
-        public static void SpawnSpell(Type handler, Type type, string name, List<Item> wands,float spellSpeed) {
+        public static void SpawnSpell(Type handler, Type type, string name, Item wand,float spellSpeed) {
 
-            foreach (Item item in wands)
-            {
-                Debug.Log("Invoking on wand");
-                handler.GetMethod("SpawnSpell").Invoke(Activator.CreateInstance(handler), new object[] { type,name,item,spellSpeed});
-            }
+            Debug.Log("Invoking on wand");
+            handler.GetMethod("SpawnSpell").Invoke(Activator.CreateInstance(handler), new object[] { type,name,wand,spellSpeed});
         }
 
-        public static void UpdateSpell(Type handler, Type type, string name, List<Item> wands) {
+        public static void UpdateSpell(Type handler, Type type, string name, Item wand) {
 
-            foreach (Item item in wands) {
-                handler.GetMethod("UpdateSpell").Invoke(Activator.CreateInstance(handler), new object[] { type, name, item});
-            }
+            handler.GetMethod("UpdateSpell").Invoke(Activator.CreateInstance(handler), new object[] { type, name, wand});
         }
     }
 }

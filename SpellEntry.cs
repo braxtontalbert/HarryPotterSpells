@@ -18,7 +18,6 @@ namespace WandSpellss
 
         Item wand;
         Item current;
-        KeyWordRecogWand recogWand;
         Transform parent;
         GameObject parentLocal;
         float spellSpeed;
@@ -65,11 +64,13 @@ namespace WandSpellss
         private void Wand_OnGrabEvent(Handle handle, RagdollHand ragdollHand)
         {
             Loader.local.currentWand = this.wand;
-            Loader.local.currentlyHeldWands.Add(this.wand);
-            //recogWand.isEnabled = true;
+            if (!Loader.local.currentlyHeldWands.Contains(this.wand))
+            {
+                Loader.local.currentlyHeldWands.Add(this.wand);
+            }
         }
 
-        public void TypeSelection(Type spell, string name) {
+        public void TypeSelection(Type spell, string name, Item wand) {
 
             var spellHandler = Type.GetType(spell.Namespace + "." + name + "Handler");
             var field = spellHandler.GetField("spellType", BindingFlags.Public | BindingFlags.Static);
@@ -79,12 +80,12 @@ namespace WandSpellss
             Debug.Log(spellType);
             if ((SpellType)spellType == SpellType.Shoot)
             {
-                SpellHandler.SpawnSpell(spellHandler, spell, name, Loader.local.currentlyHeldWands, spellSpeed);
+                SpellHandler.SpawnSpell(spellHandler, spell, name, wand, spellSpeed);
             }
 
             else if ((SpellType)spellType == SpellType.Raycast)
             {
-                SpellHandler.UpdateSpell(spellHandler, spell, name, Loader.local.currentlyHeldWands);
+                SpellHandler.UpdateSpell(spellHandler, spell, name, wand);
             }
         }
 
@@ -93,62 +94,6 @@ namespace WandSpellss
             if (wand.gameObject.GetComponent(spell)) UnityEngine.Object.Destroy(wand.gameObject.GetComponent(spell));
             wand.gameObject.AddComponent(spell);
         }
-
-        public void SpawnSpell(Type spell, string name) {
-
-            float sectumPower = 1f;
-            try
-            {
-                if (name == "Lumos" && currentLumos) return;
-                Catalog.GetData<ItemData>(name + "Object")?.SpawnAsync(projectile =>
-                {
-                    sourceCurrent = null;
-                    if (name != "Sectumsempra") projectile.gameObject.AddComponent(spell);
-
-                    else sectumPower = 100f / spellSpeed;
-                    if (projectile.gameObject.GetComponent<Expelliarmus>() is Expelliarmus exp)
-                    {
-                        exp.power = expelliarmusPower;
-                    }
-
-                    projectile.transform.position = wand.flyDirRef.transform.position;
-                    projectile.transform.rotation = wand.flyDirRef.transform.rotation;
-                    projectile.IgnoreObjectCollision(wand);
-                    projectile.IgnoreRagdollCollision(Player.currentCreature.ragdoll);
-                    
-                    projectile.Throw();
-
-                    projectile.rb.useGravity = false;
-                    projectile.rb.drag = 0.0f;
-
-                    foreach (AudioSource c in wand.GetComponentsInChildren<AudioSource>())
-                    {
-                        if (c.name == name) sourceCurrent = c;
-                    }
-                    if (sourceCurrent != null) sourceCurrent.Play();
-
-
-                    if (name != "Lumos" && name != "Protego") projectile.GetComponent<Rigidbody>().AddForce(wand.flyDirRef.forward * spellSpeed * sectumPower, ForceMode.Impulse);
-                    else currentLumos = projectile;
-                    if (name == "Nox") currentLumos = null;
-                    if (name != "Lumos" && name != "Protego") projectile.gameObject.AddComponent<SpellDespawn>();
-                    current = projectile;
-
-                    if (projectile.gameObject.GetComponent<Protego>() is Protego protego)
-                    {
-                        protego.GetWand(wand);
-                        protego.sourceCurrent = sourceCurrent;
-                    }
-                    if (projectile.GetComponent<Lumos>() is Lumos lumos) lumos.SetWand(wand);
-                });
-
-            }
-
-            catch (NullReferenceException e) { Debug.Log(e.Message); }
-
-        }
-
-
         public void CastSpell(Type spell, string name) {
             if (wand.gameObject.GetComponent(spell)) UnityEngine.GameObject.Destroy(wand.gameObject.GetComponent(spell));
             wand.gameObject.AddComponent(spell);

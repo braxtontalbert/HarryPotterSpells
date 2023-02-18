@@ -76,12 +76,12 @@ namespace WandSpellss
             StringBuilder builder = new StringBuilder();
             hasRecognizedWord = true;
             knownCurrent = args.text;
-
             if (spellDict.ContainsKey(knownCurrent)) {
 
-                this.GetComponentInParent<SpellEntry>().TypeSelection(spellDict[knownCurrent], knownCurrent);
+                this.GetComponentInParent<SpellEntry>().TypeSelection(spellDict[knownCurrent], knownCurrent,wand);
 
             } 
+
 
 
         }

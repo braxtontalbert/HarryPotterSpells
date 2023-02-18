@@ -60,7 +60,6 @@ namespace WandSpellss
             AsyncSetup();
             
             CustomDebug.debugOn = true;
-
         }
 
         async void AsyncSetup() {
@@ -104,10 +103,6 @@ namespace WandSpellss
                 Application.quitting += () => Process.GetCurrentProcess().Kill();
             });
         }
-       
-
-
-
         private void Recognizer_SpeechRecognized(object sender, SpeechRecognizedEventArgs e)
         {
 
@@ -119,7 +114,7 @@ namespace WandSpellss
                 {
                     foreach (Item wand in Loader.local.currentlyHeldWands)
                     {
-                        wand.gameObject.GetComponent<SpellEntry>().TypeSelection(spellDict[e.Result.Text], e.Result.Text);
+                        wand.gameObject.GetComponent<SpellEntry>().TypeSelection(spellDict[e.Result.Text], e.Result.Text, wand);
                     }
                 }
 

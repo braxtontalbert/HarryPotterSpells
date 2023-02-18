@@ -28,7 +28,6 @@ namespace WandSpellss
                             break;
                     }
                 }
-
                 item.Despawn();
             }
         

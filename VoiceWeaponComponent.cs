@@ -53,7 +53,6 @@ namespace WandSpellss
 
         GameObject recognizer;
         string recognizedWord;
-        KeyWordRecogWand recogWand;
         DictationWand dictWand;
         private bool usedAscendio;
 

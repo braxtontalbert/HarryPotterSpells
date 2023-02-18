@@ -35,39 +35,11 @@ namespace WandSpellss
         {
             if (c.gameObject.GetComponentInParent<Creature>() is Creature creature) {
                 currentCreature = creature;
-                StartCoroutine(Timer(creature, c));
-
+                Loader.local.couroutineManager.StartCustomCoroutine(Loader.local.couroutineManager.Timer(creature, c));
             }
-            Loader.local.couroutineManager.StartCustomCoroutine(SpawnSparkEffect(Loader.local.petrificusSparks, c.contacts[0].point));
-
+            Loader.local.couroutineManager.StartCustomCoroutine(Loader.local.couroutineManager.SpawnSparkEffect(Loader.local.petrificusSparks, c.contacts[0].point));
         }
-
-        public IEnumerator SpawnSparkEffect(GameObject effect, Vector3 position)
-        {
-
-            effect.transform.position = position;
-            effect = GameObject.Instantiate(effect);
-
-
-            effect.GetComponentInChildren<VisualEffect>().Play();
-
-            yield return new WaitForSeconds(3f);
-
-            UnityEngine.GameObject.Destroy(effect);
-
-        }
-
-        IEnumerator Timer(Creature creature, Collision c) {
-
-            currentCreature.StopAnimation();
-            currentCreature.ToogleTPose();
-            yield return new WaitForSeconds(7.5f);
-
-            
-            creature.StopAnimation();
-            creature.ToogleTPose();
-            enemy = c.gameObject;
-        }
+        
 
     }
     public class PetrificusTotalusHandler : Spell

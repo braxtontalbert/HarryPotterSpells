@@ -124,7 +124,6 @@
     <Compile Include="ItemVoiceModule.cs" />
     <Compile Include="JSONParser.cs" />
     <Compile Include="LerpMovement.cs" />
-    <Compile Include="KeyWordRecogWand.cs" />
     <Compile Include="Levioso.cs" />
     <Compile Include="Liberacorpus.cs" />
     <Compile Include="Loader.cs" />
@@ -133,7 +132,6 @@
     <Compile Include="MagicText.cs" />
     <Compile Include="Morsmordre.cs" />
     <Compile Include="Nox.cs" />
-    <Compile Include="NPCWands.cs" />
     <Compile Include="Protego.cs" />
     <Compile Include="RayCastShoot.cs" />
     <Compile Include="Reducio.cs" />
@@ -141,7 +139,6 @@
     <Compile Include="Sectumsempra.cs" />
     <Compile Include="sempraDespawn.cs" />
     <Compile Include="Soul.cs" />
-    <Compile Include="SpeechRecogWands.cs" />
     <Compile Include="PetrificusTotalus.cs" />
     <Compile Include="Levicorpus.cs" />
     <Compile Include="Expelliarmus.cs" />
@@ -150,12 +147,9 @@
     <Compile Include="Stupefy.cs" />
     <Compile Include="StunDamager.cs" />
     <Compile Include="SpellDespawn.cs" />
-    <Compile Include="ItemModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="MyWeaponComponent.cs" />
     <Compile Include="Tarantallegra.cs" />
     <Compile Include="TestDictation.cs" />
-    <Compile Include="VoiceWeaponComponent.cs" />
     <Compile Include="VoiceWithDictation.cs" />
     <Compile Include="Waddiwassi.cs" />
     <Compile Include="WaddiWassiPerItem.cs" />
