@@ -50,8 +50,6 @@ namespace WandSpellss
             }
 
         }
-
-        
         void OnDestroy() {
 
             Player.currentCreature.data.waterDrowningDamage = defaultDamage;

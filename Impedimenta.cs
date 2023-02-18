@@ -18,9 +18,11 @@ namespace WandSpellss
         List<Creature> foundTargets = new List<Creature>();
         ThunderRoad.Item item;
         GameObject go;
+        private GameObject sfx;
 
         void Start() {
             item = GetComponent<ThunderRoad.Item>();
+            sfx = Instantiate(Loader.local.impedimentaSoundFX);
             StartImpedimenta();
             if(go)
             Loader.local.couroutineManager.StartCustomCoroutine(DestroyImpedimentaEffect(go));
