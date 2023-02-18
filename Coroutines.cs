@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 using ThunderRoad;
+using UnityEngine.VFX;
 
 namespace WandSpellss
 {
@@ -69,6 +70,60 @@ namespace WandSpellss
 
             }
         
+        }
+        
+        //PETERIFUCUS TOTALLUS COUROUTINES
+        public IEnumerator SpawnSparkEffect(GameObject effect, Vector3 position)
+        {
+            effect.transform.position = position;
+            effect = GameObject.Instantiate(effect);
+
+
+            effect.GetComponentInChildren<VisualEffect>().Play();
+
+            yield return new WaitForSeconds(3f);
+
+            UnityEngine.GameObject.Destroy(effect);
+        }
+
+        public bool CounterCurse()
+        {
+
+            int returnVal = 0;
+            
+            returnVal = UnityEngine.Random.Range(1, 101);
+            if (returnVal % 5 == 0)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public IEnumerator Timer(Creature creature, Collision c)
+        {
+            bool started = true;
+            
+            creature.ragdoll.SetState(Ragdoll.State.Frozen);
+            creature.brain.instance.Stop();
+            while (started)
+            {
+                if (creature.isKilled)
+                {
+                    break;
+                } 
+                bool canStart = true;
+                int returnVal = UnityEngine.Random.Range(1, 101);
+                if (returnVal % 5 == 0)
+                {
+                    canStart = false;
+                }
+                else canStart = true;
+
+                yield return new WaitForSeconds(5f);
+                started = canStart;
+            }
+            if(!creature.isKilled) creature.ragdoll.SetState(Ragdoll.State.Destabilized);
+            if(!creature.isKilled) creature.brain.instance.Start();
         }
         
     }

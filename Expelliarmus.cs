@@ -30,12 +30,7 @@ namespace WandSpellss
             if (c.gameObject.GetComponentInParent<Creature>() is Creature creature)
             {
                 creature.handRight.UnGrab(false);
-
-
-
                 creature.handLeft.UnGrab(false);
-
-
                 creature.ragdoll.SetState(Ragdoll.State.Destabilized);
                 foreach (Rigidbody rigidbody in c.gameObject.GetComponentInParent<Creature>().ragdoll.parts.Select(part => part.rb))
                 {

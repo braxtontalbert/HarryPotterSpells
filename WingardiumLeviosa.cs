@@ -48,7 +48,7 @@ namespace WandSpellss
 
             RaycastHit hit;
             Transform parent;
-
+            
             if (Physics.Raycast(item.flyDirRef.transform.position,item.flyDirRef.transform.forward, out hit, float.MaxValue, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore))
             {
                 CustomDebug.Debug("Did hit.");
@@ -83,7 +83,17 @@ namespace WandSpellss
                 else if (parentLocal.GetComponentInParent<Creature>() is Creature creature1) {
 
                     currentCreature = creature1;
-                    currentCreature.ragdoll.SetState(Ragdoll.State.Destabilized);
+                    if(currentCreature.ragdoll.state != Ragdoll.State.Frozen) currentCreature.ragdoll.SetState(Ragdoll.State.Destabilized);
+                    
+                    currentRigidbody = parentLocal.GetComponent<Rigidbody>();
+                    canLift = true;
+                    distance = Math.Abs(Vector3.Distance(parentLocal.transform.position, item.flyDirRef.position));
+
+                }
+                else if (parentLocal.GetComponent<Creature>() is Creature creature3) {
+
+                    currentCreature = creature3;
+                    if(currentCreature.ragdoll.state != Ragdoll.State.Frozen) currentCreature.ragdoll.SetState(Ragdoll.State.Destabilized);
                     currentRigidbody = parentLocal.GetComponent<Rigidbody>();
                     canLift = true;
                     distance = Math.Abs(Vector3.Distance(parentLocal.transform.position, item.flyDirRef.position));
@@ -92,12 +102,11 @@ namespace WandSpellss
                 else if (parentLocal.GetComponentInChildren<Creature>() is Creature creature2)
                 {
                     currentCreature = creature2;
-                    currentCreature.ragdoll.SetState(Ragdoll.State.Destabilized);
+                    if(currentCreature.ragdoll.state != Ragdoll.State.Frozen) currentCreature.ragdoll.SetState(Ragdoll.State.Destabilized);
                     currentRigidbody = parentLocal.GetComponent<Rigidbody>();
                     canLift = true;
                     distance = Math.Abs(Vector3.Distance(parentLocal.transform.position, item.flyDirRef.position));
                 }
-
             }
         }
 

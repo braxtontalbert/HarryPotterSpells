@@ -19,8 +19,6 @@ namespace WandSpellss
         public void SetWand(Item item) {
 
             this.wand = item;
-
-
         }
 
         void Start() {
@@ -53,29 +51,34 @@ namespace WandSpellss
 
         public override void SpawnSpell(Type type, string name, Item wand, float spellSpeed)
         {
+            
             try
             {
-                Catalog.GetData<ItemData>(name + "Object")?.SpawnAsync(projectile =>
+                if (!Loader.local.currentTipper)
                 {
-                    projectile.gameObject.AddComponent(type);
-
-                    projectile.transform.position = wand.flyDirRef.transform.position;
-                    projectile.transform.rotation = wand.flyDirRef.transform.rotation;
-                    projectile.IgnoreObjectCollision(wand);
-                    projectile.IgnoreRagdollCollision(Player.currentCreature.ragdoll);
-
-                    projectile.Throw();
-
-                    projectile.rb.useGravity = false;
-                    projectile.rb.drag = 0.0f;
-
-                    foreach (AudioSource c in wand.GetComponentsInChildren<AudioSource>())
+                    Catalog.GetData<ItemData>(name + "Object")?.SpawnAsync(projectile =>
                     {
+                        projectile.gameObject.AddComponent(type);
 
-                        if (c.name == name) c.Play();
-                    }
-                    if (projectile.GetComponent<Lumos>() is Lumos lumos) lumos.SetWand(wand);
-                });
+                        projectile.transform.position = wand.flyDirRef.transform.position;
+                        projectile.transform.rotation = wand.flyDirRef.transform.rotation;
+                        projectile.IgnoreObjectCollision(wand);
+                        projectile.IgnoreRagdollCollision(Player.currentCreature.ragdoll);
+
+                        projectile.Throw();
+
+                        projectile.rb.useGravity = false;
+                        projectile.rb.drag = 0.0f;
+
+                        foreach (AudioSource c in wand.GetComponentsInChildren<AudioSource>())
+                        {
+
+                            if (c.name == name) c.Play();
+                        }
+
+                        if (projectile.GetComponent<Lumos>() is Lumos lumos) lumos.SetWand(wand);
+                    });
+                }
             }
             catch (NullReferenceException e) { Debug.Log(e.Message); }
         }
