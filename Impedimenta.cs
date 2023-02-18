@@ -22,7 +22,7 @@ namespace WandSpellss
 
         void Start() {
             item = GetComponent<ThunderRoad.Item>();
-            sfx = Instantiate(Loader.local.impedimentaSoundFX);
+            
             StartImpedimenta();
             if(go)
             Loader.local.couroutineManager.StartCustomCoroutine(DestroyImpedimentaEffect(go));
@@ -37,6 +37,7 @@ namespace WandSpellss
             } catch { }
             if (foundTargets.Count <= 0) return;
             else {
+                sfx = Instantiate(Loader.local.impedimentaSoundFX);
                 foreach (Creature target in foundTargets)
                 {
                     CustomDebug.Debug("Got into loop");
