@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using UnityEngine;
 using ThunderRoad;
 using System.Collections;
+using UnityEngine.VFX;
 
 namespace WandSpellss
 {
@@ -20,6 +21,9 @@ namespace WandSpellss
         float distance;
         Rigidbody currentRigidbody;
         Creature currentCreature;
+        private GameObject go;
+        private VisualEffect vfx;
+        
 
         public static SpellType spellType = SpellType.Raycast;
 
@@ -40,6 +44,25 @@ namespace WandSpellss
 
                 canLift = false;
                 currentRigidbody = null;
+            }
+        }
+
+        void SpawnVFX()
+        {
+            go = Instantiate(Loader.local.wingardiumLeviosaEffect);
+            vfx = go.GetComponentInChildren<VisualEffect>();
+            
+        }
+
+        void UpdateVFX()
+        {
+            if(!vfx) SpawnVFX();
+            else if(vfx)
+            {
+                go.transform.position = item.flyDirRef.transform.position;
+                vfx.SetVector3("lineStart",item.flyDirRef.transform.position);
+                vfx.SetVector3("lineEnd", currentRigidbody.transform.position);
+                vfx.SetVector3("objectSize", currentRigidbody.inertiaTensor);
             }
         }
 
@@ -116,6 +139,7 @@ namespace WandSpellss
 
                 if (canLift == true)
                 {
+                    UpdateVFX();
                     currentRigidbody.velocity = ((item.flyDirRef.position + (direction * distance)) - currentRigidbody.position) * (3f);
 
                 }

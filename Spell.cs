@@ -20,8 +20,6 @@ namespace WandSpellss
         public VisualEffect vfx;
         public static SpellType spellType;
         public readonly float spellSpeed = 10f;
-
-
         public virtual void SpellEffect(Creature creature) { }
         public virtual void SpellEffect() { }
 
