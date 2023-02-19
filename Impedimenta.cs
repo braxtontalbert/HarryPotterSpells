@@ -15,39 +15,40 @@ namespace WandSpellss
     class Impedimenta : MonoBehaviour
     {
         public static SpellType spellType = SpellType.Raycast;
-        List<Creature> foundTargets = new List<Creature>();
+        
         ThunderRoad.Item item;
         GameObject go;
         private GameObject sfx;
+        private GameObject despawner;
+        private GameObject sender;
 
         void Start() {
             item = GetComponent<ThunderRoad.Item>();
-            
             StartImpedimenta();
-            if(go)
-            Loader.local.couroutineManager.StartCustomCoroutine(DestroyImpedimentaEffect(go));
+            if(go) Loader.local.couroutineManager.StartCustomCoroutine(DestroyImpedimentaEffect(go));
+            
         }
 
         void StartImpedimenta() {
-
+            List<Creature> foundTargets = new List<Creature>();
             try
             {
                 foundTargets = Creature.allActive.Where(creature => !creature.isPlayer && (Player.currentCreature.transform.position - creature.transform.position).sqrMagnitude < 5f * 5f).ToList();
                 CustomDebug.Debug("Target list size is: " + foundTargets.Count );
             } catch { }
             if (foundTargets.Count <= 0) return;
-            else {
-                sfx = Instantiate(Loader.local.impedimentaSoundFX);
-                foreach (Creature target in foundTargets)
-                {
-                    CustomDebug.Debug("Got into loop");
-                    target.locomotion.SetSpeedModifier(this, 0.3f, 0.3f, 0.3f, 0.3f, 0.3f);
-                    target.animator.speed = 0.3f;
-                    target.OnKillEvent += Target_OnKillEvent;
-                }
+            foreach (Creature target in foundTargets)
+            {
+                CustomDebug.Debug("Got into loop");
+                target.locomotion.SetSpeedModifier(this, 0.3f, 0.3f, 0.3f, 0.3f, 0.3f);
+                target.animator.speed = 0.3f;
             }
-            
+
+            sender = new GameObject();
+            sender.AddComponent<CreaturesReversalEvent>().Setup(foundTargets);
+            sfx = Instantiate(Loader.local.impedimentaSoundFX);
             go = GameObject.Instantiate(Loader.local.impedimentaEffect);
+            despawner = Instantiate(sender);
             go.transform.position = item.flyDirRef.position;
 
         }
@@ -57,12 +58,37 @@ namespace WandSpellss
             yield return new WaitForSeconds(5f);
             UnityEngine.GameObject.Destroy(effect);
         }
+    }
+
+    public class CreaturesReversalEvent : MonoBehaviour
+    {
+        private List<Creature> creature;
+
+        public void Setup(List<Creature> creature)
+        {
+            this.creature = creature.DeepCopyByExpressionTree();
+            
+        }
+
+        private void Start()
+        {
+            if (creature != null)
+            {
+                foreach (Creature temp in creature)
+                {
+                    temp.OnKillEvent += Target_OnKillEvent;
+                }
+                
+            }
+        }
 
         private void Target_OnKillEvent(CollisionInstance collisionInstance, EventTime eventTime)
         {
-            collisionInstance.targetCollider.GetComponentInParent<Creature>().animator.speed = 1f;
+            collisionInstance.targetCollider.GetComponentInParent<Creature>().animator.speed = 100f;
             collisionInstance.targetCollider.GetComponentInParent<Creature>().locomotion.RemoveSpeedModifier(this);
+            Destroy(this);
         }
+        
     }
 
     public class ImpedimentaHandler : Spell

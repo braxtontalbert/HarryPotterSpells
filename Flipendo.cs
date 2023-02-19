@@ -7,6 +7,7 @@ using UnityEngine;
 using ThunderRoad;
 using static ThunderRoad.HandPoseData;
 using System.Collections;
+using UnityEngine.VFX;
 
 
 namespace WandSpellss
@@ -40,6 +41,21 @@ namespace WandSpellss
                     
                 }
             }
+            Loader.local.couroutineManager.StartCustomCoroutine(SpawnSparkEffect(Loader.local.flipendoSparks, c.contacts[0].point));
+        }
+        public IEnumerator SpawnSparkEffect(GameObject effect, Vector3 position)
+        {
+
+            effect.transform.position = position;
+            effect = GameObject.Instantiate(effect);
+
+
+            effect.GetComponentInChildren<VisualEffect>().Play();
+
+            yield return new WaitForSeconds(3f);
+
+            UnityEngine.GameObject.Destroy(effect);
+
         }
 
         IEnumerator FloatingTimer(Rigidbody rb) {

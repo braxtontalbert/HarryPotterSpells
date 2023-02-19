@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 using ThunderRoad;
+using UnityEngine.VFX;
 
 namespace WandSpellss
 {
@@ -35,6 +36,21 @@ namespace WandSpellss
                 position = item.transform.position;
             }
             go.AddComponent<LeviosoUpdate>().Setup(startLevitate, currentCreature,position);
+
+            Loader.local.couroutineManager.StartCustomCoroutine(SpawnSparkEffect(Loader.local.flipendoSparks, collision.contacts[0].point));
+        }
+        public IEnumerator SpawnSparkEffect(GameObject effect, Vector3 position)
+        {
+
+            effect.transform.position = position;
+            effect = GameObject.Instantiate(effect);
+
+
+            effect.GetComponentInChildren<VisualEffect>().Play();
+
+            yield return new WaitForSeconds(3f);
+
+            UnityEngine.GameObject.Destroy(effect);
 
         }
     }
