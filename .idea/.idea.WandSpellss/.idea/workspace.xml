@@ -3,8 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="97b2aadb-1ca7-4325-8f87-693aac7a20f4" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.WandSpellss/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.WandSpellss/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Flipendo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Flipendo.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Impedimenta.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Impedimenta.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Imperio.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Imperio.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Levioso.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Levioso.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Loader.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Loader.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bin/Debug/WandSpellss.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/WandSpellss.dll" afterDir="false" />
@@ -26,6 +25,9 @@
     <setting file="file://$PROJECT_DIR$/AvadaKedavra.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Coroutines.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Expelliarmus.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Flipendo.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Impedimenta.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Imperio.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/ItemModule.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/ItemVoiceModule.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/KeyWordRecogWand.cs" root0="SKIP_HIGHLIGHTING" />
@@ -35,8 +37,11 @@
     <setting file="file://$PROJECT_DIR$/MeshToSDF.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/NPCWands.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/SDFTexture.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Sanuspirantes.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/SpeechRecogWands.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Spell.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/VoiceWeaponComponent.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/WingardiumLeviosa.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />

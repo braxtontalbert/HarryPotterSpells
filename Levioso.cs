@@ -37,7 +37,7 @@ namespace WandSpellss
             }
             go.AddComponent<LeviosoUpdate>().Setup(startLevitate, currentCreature,position);
 
-            Loader.local.couroutineManager.StartCustomCoroutine(SpawnSparkEffect(Loader.local.flipendoSparks, collision.contacts[0].point));
+            Loader.local.couroutineManager.StartCustomCoroutine(SpawnSparkEffect(Loader.local.leviosoSparks, collision.contacts[0].point));
         }
         public IEnumerator SpawnSparkEffect(GameObject effect, Vector3 position)
         {

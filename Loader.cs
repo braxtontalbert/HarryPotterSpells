@@ -36,6 +36,7 @@ namespace WandSpellss
         public GameObject tarantallegraSparks;
         public GameObject flipendoSparks;
         public GameObject leviosoSparks;
+        public GameObject imperioEffect;
         public List<Item> currentlyHeldWands = new List<Item>();
         public List<Type> spellsOnPlayer = new List<Type>();
         public List<Type> finiteSpells = new List<Type>();
@@ -85,7 +86,8 @@ namespace WandSpellss
                 Catalog.LoadAssetAsync<GameObject>("apoz123Wand.SpellEffect.Sparks.Levioso", callback => { leviosoSparks = callback; }, "LeviosoSparks");
                 Catalog.LoadAssetAsync<GameObject>("apoz123Wand.SpellEffect.Impedimenta",callback => { impedimentaEffect = callback;}, "ImpedimentaEffect");
                 Catalog.LoadAssetAsync<GameObject>("apoz123Wand.SoundEffect.Impedimenta",callback => { impedimentaSoundFX = callback;}, "ImpedimentaSoundEffect");
-
+                Catalog.LoadAssetAsync<GameObject>("apoz123Wand.SpellEffect.Imperio",callback => { imperioEffect = callback;}, "ImperioEffect");
+                    
                 Choices spells = new Choices();
                 List<JSONSpell> loadedSpells = Catalog.GetData<SpellListData>("CustomSpells").spellList;
 

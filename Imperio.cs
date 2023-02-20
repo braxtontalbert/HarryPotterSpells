@@ -11,81 +11,39 @@ namespace WandSpellss
     public class Imperio : MonoBehaviour
     {
         Item item;
-        Creature playerCreature;
-        Creature ogCreature;
-        internal GameObject parentLocal;
+        private GameObject go;
         public void Start()
         {
             item = GetComponent<Item>();
-
+            go = Instantiate(Loader.local.imperioEffect);
         }
 
-
-        internal void CastRay()
+        private void Update()
         {
-
-            RaycastHit hit;
-            Transform parent;
-
-            if (Physics.Raycast(item.flyDirRef.position, item.flyDirRef.forward, out hit))
+            if (go)
             {
-
-                Debug.Log("Did hit.");
-                Debug.Log(hit.collider.gameObject.transform.parent.name);
-
-                parent = hit.collider.gameObject.transform.parent;
-                parentLocal = parent.gameObject;
-
-                if (parentLocal.GetComponent<Creature>() != null)
-                {
-                    playerCreature = Player.local.creature;
-                    ogCreature = parentLocal.GetComponent<Creature>();
-                    Player.local.SetCreature(parentLocal.GetComponent<Creature>());
-                    
-                    Player.selfCollision = true;
-                    Player.local.creature.currentHealth = 30f;
-                    Player.local.creature.ragdoll.allowSelfDamage = true;
-
-                    Debug.Log("playerCreature1st: " + playerCreature);
-                    Debug.Log("ogCreature: " + ogCreature);
-                    Debug.Log("playerCreature2nd: " + Player.local.creature);
-
-
-
-
-                }
-
+                go.transform.position = item.flyDirRef.transform.position;
+                go.transform.rotation = item.flyDirRef.transform.rotation;
             }
-
-
-        }
-
-        void Update() {
-            if (playerCreature != null) {
-                if (playerCreature.isKilled) {
-
-                    Player.currentCreature.Kill();
-
-                }
-
-                else if (Player.local.creature.currentHealth <= 1f) {
-
-                    Player.local.creature.OnKillEvent += Creature_OnKillEvent;
-                    //Player.local.SetCreature(playerCreature);
-                    //Player.local.creature.currentHealth = 50f;
-
-                }
-            }
-            
-        }
-
-        private void Creature_OnKillEvent(CollisionInstance collisionInstance, EventTime eventTime)
-        {
-            Player.local.SetCreature(playerCreature);
-            Player.local.creature.currentHealth = 50;
-            Player.selfCollision = false;
-            Player.local.creature.ragdoll.allowSelfDamage = false;
         }
     }
+    public class ImperioHandler : Spell
+    {
+        public static SpellType spellType = SpellType.Raycast;
+        public override Spell AddGameObject(GameObject gameObject)
+        {
+            throw new NotImplementedException();
+        }
 
+        public override void SpawnSpell(Type type, string name, Item wand, float spellSpeed)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void UpdateSpell(Type type, string name, Item wand)
+        {
+            if (wand.gameObject.GetComponent(type)) UnityEngine.Object.Destroy(wand.gameObject.GetComponent(type));
+            wand.gameObject.AddComponent(type);
+        }
+    }
 }
