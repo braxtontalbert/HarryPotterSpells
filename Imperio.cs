@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 using ThunderRoad;
+using UnityEngine.VFX;
 
 namespace WandSpellss
 {
@@ -12,21 +13,77 @@ namespace WandSpellss
     {
         Item item;
         private GameObject go;
+        private GameObject visible;
+        
         public void Start()
         {
             item = GetComponent<Item>();
             go = Instantiate(Loader.local.imperioEffect);
+            visible = Instantiate(Loader.local.imperioShown);
+            go.GetComponent<ParticleSystem>().Play();
+            visible.GetComponent<ParticleSystem>().Play();
+            go.gameObject.AddComponent<SpellParticles>();
+
         }
 
-        private void Update()
+        void Update()
         {
-            if (go)
+            if (go && visible)
             {
-                go.transform.position = item.flyDirRef.transform.position;
                 go.transform.rotation = item.flyDirRef.transform.rotation;
+                go.transform.position = item.flyDirRef.transform.position;
+                visible.transform.rotation = item.flyDirRef.transform.rotation;
+                visible.transform.position = item.flyDirRef.transform.position;
             }
         }
+
+        
     }
+
+    public class OnCreature : MonoBehaviour
+    {
+        
+    }
+
+    public class SpellParticles : MonoBehaviour
+    {
+        private Creature creature;
+        private List<ParticleCollisionEvent> collisionEvents;
+        private ParticleSystem ps;
+        void Start()
+        {
+            ps = this.GetComponent<ParticleSystem>();
+        }
+
+        void OnParticleCollision(GameObject other)
+        {
+            Debug.Log("Particle Collided!");
+            if (creature) return;
+            creature = other.GetComponentInParent<Creature>();
+            if (!creature.GetComponent<OnCreature>())
+            {
+                creature.gameObject.AddComponent<OnCreature>();
+                StartImperio(creature);
+            }
+            /*int numCollisionEvents = go.GetComponent<ParticleSystem>().GetCollisionEvents(other, collisionEvents);
+
+            Creature creature = other.GetComponentInParent<Creature>();
+            
+
+            if (numCollisionEvents > 10)
+            {
+                StartImperio(creature);
+            }*/
+        }
+        void StartImperio(Creature creature)
+        {
+            Debug.Log("Imperio started");
+            creature.SetFaction(2);
+            creature.brain.Load(creature.brain.instance.id);
+            Debug.Log(creature.data.factionId);
+        }
+    }
+
     public class ImperioHandler : Spell
     {
         public static SpellType spellType = SpellType.Raycast;
