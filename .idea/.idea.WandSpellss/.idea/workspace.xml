@@ -2,14 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="97b2aadb-1ca7-4325-8f87-693aac7a20f4" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Dissimulare.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dissimulo.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.WandSpellss/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.WandSpellss/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Imperio.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Imperio.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Loader.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Loader.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sectumsempra.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Sectumsempra.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WandSpellss.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/WandSpellss.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WandSpellss.sln.DotSettings.user" beforeDir="false" afterPath="$PROJECT_DIR$/WandSpellss.sln.DotSettings.user" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bin/Debug/WandSpellss.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/WandSpellss.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bin/Debug/WandSpellss.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/WandSpellss.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/WandSpellss.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/WandSpellss.csproj.AssemblyReference.cache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/WandSpellss.csproj.CoreCompileInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/WandSpellss.csproj.CoreCompileInputs.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/Debug/WandSpellss.csproj.FileListAbsolute.txt" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/WandSpellss.csproj.FileListAbsolute.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/WandSpellss.dll" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/WandSpellss.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/WandSpellss.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/WandSpellss.pdb" afterDir="false" />
     </list>
@@ -21,7 +24,13 @@
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/25a85da7c6f04932b86e339dfd12957d11b088/90/9dcecc14/Mesh.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/25a85da7c6f04932b86e339dfd12957d11b088/e2/04f1407e/WaitUntil.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/cab4cd4941104705846e3433671ecd5052e590/6f/f8377fc7/Dictionary`2.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/d54d0fdb83e2423c91a21b369a8394a31ff800/11/9c0ada8d/EventManager.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/d54d0fdb83e2423c91a21b369a8394a31ff800/1b/2bfbe8f6/GameManager.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/d54d0fdb83e2423c91a21b369a8394a31ff800/32/43809265/ThunderBehaviour.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/d54d0fdb83e2423c91a21b369a8394a31ff800/46/e048de9b/MenuBook.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/d54d0fdb83e2423c91a21b369a8394a31ff800/8c/bc7366b0/Creature.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/d54d0fdb83e2423c91a21b369a8394a31ff800/9b/3a3cd071/Mirror.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/d54d0fdb83e2423c91a21b369a8394a31ff800/ba/083d318a/Brain.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$USER_HOME$/Desktop/BasSDK-master (1)/BasSDK-master/Library/PackageCache/com.unity.addressables@1.19.19/Editor/Settings/AddressableAssetGroup.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$USER_HOME$/Desktop/BasSDK-master/Assets/SDK/Scripts/Effects/New/FxBlendCurves.cs" root0="SKIP_HIGHLIGHTING" />
@@ -102,7 +111,7 @@
       <workItem from="1676761428203" duration="3029000" />
       <workItem from="1676935339266" duration="14897000" />
       <workItem from="1677030952279" duration="692000" />
-      <workItem from="1677110904696" duration="22159000" />
+      <workItem from="1677110904696" duration="59965000" />
     </task>
     <servers />
   </component>
