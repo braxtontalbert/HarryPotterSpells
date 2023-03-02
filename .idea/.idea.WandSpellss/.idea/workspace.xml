@@ -2,13 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="97b2aadb-1ca7-4325-8f87-693aac7a20f4" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Dissimulare.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Dissimulo.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Depulso.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.WandSpellss/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.WandSpellss/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Coroutines.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Coroutines.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dissimulare.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Dissimulare.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dissimulo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Dissimulo.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Expelliarmus.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Expelliarmus.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Imperio.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Imperio.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Loader.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Loader.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Sectumsempra.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Sectumsempra.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/WandSpellss.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/WandSpellss.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WandSpellss.sln.DotSettings.user" beforeDir="false" afterPath="$PROJECT_DIR$/WandSpellss.sln.DotSettings.user" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bin/Debug/WandSpellss.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/WandSpellss.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bin/Debug/WandSpellss.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/WandSpellss.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/WandSpellss.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/WandSpellss.csproj.AssemblyReference.cache" afterDir="false" />
@@ -111,7 +113,11 @@
       <workItem from="1676761428203" duration="3029000" />
       <workItem from="1676935339266" duration="14897000" />
       <workItem from="1677030952279" duration="692000" />
-      <workItem from="1677110904696" duration="59965000" />
+      <workItem from="1677110904696" duration="60630000" />
+      <workItem from="1677384403474" duration="33000" />
+      <workItem from="1677423185098" duration="1216000" />
+      <workItem from="1677450709060" duration="894000" />
+      <workItem from="1677538562169" duration="22634000" />
     </task>
     <servers />
   </component>

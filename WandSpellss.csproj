@@ -104,6 +104,7 @@
     <Compile Include="Coroutines.cs" />
     <Compile Include="CustomDebug.cs" />
     <Compile Include="DarkMark.cs" />
+    <Compile Include="Depulso.cs" />
     <Compile Include="DictationRecognizer.cs" />
     <Compile Include="DictationWand.cs" />
     <Compile Include="Dissimulare.cs" />

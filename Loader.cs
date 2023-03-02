@@ -151,7 +151,7 @@ namespace WandSpellss
                     if (paramItem) couroutineManager.StartAccio(paramItem, Player.currentCreature.handRight);
                 }
 
-                else if (e.Result.Text.Contains("Accio") && e.Result.Text.Length > 5 && currentlyHeldWands.Count == 1) {
+                /*else if (e.Result.Text.Contains("Accio") && e.Result.Text.Length > 5 && currentlyHeldWands.Count == 1) {
 
                     try
                     {
@@ -162,7 +162,7 @@ namespace WandSpellss
 
                     if (paramItem) couroutineManager.StartAccio(paramItem, Player.currentCreature.handRight);
 
-                }
+                }*/
 
 
             }

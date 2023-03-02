@@ -24,12 +24,17 @@ namespace WandSpellss
             Destroy(Loader.local.activeDisillusion);
             foreach (Creature creature in Creature.allActive)
             {
-                if (Loader.local.creaturesFOV.ContainsKey(creature))
+                if (creature.brain.instance.GetModule<BrainModuleDetection>() is BrainModuleDetection detector)
                 {
-                    Debug.Log("Vertical: " + Loader.local.creaturesFOV[creature][0]);
-                    Debug.Log("Horizontal: " + Loader.local.creaturesFOV[creature][1]);
-                    creature.brain.instance.GetModule<BrainModuleDetection>().sightDetectionHorizontalFov = Loader.local.creaturesFOV[creature][1];
-                    creature.brain.instance.GetModule<BrainModuleDetection>().sightDetectionVerticalFov = Loader.local.creaturesFOV[creature][0];
+                    if (Loader.local.creaturesFOV.ContainsKey(creature))
+                    {
+                        Debug.Log("Vertical: " + Loader.local.creaturesFOV[creature][0]);
+                        Debug.Log("Horizontal: " + Loader.local.creaturesFOV[creature][1]);
+                        detector.sightDetectionHorizontalFov =
+                            Loader.local.creaturesFOV[creature][1];
+                        detector.sightDetectionVerticalFov =
+                            Loader.local.creaturesFOV[creature][0];
+                    }
                 }
             }
         }

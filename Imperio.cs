@@ -77,10 +77,10 @@ namespace WandSpellss
         }
         void StartImperio(Creature creature)
         {
-            Debug.Log("Imperio started");
+            Loader.local.couroutineManager.StartCustomCoroutine(Loader.local.couroutineManager.ImperioCounterCurse(creature, creature.factionId));
             creature.SetFaction(2);
             creature.brain.Load(creature.brain.instance.id);
-            Debug.Log(creature.data.factionId);
+            
         }
     }
 

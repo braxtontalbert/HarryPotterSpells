@@ -23,19 +23,18 @@ namespace WandSpellss
                         if (!Loader.local.creaturesFOV.ContainsKey(creature))
                         {
                             Loader.local.creaturesFOV.Add(creature, new[] { detector.sightDetectionVerticalFov, detector.sightDetectionHorizontalFov });
-                            creature.brain.currentTarget = null;
+                            
                             detector.sightDetectionHorizontalFov = 0f;
                             detector.sightDetectionVerticalFov = 0f;
                         }
                         else
                         {
-                            creature.brain.currentTarget = null;
                             detector.sightDetectionHorizontalFov = 0f;
                             detector.sightDetectionVerticalFov = 0f;
                         }
                     }
                     else {
-                        if (Vector3.Distance(Player.currentCreature.transform.position, creature.transform.position) < 2f)
+                        if (Vector3.Distance(Player.currentCreature.transform.position, creature.transform.position) < 1f)
                         {
                             if (Loader.local.creaturesFOV.ContainsKey(creature))
                             {
