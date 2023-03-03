@@ -16,7 +16,7 @@ namespace WandSpellss
         Item npcItem;
         internal AudioSource source;
         GameObject effect;
-        public static SpellType spellType = SpellType.Shoot;
+        public Vector3 currentPosition;
 
         internal float power;
 
@@ -34,9 +34,9 @@ namespace WandSpellss
                 creature.ragdoll.SetState(Ragdoll.State.Destabilized);
                 foreach (Rigidbody rigidbody in c.gameObject.GetComponentInParent<Creature>().ragdoll.parts.Select(part => part.rb))
                 {
-
+                    var direction = (c.contacts[0].point - currentPosition).normalized;
                     CustomDebug.Debug("Rigidbody name: " + rigidbody.name);
-                    rigidbody.AddForce(item.flyDirRef.transform.forward * (power), ForceMode.Impulse);
+                    rigidbody.AddForce(direction * (power), ForceMode.Impulse);
                 }
 
 
@@ -100,6 +100,8 @@ namespace WandSpellss
                     if (projectile.gameObject.GetComponent<Expelliarmus>() is Expelliarmus exp)
                     {
                         exp.power = expelliarmusPower;
+                        exp.currentPosition = wand.flyDirRef.position;
+
                     }
 
                     foreach (AudioSource c in wand.GetComponentsInChildren<AudioSource>())

@@ -32,7 +32,6 @@ namespace WandSpellss
                     projectile.gameObject.AddComponent(type);
 
                     projectile.transform.position = wand.flyDirRef.transform.position;
-                    projectile.transform.rotation = wand.flyDirRef.transform.rotation;
                     projectile.IgnoreObjectCollision(wand);
                     projectile.IgnoreRagdollCollision(Player.currentCreature.ragdoll);
 
@@ -47,11 +46,11 @@ namespace WandSpellss
                         if (c.name == name) c.Play();
                     }
 
-                    projectile.GetComponent<Rigidbody>().AddForce(wand.flyDirRef.forward * spellSpeed * sectumPower, ForceMode.Impulse);
+                    projectile.GetComponent<Rigidbody>().AddForce(wand.flyDirRef.forward * sectumPower, ForceMode.Impulse);
                     projectile.gameObject.AddComponent<SpellDespawn>();
                 });
             }
-            catch (NullReferenceException e) { Debug.Log(e.Message); }
+            catch (NullReferenceException e) { Debug.Log(e.Message);}
         }
 
         public override void UpdateSpell(Type type, string name, Item wand)

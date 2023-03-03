@@ -3,12 +3,14 @@
   <component name="ChangeListManager">
     <list default="true" id="97b2aadb-1ca7-4325-8f87-693aac7a20f4" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.WandSpellss/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.WandSpellss/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Flipendo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Flipendo.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Impedimenta.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Impedimenta.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Levioso.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Levioso.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Coroutines.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Coroutines.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Depulso.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Depulso.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dissimulare.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Dissimulare.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dissimulo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Dissimulo.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Loader.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Loader.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bin/Debug/WandSpellss.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/WandSpellss.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bin/Debug/WandSpellss.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/WandSpellss.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/WandSpellss.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/WandSpellss.csproj.AssemblyReference.cache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/WandSpellss.dll" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/WandSpellss.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/WandSpellss.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/WandSpellss.pdb" afterDir="false" />
     </list>
@@ -19,13 +21,27 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/25a85da7c6f04932b86e339dfd12957d11b088/90/9dcecc14/Mesh.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/25a85da7c6f04932b86e339dfd12957d11b088/e2/04f1407e/WaitUntil.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/cab4cd4941104705846e3433671ecd5052e590/6f/f8377fc7/Dictionary`2.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/d54d0fdb83e2423c91a21b369a8394a31ff800/11/9c0ada8d/EventManager.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/d54d0fdb83e2423c91a21b369a8394a31ff800/1b/2bfbe8f6/GameManager.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/d54d0fdb83e2423c91a21b369a8394a31ff800/32/43809265/ThunderBehaviour.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/d54d0fdb83e2423c91a21b369a8394a31ff800/40/59793ee5/BrainModuleDetection.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/d54d0fdb83e2423c91a21b369a8394a31ff800/46/e048de9b/MenuBook.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/d54d0fdb83e2423c91a21b369a8394a31ff800/8c/bc7366b0/Creature.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/d54d0fdb83e2423c91a21b369a8394a31ff800/9b/3a3cd071/Mirror.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/d54d0fdb83e2423c91a21b369a8394a31ff800/b3/f9d72597/BrainData.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/d54d0fdb83e2423c91a21b369a8394a31ff800/ba/083d318a/Brain.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$USER_HOME$/Desktop/BasSDK-master (1)/BasSDK-master/Library/PackageCache/com.unity.addressables@1.19.19/Editor/Settings/AddressableAssetGroup.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$USER_HOME$/Desktop/BasSDK-master/Assets/SDK/Scripts/Effects/New/FxBlendCurves.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Accio.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/ArrestoMomentum.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/AvadaKedavra.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Coroutines.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Expelliarmus.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Flipendo.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Impedimenta.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Imperio.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/ItemModule.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/ItemVoiceModule.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/KeyWordRecogWand.cs" root0="SKIP_HIGHLIGHTING" />
@@ -35,8 +51,11 @@
     <setting file="file://$PROJECT_DIR$/MeshToSDF.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/NPCWands.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/SDFTexture.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Sanuspirantes.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/SpeechRecogWands.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Spell.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/VoiceWeaponComponent.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/WingardiumLeviosa.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -90,6 +109,13 @@
       <workItem from="1676491777064" duration="1357000" />
       <workItem from="1676493227033" duration="10115000" />
       <workItem from="1676761428203" duration="3029000" />
+      <workItem from="1676935339266" duration="14897000" />
+      <workItem from="1677030952279" duration="692000" />
+      <workItem from="1677110904696" duration="60630000" />
+      <workItem from="1677384403474" duration="33000" />
+      <workItem from="1677423185098" duration="1216000" />
+      <workItem from="1677450709060" duration="894000" />
+      <workItem from="1677538562169" duration="40669000" />
     </task>
     <servers />
   </component>
