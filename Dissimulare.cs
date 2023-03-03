@@ -9,17 +9,17 @@ namespace WandSpellss
     public class Dissimulare : MonoBehaviour
     {
         private Material evanescoDissolve;
-        private Creature creature;
+        private Creature creatureRendering;
         List<Material> myMaterials;
         private bool canDisillusion;
         private float dissolveVal;
         private Material[] original;
         void Start()
         {
-            creature = Player.currentCreature;
+            creatureRendering = Player.currentCreature;
             evanescoDissolve = Loader.local.dissimuloDissolveMat.DeepCopyByExpressionTree();
-            canDisillusion = true;
             dissolveVal = 1f;
+            canDisillusion = true;
             Loader.local.dissimuloActive = false;
             Destroy(Loader.local.activeDisillusion);
             foreach (Creature creature in Creature.allActive)
@@ -30,10 +30,11 @@ namespace WandSpellss
                     {
                         Debug.Log("Vertical: " + Loader.local.creaturesFOV[creature][0]);
                         Debug.Log("Horizontal: " + Loader.local.creaturesFOV[creature][1]);
-                        detector.sightDetectionHorizontalFov =
-                            Loader.local.creaturesFOV[creature][1];
-                        detector.sightDetectionVerticalFov =
-                            Loader.local.creaturesFOV[creature][0];
+                        float vertical = Loader.local.creaturesFOV[creature][0];
+                        float horizontal = Loader.local.creaturesFOV[creature][1];
+                        detector.sightDetectionHorizontalFov = horizontal;
+                        detector.sightDetectionVerticalFov = vertical;
+                        Debug.Log("Creature: " + creature + " | " + "Values: {Horizontal | Vertical}" + detector.sightDetectionHorizontalFov + " | " + detector.sightDetectionVerticalFov);
                     }
                 }
             }
@@ -44,30 +45,23 @@ namespace WandSpellss
             if (canDisillusion)
             {
                 if (dissolveVal > 0)
-                {
-                    //dissolveVal += Time.deltaTime / 3f;
-
-                    //Debug.Log(dissolveVal);
+                { 
                     dissolveVal -= 0.01f;
-                    foreach (Creature.RendererData var in creature.renderers)
+                    foreach (Creature.RendererData var in creatureRendering.renderers)
                     {
                         foreach (Material mat in var.renderer.materials)
                         {
                             CustomDebug.Debug("Dissimulo Material: " + mat);
                             mat.SetFloat("_dissolve", dissolveVal);
                         }
-                        
                     }
-                    
-
-
                 }
                 else if (dissolveVal <= 0)
                 {
                     dissolveVal = 1f;
                     canDisillusion = false;
-                    for (int i = 0; i < creature.renderers.Count; i++) {
-                        creature.renderers[i].renderer.materials = Loader.local.originalCreatureMaterial[i];
+                    for (int i = 0; i < creatureRendering.renderers.Count; i++) {
+                        creatureRendering.renderers[i].renderer.materials = Loader.local.originalCreatureMaterial[i];
                     }
 
                 }

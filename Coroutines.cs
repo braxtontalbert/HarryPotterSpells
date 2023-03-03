@@ -17,13 +17,19 @@ namespace WandSpellss
         {
             local = this;
         }
+        
 
         public void StartCustomCoroutine(IEnumerator methodIn) {
 
             StartCoroutine(methodIn);
 
         }
-        
+
+        public IEnumerator DestroyVFX(GameObject vfx)
+        {
+            yield return new WaitForSeconds(3f);
+            Destroy(vfx);
+        }
         public IEnumerator StopLeviate(GameObject go)
         {
             

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using ThunderRoad;
+using UnityEngine.VFX;
 
 namespace WandSpellss
 {
@@ -9,9 +10,11 @@ namespace WandSpellss
     {
         private Item item;
         private List<Creature> destabilizedList = new List<Creature>();
+        private GameObject effect;
         private void Start()
         {
             item = GetComponent<Item>();
+            
             Collider[] colliderArray = Physics.OverlapSphere(item.flyDirRef.position + item.flyDirRef.forward * 2f, 2f);
             Vector3 currentItemPos = item.flyDirRef.transform.position;
             foreach (Collider collider in colliderArray)
@@ -55,6 +58,12 @@ namespace WandSpellss
                     c.Play();
                 }
             }
+
+            effect = Instantiate(Loader.local.depulsoEffect);
+            effect.transform.position = item.flyDirRef.position;
+            effect.transform.rotation = item.flyDirRef.rotation;
+            effect.GetComponentInChildren<VisualEffect>().Play();
+            Loader.local.couroutineManager.StartCustomCoroutine(Loader.local.couroutineManager.DestroyVFX(effect));
         }
     }
     

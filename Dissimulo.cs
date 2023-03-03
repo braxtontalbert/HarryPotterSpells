@@ -26,11 +26,13 @@ namespace WandSpellss
                             
                             detector.sightDetectionHorizontalFov = 0f;
                             detector.sightDetectionVerticalFov = 0f;
+                            Debug.Log("Creature: " + creature + " | " + "Values: {Horizontal | Vertical}" + detector.sightDetectionHorizontalFov + " | " + detector.sightDetectionVerticalFov);
                         }
                         else
                         {
                             detector.sightDetectionHorizontalFov = 0f;
                             detector.sightDetectionVerticalFov = 0f;
+                            Debug.Log("Creature: " + creature + " | " + "Values: {Horizontal | Vertical}" + detector.sightDetectionHorizontalFov + " | " + detector.sightDetectionVerticalFov);
                         }
                     }
                     else {
@@ -56,7 +58,6 @@ namespace WandSpellss
         private Creature creature;
         private bool canDisillusion;
         private float dissolveVal;
-        GameObject dissimuloActive;
         void Start()
         {
             creature = Player.currentCreature;
@@ -64,9 +65,9 @@ namespace WandSpellss
             canDisillusion = true;
             dissolveVal = 0;
             Loader.local.dissimuloActive = true;
-            dissimuloActive = new GameObject();
-            dissimuloActive.AddComponent<DissimuloActive>();
-            Loader.local.activeDisillusion = Instantiate(dissimuloActive);
+
+            Loader.local.activeDisillusion = new GameObject();
+            Loader.local.activeDisillusion.AddComponent<DissimuloActive>();
             StartDissimulo();
         }
 
