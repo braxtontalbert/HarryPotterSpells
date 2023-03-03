@@ -23,7 +23,8 @@ namespace WandSpellss
         Creature currentCreature;
         private GameObject go;
         private VisualEffect vfx;
-        
+        private GameObject sdfGenerator = new GameObject();
+        private Texture3D sdf;
 
         public static SpellType spellType = SpellType.Raycast;
 
@@ -51,13 +52,17 @@ namespace WandSpellss
         {
             go = Instantiate(Loader.local.wingardiumLeviosaEffect);
             vfx = go.GetComponentInChildren<VisualEffect>();
+            SDFGenerator sdfg = sdfGenerator.AddComponent<SDFGenerator>();
+            sdfg.Mesh = go.GetComponentInChildren<Mesh>();
             
+            sdf = sdfg.Generate();
+            vfx.SetTexture("sdf", sdf);
         }
 
         void UpdateVFX()
         {
             if(!vfx) SpawnVFX();
-            else if(vfx)
+            else if(vfx && !sdf)
             {
                 go.transform.position = item.flyDirRef.transform.position;
                 vfx.SetVector3("lineStart",item.flyDirRef.transform.position);

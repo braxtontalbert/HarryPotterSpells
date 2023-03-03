@@ -113,4 +113,3 @@ C:\Users\braxt\source\repos\WandSpellss\bin\Debug\ThunderRoad.pdb
 C:\Users\braxt\source\repos\WandSpellss\bin\Debug\Newtonsoft.Json.xml
 C:\Users\braxt\source\repos\WandSpellss\bin\Debug\Unity.TextMeshPro.dll
 C:\Users\braxt\source\repos\WandSpellss\obj\Debug\WandSpellss.csproj.AssemblyReference.cache
-C:\Users\braxt\source\repos\WandSpellss\bin\Debug\BroomHandling.dll

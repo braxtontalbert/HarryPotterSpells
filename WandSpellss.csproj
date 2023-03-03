@@ -137,6 +137,7 @@
     <Compile Include="RayCastShoot.cs" />
     <Compile Include="Reducio.cs" />
     <Compile Include="Sanuspirantes.cs" />
+    <Compile Include="SDFGenerator.cs" />
     <Compile Include="Sectumsempra.cs" />
     <Compile Include="sempraDespawn.cs" />
     <Compile Include="Soul.cs" />
