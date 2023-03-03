@@ -12,13 +12,24 @@ namespace WandSpellss
 {
     public class Coroutines : MonoBehaviour
     {
+        public Coroutines local;
+        private void Start()
+        {
+            local = this;
+        }
+        
 
         public void StartCustomCoroutine(IEnumerator methodIn) {
 
             StartCoroutine(methodIn);
 
         }
-        
+
+        public IEnumerator DestroyVFX(GameObject vfx)
+        {
+            yield return new WaitForSeconds(3f);
+            Destroy(vfx);
+        }
         public IEnumerator StopLeviate(GameObject go)
         {
             
@@ -124,6 +135,32 @@ namespace WandSpellss
             }
             if(!creature.isKilled) creature.ragdoll.SetState(Ragdoll.State.Destabilized);
             if(!creature.isKilled) creature.brain.instance.Start();
+        }
+        
+        
+        public IEnumerator ImperioCounterCurse(Creature creature, int factionOriginal)
+        {
+            bool started = true;
+            
+            while (started)
+            {
+                if (creature.isKilled)
+                {
+                    break;
+                } 
+                bool canStart = true;
+                int returnVal = UnityEngine.Random.Range(1, 101);
+                if (returnVal == 67)
+                {
+                    canStart = false;
+                }
+                else canStart = true;
+
+                yield return new WaitForSeconds(5f);
+                started = canStart;
+            }
+            creature.SetFaction(factionOriginal);
+            if(!creature.isKilled) creature.brain.Load(creature.brain.instance.id);
         }
         
     }

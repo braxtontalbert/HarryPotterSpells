@@ -5,87 +5,102 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 using ThunderRoad;
+using UnityEngine.VFX;
 
 namespace WandSpellss
 {
     public class Imperio : MonoBehaviour
     {
         Item item;
-        Creature playerCreature;
-        Creature ogCreature;
-        internal GameObject parentLocal;
+        private GameObject go;
+        private GameObject visible;
+        
         public void Start()
         {
             item = GetComponent<Item>();
+            go = Instantiate(Loader.local.imperioEffect);
+            visible = Instantiate(Loader.local.imperioShown);
+            go.GetComponent<ParticleSystem>().Play();
+            visible.GetComponent<ParticleSystem>().Play();
+            go.gameObject.AddComponent<SpellParticles>();
 
         }
 
-
-        internal void CastRay()
+        void Update()
         {
-
-            RaycastHit hit;
-            Transform parent;
-
-            if (Physics.Raycast(item.flyDirRef.position, item.flyDirRef.forward, out hit))
+            if (go && visible)
             {
-
-                Debug.Log("Did hit.");
-                Debug.Log(hit.collider.gameObject.transform.parent.name);
-
-                parent = hit.collider.gameObject.transform.parent;
-                parentLocal = parent.gameObject;
-
-                if (parentLocal.GetComponent<Creature>() != null)
-                {
-                    playerCreature = Player.local.creature;
-                    ogCreature = parentLocal.GetComponent<Creature>();
-                    Player.local.SetCreature(parentLocal.GetComponent<Creature>());
-                    
-                    Player.selfCollision = true;
-                    Player.local.creature.currentHealth = 30f;
-                    Player.local.creature.ragdoll.allowSelfDamage = true;
-
-                    Debug.Log("playerCreature1st: " + playerCreature);
-                    Debug.Log("ogCreature: " + ogCreature);
-                    Debug.Log("playerCreature2nd: " + Player.local.creature);
-
-
-
-
-                }
-
+                go.transform.rotation = item.flyDirRef.transform.rotation;
+                go.transform.position = item.flyDirRef.transform.position;
+                visible.transform.rotation = item.flyDirRef.transform.rotation;
+                visible.transform.position = item.flyDirRef.transform.position;
             }
-
-
         }
 
-        void Update() {
-            if (playerCreature != null) {
-                if (playerCreature.isKilled) {
+        
+    }
 
-                    Player.currentCreature.Kill();
+    public class OnCreature : MonoBehaviour
+    {
+        
+    }
 
-                }
-
-                else if (Player.local.creature.currentHealth <= 1f) {
-
-                    Player.local.creature.OnKillEvent += Creature_OnKillEvent;
-                    //Player.local.SetCreature(playerCreature);
-                    //Player.local.creature.currentHealth = 50f;
-
-                }
-            }
-            
-        }
-
-        private void Creature_OnKillEvent(CollisionInstance collisionInstance, EventTime eventTime)
+    public class SpellParticles : MonoBehaviour
+    {
+        private Creature creature;
+        private List<ParticleCollisionEvent> collisionEvents;
+        private ParticleSystem ps;
+        void Start()
         {
-            Player.local.SetCreature(playerCreature);
-            Player.local.creature.currentHealth = 50;
-            Player.selfCollision = false;
-            Player.local.creature.ragdoll.allowSelfDamage = false;
+            ps = this.GetComponent<ParticleSystem>();
+        }
+
+        void OnParticleCollision(GameObject other)
+        {
+            Debug.Log("Particle Collided!");
+            if (creature) return;
+            creature = other.GetComponentInParent<Creature>();
+            if (!creature.GetComponent<OnCreature>())
+            {
+                creature.gameObject.AddComponent<OnCreature>();
+                StartImperio(creature);
+            }
+            /*int numCollisionEvents = go.GetComponent<ParticleSystem>().GetCollisionEvents(other, collisionEvents);
+
+            Creature creature = other.GetComponentInParent<Creature>();
+            
+
+            if (numCollisionEvents > 10)
+            {
+                StartImperio(creature);
+            }*/
+        }
+        void StartImperio(Creature creature)
+        {
+            Loader.local.couroutineManager.StartCustomCoroutine(Loader.local.couroutineManager.ImperioCounterCurse(creature, creature.factionId));
+            creature.SetFaction(2);
+            creature.brain.Load(creature.brain.instance.id);
+            
         }
     }
 
+    public class ImperioHandler : Spell
+    {
+        public static SpellType spellType = SpellType.Raycast;
+        public override Spell AddGameObject(GameObject gameObject)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void SpawnSpell(Type type, string name, Item wand, float spellSpeed)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void UpdateSpell(Type type, string name, Item wand)
+        {
+            if (wand.gameObject.GetComponent(type)) UnityEngine.Object.Destroy(wand.gameObject.GetComponent(type));
+            wand.gameObject.AddComponent(type);
+        }
+    }
 }

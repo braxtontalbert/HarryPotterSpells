@@ -105,8 +105,11 @@
     <Compile Include="Coroutines.cs" />
     <Compile Include="CustomDebug.cs" />
     <Compile Include="DarkMark.cs" />
+    <Compile Include="Depulso.cs" />
     <Compile Include="DictationRecognizer.cs" />
     <Compile Include="DictationWand.cs" />
+    <Compile Include="Dissimulare.cs" />
+    <Compile Include="Dissimulo.cs" />
     <Compile Include="Engorgio.cs" />
     <Compile Include="EngorgioPerItem.cs" />
     <Compile Include="Evanesco.cs" />
