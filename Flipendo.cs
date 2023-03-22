@@ -29,7 +29,7 @@ namespace WandSpellss
             {
 
                 creature.ragdoll.SetState(Ragdoll.State.Destabilized);
-                foreach (Rigidbody rigidbody in c.gameObject.GetComponentInParent<Creature>().ragdoll.parts.Select(part => part.rb))
+                foreach (Rigidbody rigidbody in c.gameObject.GetComponentInParent<Creature>().ragdoll.parts.Select(part => part.physicBody.rigidBody))
                 {
 
                     CustomDebug.Debug("Rigidbody name: " + rigidbody.name);
@@ -97,8 +97,8 @@ namespace WandSpellss
 
                     projectile.Throw();
 
-                    projectile.rb.useGravity = false;
-                    projectile.rb.drag = 0.0f;
+                    projectile.physicBody.rigidBody.useGravity = false;
+                    projectile.physicBody.rigidBody.drag = 0.0f;
 
                     foreach (AudioSource c in wand.GetComponentsInChildren<AudioSource>())
                     {

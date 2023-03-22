@@ -136,8 +136,8 @@ namespace WandSpellss
 
                     projectile.Throw();
 
-                    projectile.rb.useGravity = false;
-                    projectile.rb.drag = 0.0f;
+                    projectile.physicBody.rigidBody.useGravity = false;
+                    projectile.physicBody.rigidBody.drag = 0.0f;
 
                     foreach (AudioSource c in wand.GetComponentsInChildren<AudioSource>())
                     {

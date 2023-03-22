@@ -42,7 +42,7 @@ namespace WandSpellss
         public void Ascend() {
 
             
-            foreach (Rigidbody rigidbody in player.ragdoll.parts.Select(part => part.rb)) {
+            foreach (Rigidbody rigidbody in player.ragdoll.parts.Select(part => part.physicBody.rigidBody)) {
 
                 if (rigidbody != null)
                 {

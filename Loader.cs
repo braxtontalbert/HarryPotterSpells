@@ -41,10 +41,14 @@ namespace WandSpellss
         public GameObject wingardiumLeviosaEffect;
         public GameObject imperioEffect;
         public GameObject depulsoEffect;
+        public GameObject avadaTest;
+        public GameObject protegoNew;
         public List<Item> currentlyHeldWands = new List<Item>();
         public List<Type> spellsOnPlayer = new List<Type>();
         public List<Type> finiteSpells = new List<Type>();
         public Dictionary<Creature, float[]> creaturesFOV = new Dictionary<Creature,float[]>();
+        public SDFGenerator sdfg;
+        public ComputeShader compute;
         
         //SOUNDFX
         public GameObject impedimentaSoundFX;
@@ -100,6 +104,14 @@ namespace WandSpellss
                 Catalog.LoadAssetAsync<GameObject>("apoz123Wand.SpellEffect.ImperioShown",callback => { imperioShown = callback;}, "ImperioVisibleEffect");
                 Catalog.LoadAssetAsync<GameObject>("apoz123Wand.SpellEffect.Depulso",
                     callback => { depulsoEffect = callback; }, "DepulsoEffect");
+                Catalog.LoadAssetAsync<GameObject>("apoz123.SpellEffect.ProtegoNew",
+                    callback => { protegoNew = callback; }, "ProtegoNew");
+                    
+                Catalog.LoadAssetAsync<GameObject>("apoz123.SpellEffect.AvadaTest",
+                    callback => { avadaTest = callback; }, "AvadaTest");
+                sdfg = new SDFGenerator();
+                Catalog.LoadAssetAsync<ComputeShader>("apoz123.GenerateSDF.Compute", callback => compute = callback,
+                    "ComputeShader");
 
                 dissimuloActive = false;
                 
@@ -154,6 +166,15 @@ namespace WandSpellss
                     catch (InvalidOperationException) { }
 
                     if (paramItem) couroutineManager.StartAccio(paramItem, Player.currentCreature.handRight);
+                }
+                else if (currentlyHeldWands.Count > 0 && e.Result.Text == "Accio Nimbus")
+                {
+                    Catalog.GetData<ItemData>("Nimbus2000BroomVersion").SpawnAsync(callback =>
+                    {
+                        Item item = currentlyHeldWands[0];
+                        callback.transform.position = item.transform.forward * 30f;
+                        callback.gameObject.AddComponent<AccioNimbus>().Setup(item.mainHandler.otherHand);
+                    });
                 }
 
                 /*else if (e.Result.Text.Contains("Accio") && e.Result.Text.Length > 5 && currentlyHeldWands.Count == 1) {

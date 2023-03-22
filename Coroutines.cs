@@ -62,9 +62,9 @@ namespace WandSpellss
 
             if (startAccio) {
 
-                currentWand.rb.useGravity = false;
+                currentWand.physicBody.rigidBody.useGravity = false;
                 float distance = (currentWand.transform.position - currentHandPosition.transform.position).magnitude;
-                currentWand.rb.velocity = (currentHandPosition.transform.position - currentWand.transform.position).normalized * 15f;
+                currentWand.physicBody.rigidBody.velocity = (currentHandPosition.transform.position - currentWand.transform.position).normalized * 15f;
 
                 if (distance < 0.1f) {
 
@@ -72,7 +72,7 @@ namespace WandSpellss
                     {
                         currentHandPosition.Grab(currentWand.mainHandleRight);
                         startAccio = false;
-                        currentWand.rb.useGravity = true;
+                        currentWand.physicBody.rigidBody.useGravity = true;
                         currentWand = null;
                         currentHandPosition= null;
 

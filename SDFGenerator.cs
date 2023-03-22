@@ -7,9 +7,9 @@ namespace WandSpellss
   /// @brief A tool to generate signed distance fields from Mesh assets.
   /// TODO: determine if we lose precision or negative values by using Color struct.
   /// Perhaps we should return float[,,] instead?
-  public class SDFGenerator : Component
+  public class SDFGenerator : Object
   {
-    private Mesh mesh = null;
+    public Mesh mesh = null;
 
     public Mesh Mesh
     {
@@ -105,7 +105,7 @@ namespace WandSpellss
       triangleBuffer.SetData(triangleArray);
 
       // Instantiate the compute shader from resources.
-      ComputeShader compute = Instantiate(Resources.Load("GenerateSDF")) as ComputeShader;
+      ComputeShader compute = Instantiate(Loader.local.compute);
       int kernel = compute.FindKernel("CSMain");
 
       // Upload the pixel buffer to the GPU.

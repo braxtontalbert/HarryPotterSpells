@@ -27,7 +27,7 @@ namespace WandSpellss
 
         public void StartArrestoMomentum() {
 
-            foreach (Rigidbody rigidbody in Player.currentCreature.ragdoll.parts.Select(part => part.rb))
+            foreach (Rigidbody rigidbody in Player.currentCreature.ragdoll.parts.Select(part => part.physicBody.rigidBody))
             {
                 rigidbody.velocity = -Vector3.down * 5f;
             }

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using UnityEngine;
 using ThunderRoad;
 using System.Collections;
+using UnityEngine.VFX;
 
 namespace WandSpellss
 {
@@ -17,55 +18,69 @@ namespace WandSpellss
         internal AudioSource source;
         public static SpellType spellType = SpellType.Shoot;
         internal AudioSource sourceCurrent;
+        private GameObject go;
+        private GameObject GO;
+        private VisualEffect vfx;
+        private bool playing;
+        private bool buttonPressed;
         public void GetWand(Item item) {
             wand = item;
         }
 
-        public void Awake()
+        public void Start()
         {
-            item = GetComponent<Item>();
-            item.rb.collisionDetectionMode = CollisionDetectionMode.ContinuousSpeculative;
-            item.rb.isKinematic = true;
-            
-            source = GetComponent<AudioSource>();
-            source.loop = true;
-            item.gameObject.AddComponent<IgnoreCollider>();
-            Loader.local.finiteSpells.Add(typeof(Protego));
-            StartCoroutine(Timer());
+            playing = false;
+            buttonPressed = false;
+            wand = GetComponent<Item>();
+            wand.OnHeldActionEvent += HeldActionEvent;
+            GO = Instantiate(Loader.local.protegoNew);
+            GO.transform.position = wand.flyDirRef.transform.position;
+            GO.transform.rotation = wand.flyDirRef.transform.rotation;
+            vfx = GO.GetComponentInChildren<VisualEffect>();
+            vfx.Play();
+            playing = true;
+        }
+
+        private void HeldActionEvent(RagdollHand ragdollhand, Handle handle, Interactable.Action action)
+        {
+            if (action == Interactable.Action.AlternateUseStart)
+            {
+                if (playing)
+                {
+                    playing = false;
+                    vfx.Stop();
+                }
+            }
         }
 
 
         public void OnTriggerEnter(Collider other) {
 
-            if (other.gameObject.GetComponentInParent<AvadaKedavra>() && other.gameObject.GetComponentInParent<Item>() is Item itemParent)
+            /*if (other.gameObject.GetComponentInParent<AvadaKedavra>() && other.gameObject.GetComponentInParent<Item>() is Item itemParent)
             {
                 itemParent.IgnoreObjectCollision(this.item);
-            }
+            }*/
         }
 
-        /*void Update() {
+        void Update() {
 
-            if (item != null) {
-
-                item.transform.position = wand.flyDirRef.transform.position;
-                item.transform.rotation = wand.flyDirRef.transform.rotation;
-
+            if (GO) {
+                GO.transform.position = wand.flyDirRef.transform.position;
+                GO.transform.rotation = wand.flyDirRef.transform.rotation;
             }
         
-        }*/
+        }
 
         IEnumerator Timer() {
 
 
             yield return new WaitForSeconds(15f);
-
-            item.Despawn();
         }
     }
 
     public class ProtegoHandler : Spell
     {
-        public static SpellType spellType = SpellType.Shoot;
+        public static SpellType spellType = SpellType.Raycast;
         private float expelliarmusPower = 30f;
         //AudioSource sourceCurrent;
 
@@ -89,8 +104,8 @@ namespace WandSpellss
 
                     projectile.Throw();
 
-                    projectile.rb.useGravity = false;
-                    projectile.rb.drag = 0.0f;
+                    projectile.physicBody.rigidBody.useGravity = false;
+                    projectile.physicBody.rigidBody.drag = 0.0f;
 
                     foreach (AudioSource c in wand.GetComponentsInChildren<AudioSource>())
                     {
@@ -108,7 +123,8 @@ namespace WandSpellss
 
         public override void UpdateSpell(Type type, string name, Item wand)
         {
-            throw new NotImplementedException();
+            if (wand.gameObject.GetComponent(type)) UnityEngine.Object.Destroy(wand.gameObject.GetComponent(type));
+            wand.gameObject.AddComponent(type);
         }
     }
 

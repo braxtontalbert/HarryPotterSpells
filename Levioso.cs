@@ -25,13 +25,13 @@ namespace WandSpellss
             if (collision.gameObject.GetComponentInParent<Creature>() is Creature creature)
             {
                 creature.ragdoll.SetState(Ragdoll.State.Destabilized);
-                currentCreature = creature.ragdoll.targetPart.rb;
+                currentCreature = creature.ragdoll.targetPart.physicBody.rigidBody;
                 startLevitate = true;
                 position = creature.ragdoll.targetPart.transform.position;
             }
             else if(collision.gameObject.GetComponentInParent<Item>() is Item item)
             {
-                currentCreature = item.rb;
+                currentCreature = item.physicBody.rigidBody;
                 startLevitate = true;
                 position = item.transform.position;
             }
@@ -105,8 +105,8 @@ namespace WandSpellss
 
                     projectile.Throw();
 
-                    projectile.rb.useGravity = false;
-                    projectile.rb.drag = 0.0f;
+                    projectile.physicBody.rigidBody.useGravity = false;
+                    projectile.physicBody.rigidBody.drag = 0.0f;
                     foreach (AudioSource c in wand.GetComponentsInChildren<AudioSource>())
                     {
                         if (c.name == name) c.Play();

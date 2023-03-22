@@ -49,7 +49,7 @@ namespace WandSpellss
                 if (hit.collider.GetComponentInParent<Creature>() is Creature creature)
                 {
 
-                    creature.ragdoll.targetPart.rb.AddForce(wand.flyDirRef.transform.forward * creature.ragdoll.totalMass * 2f, ForceMode.Acceleration);
+                    creature.ragdoll.targetPart.physicBody.rigidBody.AddForce(wand.flyDirRef.transform.forward * creature.ragdoll.totalMass * 2f, ForceMode.Acceleration);
 
 
                 }

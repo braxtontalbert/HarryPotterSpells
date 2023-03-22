@@ -95,12 +95,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AccioNimbus.cs" />
     <Compile Include="AccioPerItem.cs" />
     <Compile Include="ArrestoMomentum.cs" />
     <Compile Include="Ascendio.cs" />
     <Compile Include="AvadaKedavra.cs" />
     <Compile Include="Aguamenti.cs" />
     <Compile Include="Accio.cs" />
+    <Compile Include="AvadaTest.cs" />
     <Compile Include="BrainModuleHPWands.cs" />
     <Compile Include="Coroutines.cs" />
     <Compile Include="CustomDebug.cs" />

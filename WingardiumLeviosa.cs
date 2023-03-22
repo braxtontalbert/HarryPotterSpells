@@ -23,8 +23,8 @@ namespace WandSpellss
         Creature currentCreature;
         private GameObject go;
         private VisualEffect vfx;
-        private GameObject sdfGenerator = new GameObject();
         private Texture3D sdf;
+        private Mesh itemMesh;
 
         public static SpellType spellType = SpellType.Raycast;
 
@@ -52,22 +52,26 @@ namespace WandSpellss
         {
             go = Instantiate(Loader.local.wingardiumLeviosaEffect);
             vfx = go.GetComponentInChildren<VisualEffect>();
-            SDFGenerator sdfg = sdfGenerator.AddComponent<SDFGenerator>();
-            sdfg.Mesh = go.GetComponentInChildren<Mesh>();
             
-            sdf = sdfg.Generate();
-            vfx.SetTexture("sdf", sdf);
+            /*Debug.Log(currentRigidbody.GetComponentInParent<Mesh>());
+            Debug.Log(currentRigidbody.GetComponent<Mesh>());*/
+            if (itemMesh)
+            {
+                Loader.local.sdfg.mesh = itemMesh;
+                sdf = Loader.local.sdfg.Generate();
+                Debug.Log("SDF: " + sdf);
+                vfx.SetTexture("sdf", sdf);
+            }
         }
 
         void UpdateVFX()
         {
-            if(!vfx) SpawnVFX();
-            else if(vfx && !sdf)
+            if (!vfx) SpawnVFX();
+            else if (vfx)
             {
                 go.transform.position = item.flyDirRef.transform.position;
-                vfx.SetVector3("lineStart",item.flyDirRef.transform.position);
+                vfx.SetVector3("lineStart", item.flyDirRef.transform.position);
                 vfx.SetVector3("lineEnd", currentRigidbody.transform.position);
-                vfx.SetVector3("objectSize", currentRigidbody.inertiaTensor);
             }
         }
 
@@ -88,6 +92,7 @@ namespace WandSpellss
 
                 if (parentLocal.gameObject.GetComponent<Item>() is Item item1)
                 {
+                    itemMesh = item1.gameObject.GetComponentInChildren<MeshFilter>().mesh;
                     currentRigidbody = item1.GetComponent<Rigidbody>();
                     canLift = true;
                     distance = Math.Abs(Vector3.Distance(parentLocal.transform.position, item.flyDirRef.position));
@@ -95,7 +100,7 @@ namespace WandSpellss
                 }
                 else if (parentLocal.gameObject.GetComponentInParent<Item>() is Item item2)
                 {
-                    
+                    itemMesh = item2.gameObject.GetComponentInChildren<MeshFilter>().mesh;
                     currentRigidbody = item2.GetComponent<Rigidbody>();
                     canLift = true;
                     distance = Math.Abs(Vector3.Distance(parentLocal.transform.position, item.flyDirRef.position));
@@ -103,6 +108,7 @@ namespace WandSpellss
                 }
                 else if (parentLocal.gameObject.GetComponentInChildren<Item>() is Item item3)
                 {
+                    itemMesh = item3.gameObject.GetComponentInChildren<MeshFilter>().mesh;
                     currentRigidbody = item3.GetComponent<Rigidbody>();
                     canLift = true;
                     distance = Math.Abs(Vector3.Distance(parentLocal.transform.position, item.flyDirRef.position));

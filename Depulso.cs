@@ -37,7 +37,7 @@ namespace WandSpellss
                             float distance = Vector3.Distance(item.flyDirRef.position, ragdollPart.transform.position);
                             ragdollPart.ragdoll.creature.TryPush(Creature.PushType.Magic,  direction.normalized * 2f,
                                 (int)Mathf.Round(Mathf.Lerp(1f, 3f, Mathf.InverseLerp(2f, 0.0f, distance))));
-                            ragdollPart.rb.AddForce(direction.normalized * ragdollPart.rb.mass * 8f, ForceMode.Impulse);
+                            ragdollPart.physicBody.rigidBody.AddForce(direction.normalized * ragdollPart.physicBody.rigidBody.mass * 8f, ForceMode.Impulse);
                         }
                     }
                     else 

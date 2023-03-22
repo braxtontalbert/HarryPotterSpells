@@ -31,7 +31,7 @@ namespace WandSpellss
                 Vector3 targetPos = new Vector3(target.transform.position.x, target.transform.position.y + 0.3f, target.transform.position.z);
                 Vector3 direction = targetPos - item.transform.position;
 
-                item.rb.AddForce(direction * (10f * item.rb.mass),ForceMode.Impulse);
+                item.physicBody.rigidBody.AddForce(direction * (10f * item.physicBody.rigidBody.mass),ForceMode.Impulse);
 
                 cantWaddiwassi = true;
                 Destroy(this);
