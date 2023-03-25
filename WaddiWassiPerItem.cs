@@ -35,8 +35,6 @@ namespace WandSpellss
 
                 cantWaddiwassi = true;
                 Destroy(this);
-                
-
             }
         }
     }

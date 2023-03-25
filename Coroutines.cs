@@ -16,6 +16,7 @@ namespace WandSpellss
         private void Start()
         {
             local = this;
+            CustomDebug.Debug("Started custom coroutine manager.");
         }
         
 
@@ -86,11 +87,14 @@ namespace WandSpellss
         //PETERIFUCUS TOTALLUS COUROUTINES
         public IEnumerator SpawnSparkEffect(GameObject effect, Vector3 position)
         {
-            effect.transform.position = position;
-            effect = GameObject.Instantiate(effect);
+            if (effect)
+            {
+                effect.transform.position = position;
+                effect = GameObject.Instantiate(effect);
 
 
-            effect.GetComponentInChildren<VisualEffect>().Play();
+                effect.GetComponentInChildren<VisualEffect>().Play();
+            }
 
             yield return new WaitForSeconds(3f);
 
@@ -113,25 +117,29 @@ namespace WandSpellss
         public IEnumerator Timer(Creature creature, Collision c)
         {
             bool started = true;
-            
-            creature.ragdoll.SetState(Ragdoll.State.Frozen);
-            creature.brain.instance.Stop();
-            while (started)
+            if (creature)
             {
-                if (creature.isKilled)
-                {
-                    break;
-                } 
-                bool canStart = true;
-                int returnVal = UnityEngine.Random.Range(1, 101);
-                if (returnVal % 5 == 0)
-                {
-                    canStart = false;
-                }
-                else canStart = true;
 
-                yield return new WaitForSeconds(5f);
-                started = canStart;
+                creature.ragdoll.SetState(Ragdoll.State.Frozen);
+                creature.brain.instance.Stop();
+                while (started)
+                {
+                    if (creature.isKilled)
+                    {
+                        break;
+                    }
+
+                    bool canStart = true;
+                    int returnVal = UnityEngine.Random.Range(1, 101);
+                    if (returnVal % 5 == 0)
+                    {
+                        canStart = false;
+                    }
+                    else canStart = true;
+
+                    yield return new WaitForSeconds(5f);
+                    started = canStart;
+                }
             }
             if(!creature.isKilled) creature.ragdoll.SetState(Ragdoll.State.Destabilized);
             if(!creature.isKilled) creature.brain.instance.Start();
@@ -144,10 +152,14 @@ namespace WandSpellss
             
             while (started)
             {
-                if (creature.isKilled)
+                if (creature)
                 {
-                    break;
-                } 
+                    if (creature.isKilled)
+                    {
+                        break;
+                    }
+                }
+
                 bool canStart = true;
                 int returnVal = UnityEngine.Random.Range(1, 101);
                 if (returnVal == 67)
@@ -155,6 +167,7 @@ namespace WandSpellss
                     canStart = false;
                 }
                 else canStart = true;
+               
 
                 yield return new WaitForSeconds(5f);
                 started = canStart;

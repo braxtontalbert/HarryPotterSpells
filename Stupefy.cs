@@ -27,7 +27,7 @@ namespace WandSpellss
             {
                 SpellEffect(creature);
             }
-            Loader.local.couroutineManager.StartCustomCoroutine(SpawnSparkEffect(Loader.local.stupefySparks, c.contacts[0].point));
+            Loader.local.couroutineManager.StartCustomCoroutine(Loader.local.couroutineManager.SpawnSparkEffect(Loader.local.stupefySparks, c.contacts[0].point));
         }
 
         public IEnumerator SpawnSparkEffect(GameObject effect, Vector3 position)

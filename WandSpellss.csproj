@@ -22,6 +22,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x64</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -141,6 +142,7 @@
     <Compile Include="Protego.cs" />
     <Compile Include="RayCastShoot.cs" />
     <Compile Include="Reducio.cs" />
+    <Compile Include="Repairo.cs" />
     <Compile Include="Sanuspirantes.cs" />
     <Compile Include="SDFGenerator.cs" />
     <Compile Include="Sectumsempra.cs" />

@@ -9,6 +9,7 @@ using ThunderRoad;
 using UnityEngine.VFX;
 using UnityEngine;
 using System.Diagnostics;
+using Debug = UnityEngine.Debug;
 
 namespace WandSpellss
 {
@@ -88,8 +89,8 @@ namespace WandSpellss
                 Catalog.LoadAssetAsync<Material>("apoz123Wand.SpellEffect.Dissimulo.Mat", callback => { dissimuloDissolveMat = callback; }, "Dissimulo");
                 //Catalog.LoadAssetAsync<Material>("apoz123Wand.Selector.Mat", callback => { selectorMat = callback; }, "Selector");
                 //Catalog.LoadAssetAsync<GameObject>("apoz123Wand.Incendio.SpellEffect", callback => { incendioEffect = callback; }, "Incendio");
-                Catalog.LoadAssetAsync<GameObject>("apoz123Wand.SpellEffect.BubbleHead", callback => { bubbleHeadEffect = callback; }, "BubbleHead");
-                Catalog.LoadAssetAsync<GameObject>("apoz123Wand.SpellEffect.Sparks.Stupefy", callback => { stupefySparks = callback; }, "StupefySparks");
+                Catalog.LoadAssetAsync<GameObject>("apoz123Wand.SpellEffect.BubbleHead", callback => { bubbleHeadEffect = callback; Debug.Log(callback);}, "BubbleHead");
+                Catalog.LoadAssetAsync<GameObject>("apoz123Wand.SpellEffect.Sparks.Stupefy", callback => { stupefySparks = callback; Debug.Log(callback);}, "StupefySparks");
                 Catalog.LoadAssetAsync<GameObject>("apoz123Wand.SpellEffect.Sparks.Expelliarmus", callback => { expelliarmusSparks = callback; }, "ExpelliarmusSparks");
                 Catalog.LoadAssetAsync<GameObject>("apoz123Wand.SpellEffect.Sparks.AvadaKedavra", callback => { avadaSparks = callback; }, "AvadaKedavraSparks");
                 Catalog.LoadAssetAsync<GameObject>("apoz123Wand.SpellEffect.Sparks.PetrificusTotalus", callback => { petrificusSparks = callback; }, "PetrificusTotalusSparks");
@@ -103,7 +104,7 @@ namespace WandSpellss
                 Catalog.LoadAssetAsync<GameObject>("apoz123Wand.SpellEffect.ImperioHidden",callback => { imperioEffect = callback;}, "ImperioEffect");
                 Catalog.LoadAssetAsync<GameObject>("apoz123Wand.SpellEffect.ImperioShown",callback => { imperioShown = callback;}, "ImperioVisibleEffect");
                 Catalog.LoadAssetAsync<GameObject>("apoz123Wand.SpellEffect.Depulso",
-                    callback => { depulsoEffect = callback; }, "DepulsoEffect");
+                    callback => { depulsoEffect = callback; Debug.Log(callback);}, "DepulsoEffect");
                 Catalog.LoadAssetAsync<GameObject>("apoz123.SpellEffect.ProtegoNew",
                     callback => { protegoNew = callback; }, "ProtegoNew");
                     
