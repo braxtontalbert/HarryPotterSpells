@@ -36,7 +36,7 @@ namespace WandSpellss
                     Item itemToForce = itemsToForce[UnityEngine.Random.Range(0, itemsToForce.Count - 1)];
 
                     Vector3 direction = (creature.ragdoll.headPart.transform.position - itemToForce.transform.position).normalized;
-                    itemToForce.rb.AddForce(direction * itemToForce.rb.mass * (10f * distance), ForceMode.Impulse);
+                    itemToForce.physicBody.rigidBody.AddForce(direction * itemToForce.physicBody.rigidBody.mass * (10f * distance), ForceMode.Impulse);
                 }
             }
         }

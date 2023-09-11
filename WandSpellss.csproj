@@ -12,6 +12,7 @@
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
+    <AutoGenerateBindingRedirects>false</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -21,6 +22,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x64</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -94,13 +96,16 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AccioNimbus.cs" />
     <Compile Include="AccioPerItem.cs" />
     <Compile Include="ArrestoMomentum.cs" />
     <Compile Include="Ascendio.cs" />
     <Compile Include="AvadaKedavra.cs" />
     <Compile Include="Aguamenti.cs" />
     <Compile Include="Accio.cs" />
+    <Compile Include="AvadaTest.cs" />
     <Compile Include="BrainModuleHPWands.cs" />
+    <Compile Include="Confringo.cs" />
     <Compile Include="Coroutines.cs" />
     <Compile Include="CustomDebug.cs" />
     <Compile Include="DarkMark.cs" />
@@ -138,7 +143,9 @@
     <Compile Include="Protego.cs" />
     <Compile Include="RayCastShoot.cs" />
     <Compile Include="Reducio.cs" />
+    <Compile Include="Repairo.cs" />
     <Compile Include="Sanuspirantes.cs" />
+    <Compile Include="SDFGenerator.cs" />
     <Compile Include="Sectumsempra.cs" />
     <Compile Include="sempraDespawn.cs" />
     <Compile Include="Soul.cs" />

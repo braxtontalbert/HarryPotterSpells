@@ -20,8 +20,6 @@ namespace WandSpellss
         public VisualEffect vfx;
         public static SpellType spellType;
         public readonly float spellSpeed = 10f;
-
-
         public virtual void SpellEffect(Creature creature) { }
         public virtual void SpellEffect() { }
 
@@ -40,6 +38,7 @@ namespace WandSpellss
         public static void SpawnSpell(Type handler, Type type, string name, Item wand,float spellSpeed) {
 
             Debug.Log("Invoking on wand");
+            Debug.Log(handler.GetMethod("SpawnSpell"));
             handler.GetMethod("SpawnSpell").Invoke(Activator.CreateInstance(handler), new object[] { type,name,wand,spellSpeed});
         }
 

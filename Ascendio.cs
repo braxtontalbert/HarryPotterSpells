@@ -22,6 +22,7 @@ namespace WandSpellss
 
             player = Player.local.creature;
             ascendioDefault = 2000f;
+            player.groundStabilizationMaxVelocity = 0f;
             ascendioPower = ascendioDefault;
             Player.local.creature.waterHandler.OnWaterEnter += WaterHandler_OnWaterEnter;
             Player.local.creature.waterHandler.OnWaterExit += WaterHandler_OnWaterExit;
@@ -40,9 +41,8 @@ namespace WandSpellss
         }
 
         public void Ascend() {
-
             
-            foreach (Rigidbody rigidbody in player.ragdoll.parts.Select(part => part.rb)) {
+            foreach (Rigidbody rigidbody in player.ragdoll.parts.Select(part => part.physicBody.rigidBody)) {
 
                 if (rigidbody != null)
                 {

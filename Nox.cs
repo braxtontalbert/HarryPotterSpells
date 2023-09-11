@@ -12,26 +12,36 @@ namespace WandSpellss
     {
 
         Item wand;
-        public static SpellType spellType = SpellType.Tip;
+        public static SpellType spellType = SpellType.Raycast;
 
-        void Start() {
-
-            if (Loader.local.currentTipper is Item item && item.GetComponent<Lumos>())
+        void Start()
+        {
+            if (Loader.local.currentTippers.Count > 0)
             {
-                foreach (AudioSource c in Loader.local.currentWand.GetComponentsInChildren<AudioSource>())
+                foreach (Item currentTipper in Loader.local.currentTippers)
                 {
-
-                    switch (c.name)
+                    Loader.local.currentTippers.Remove(currentTipper);
+                    foreach (Item wand in Loader.local.currentlyHeldWands)
                     {
-                        case "NoxSound":
-                            c.Play();
-                            break;
+                        if (currentTipper is Item item && item.GetComponent<Lumos>())
+                        {
+                            foreach (AudioSource c in wand.GetComponentsInChildren<AudioSource>())
+                            {
+
+                                switch (c.name)
+                                {
+                                    case "NoxSound":
+                                        c.Play();
+                                        break;
+                                }
+                            }
+
+                            item.Despawn();
+
+                        }
                     }
                 }
-                item.Despawn();
             }
-        
-        
         }
     }
 

@@ -17,6 +17,8 @@ namespace WandSpellss
     {
 
         Item wand;
+        ItemVoiceModule module;
+        private ItemModuleAI itemModuleAI;
         Item current;
         Transform parent;
         GameObject parentLocal;
@@ -34,8 +36,9 @@ namespace WandSpellss
         Queue<Renderer> renderersQueue = new Queue<Renderer>();
         Material selectorMaterial;
         Item currentLumos;
-
-
+        private double castDelayTime;
+        private bool isDelayingCast;
+        
         bool debug;
 
         public void Setup(float importSpeed, bool importMagicEffect, float importExpelliarmusPower)
@@ -44,15 +47,31 @@ namespace WandSpellss
             magicEffect = importMagicEffect;
             expelliarmusPower = importExpelliarmusPower;
         }
-
         void Start() {
             wand = GetComponent<Item>();
+            /*module = wand.data.GetModule<ItemVoiceModule>();
+            itemModuleAI = wand.data.GetModule<ItemModuleAI>();
+            AIFireable component = this.GetComponent<AIFireable>();
+            if (component)
+            {
+                component.OnAIFire = new AIFireable.FireableEvent(this.OnAiFire);
+            }*/
             //recogWand = wand.gameObject.AddComponent<KeyWordRecogWand>();
             wand.OnGrabEvent += Wand_OnGrabEvent;
             wand.OnUngrabEvent += Wand_OnUngrabEvent;
             selectorMaterial = Loader.local.selectorMat;
             debug = false;
         }
+
+        /*public bool OnAiFire(AIFireable fireable, RagdollHand ragdollHand, bool finished)
+        {
+            if (module.castDelay > 0.0)
+            {
+                this.castDelayTime = this.module.castDelay;
+                this.isDelayingCast = true;
+            }
+            
+        }*/
 
         private void Wand_OnUngrabEvent(Handle handle, RagdollHand ragdollHand, bool throwing)
         {

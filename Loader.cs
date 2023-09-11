@@ -9,6 +9,7 @@ using ThunderRoad;
 using UnityEngine.VFX;
 using UnityEngine;
 using System.Diagnostics;
+using Debug = UnityEngine.Debug;
 
 namespace WandSpellss
 {
@@ -19,7 +20,7 @@ namespace WandSpellss
 
         public List<Creature> levicorpusedCreatures = new List<Creature>();
         public List<GameObject> floaters = new List<GameObject>();
-        public Item currentTipper;
+        public List<Item> currentTippers = new List<Item>();
         public Item currentWand;
         public Material evanescoDissolveMat;
         public Material dissimuloDissolveMat;
@@ -38,12 +39,17 @@ namespace WandSpellss
         public GameObject tarantallegraSparks;
         public GameObject flipendoSparks;
         public GameObject leviosoSparks;
+        public GameObject wingardiumLeviosaEffect;
         public GameObject imperioEffect;
         public GameObject depulsoEffect;
+        public GameObject avadaTest;
+        public GameObject protegoNew;
         public List<Item> currentlyHeldWands = new List<Item>();
         public List<Type> spellsOnPlayer = new List<Type>();
         public List<Type> finiteSpells = new List<Type>();
         public Dictionary<Creature, float[]> creaturesFOV = new Dictionary<Creature,float[]>();
+        public SDFGenerator sdfg;
+        public ComputeShader compute;
         
         //SOUNDFX
         public GameObject impedimentaSoundFX;
@@ -63,6 +69,9 @@ namespace WandSpellss
         public GameObject activeDisillusion;
         public List<Material[]> originalCreatureMaterial = new List<Material[]>();
         
+        //protego
+        public bool protegoSpawned { get; set; }
+
 
         public override void OnCatalogRefresh()
         {
@@ -83,8 +92,8 @@ namespace WandSpellss
                 Catalog.LoadAssetAsync<Material>("apoz123Wand.SpellEffect.Dissimulo.Mat", callback => { dissimuloDissolveMat = callback; }, "Dissimulo");
                 //Catalog.LoadAssetAsync<Material>("apoz123Wand.Selector.Mat", callback => { selectorMat = callback; }, "Selector");
                 //Catalog.LoadAssetAsync<GameObject>("apoz123Wand.Incendio.SpellEffect", callback => { incendioEffect = callback; }, "Incendio");
-                Catalog.LoadAssetAsync<GameObject>("apoz123Wand.SpellEffect.BubbleHead", callback => { bubbleHeadEffect = callback; }, "BubbleHead");
-                Catalog.LoadAssetAsync<GameObject>("apoz123Wand.SpellEffect.Sparks.Stupefy", callback => { stupefySparks = callback; }, "StupefySparks");
+                Catalog.LoadAssetAsync<GameObject>("apoz123Wand.SpellEffect.BubbleHead", callback => { bubbleHeadEffect = callback; Debug.Log(callback);}, "BubbleHead");
+                Catalog.LoadAssetAsync<GameObject>("apoz123Wand.SpellEffect.Sparks.Stupefy", callback => { stupefySparks = callback; Debug.Log(callback);}, "StupefySparks");
                 Catalog.LoadAssetAsync<GameObject>("apoz123Wand.SpellEffect.Sparks.Expelliarmus", callback => { expelliarmusSparks = callback; }, "ExpelliarmusSparks");
                 Catalog.LoadAssetAsync<GameObject>("apoz123Wand.SpellEffect.Sparks.AvadaKedavra", callback => { avadaSparks = callback; }, "AvadaKedavraSparks");
                 Catalog.LoadAssetAsync<GameObject>("apoz123Wand.SpellEffect.Sparks.PetrificusTotalus", callback => { petrificusSparks = callback; }, "PetrificusTotalusSparks");
@@ -94,13 +103,23 @@ namespace WandSpellss
                 Catalog.LoadAssetAsync<GameObject>("apoz123Wand.SpellEffect.Sparks.Levioso", callback => { leviosoSparks = callback; }, "LeviosoSparks");
                 Catalog.LoadAssetAsync<GameObject>("apoz123Wand.SpellEffect.Impedimenta",callback => { impedimentaEffect = callback;}, "ImpedimentaEffect");
                 Catalog.LoadAssetAsync<GameObject>("apoz123Wand.SoundEffect.Impedimenta",callback => { impedimentaSoundFX = callback;}, "ImpedimentaSoundEffect");
+                Catalog.LoadAssetAsync<GameObject>("apoz123Wand.SpellEffect.Line",callback => { wingardiumLeviosaEffect = callback;}, "LineEffect");
                 Catalog.LoadAssetAsync<GameObject>("apoz123Wand.SpellEffect.ImperioHidden",callback => { imperioEffect = callback;}, "ImperioEffect");
                 Catalog.LoadAssetAsync<GameObject>("apoz123Wand.SpellEffect.ImperioShown",callback => { imperioShown = callback;}, "ImperioVisibleEffect");
                 Catalog.LoadAssetAsync<GameObject>("apoz123Wand.SpellEffect.Depulso",
-                    callback => { depulsoEffect = callback; }, "DepulsoEffect");
+                    callback => { depulsoEffect = callback; Debug.Log(callback);}, "DepulsoEffect");
+                Catalog.LoadAssetAsync<GameObject>("apoz123.SpellEffect.ProtegoNew",
+                    callback => { protegoNew = callback; }, "ProtegoNew");
+                    
+                Catalog.LoadAssetAsync<GameObject>("apoz123.SpellEffect.AvadaTest",
+                    callback => { avadaTest = callback; }, "AvadaTest");
+                sdfg = new SDFGenerator();
+                Catalog.LoadAssetAsync<ComputeShader>("apoz123.GenerateSDF.Compute", callback => compute = callback,
+                    "ComputeShader");
 
                 dissimuloActive = false;
-                
+                protegoSpawned = false;
+                EventManager.onItemEquip += OnItemEquip;
                 Choices spells = new Choices();
                 List<JSONSpell> loadedSpells = Catalog.GetData<SpellListData>("CustomSpells").spellList;
 
@@ -124,8 +143,21 @@ namespace WandSpellss
                 recognizer.RecognizeAsync(RecognizeMode.Multiple);
                 recognizer.SpeechRecognized += Recognizer_SpeechRecognized;
                 Application.quitting += () => Process.GetCurrentProcess().Kill();
+                foreach (string micName in Microphone.devices)
+                {
+                    Debug.Log("Default Microphone is: " + micName);   
+                }
             });
         }
+
+        private void OnItemEquip(Item item)
+        {
+            if (item.GetComponent<ItemVoiceModule>() != null)
+            {
+               this.currentlyHeldWands.Add(item);
+            }
+        }
+
         private void Recognizer_SpeechRecognized(object sender, SpeechRecognizedEventArgs e)
         {
 
@@ -152,6 +184,15 @@ namespace WandSpellss
                     catch (InvalidOperationException) { }
 
                     if (paramItem) couroutineManager.StartAccio(paramItem, Player.currentCreature.handRight);
+                }
+                else if (currentlyHeldWands.Count > 0 && e.Result.Text == "Accio Nimbus")
+                {
+                    Catalog.GetData<ItemData>("Nimbus2000BroomVersion").SpawnAsync(callback =>
+                    {
+                        Item item = currentlyHeldWands[0];
+                        callback.transform.position = item.transform.forward * 30f;
+                        callback.gameObject.AddComponent<AccioNimbus>().Setup(item.mainHandler.otherHand);
+                    });
                 }
 
                 /*else if (e.Result.Text.Contains("Accio") && e.Result.Text.Length > 5 && currentlyHeldWands.Count == 1) {
