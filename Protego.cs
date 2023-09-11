@@ -23,20 +23,19 @@ namespace WandSpellss
         private VisualEffect vfx;
         private bool playing;
         private bool buttonPressed;
-        public void GetWand(Item item) {
+        public void GetWand(Item item)
+        {
             wand = item;
+            wand.OnHeldActionEvent += HeldActionEvent;
         }
-
+        
         public void Start()
         {
+            item = GetComponent<Item>();
             playing = false;
             buttonPressed = false;
-            wand = GetComponent<Item>();
-            wand.OnHeldActionEvent += HeldActionEvent;
-            GO = Instantiate(Loader.local.protegoNew);
-            GO.transform.position = wand.flyDirRef.transform.position;
-            GO.transform.rotation = wand.flyDirRef.transform.rotation;
-            vfx = GO.GetComponentInChildren<VisualEffect>();
+            item.transform.position = wand.flyDirRef.transform.position;
+            vfx = item.gameObject.GetComponentInChildren<VisualEffect>();
             vfx.Play();
             playing = true;
         }
@@ -49,6 +48,7 @@ namespace WandSpellss
                 {
                     playing = false;
                     vfx.Stop();
+                    StartCoroutine(Timer());
                 }
             }
         }
@@ -56,31 +56,30 @@ namespace WandSpellss
 
         public void OnTriggerEnter(Collider other) {
 
-            /*if (other.gameObject.GetComponentInParent<AvadaKedavra>() && other.gameObject.GetComponentInParent<Item>() is Item itemParent)
+            if (other.gameObject.GetComponentInParent<AvadaKedavra>() && other.gameObject.GetComponentInParent<Item>() is Item itemParent)
             {
                 itemParent.IgnoreObjectCollision(this.item);
-            }*/
+            }
         }
 
         void Update() {
-
-            if (GO) {
-                GO.transform.position = wand.flyDirRef.transform.position;
-                GO.transform.rotation = wand.flyDirRef.transform.rotation;
-            }
+            item.transform.position = wand.flyDirRef.transform.position;
+            item.transform.rotation = wand.flyDirRef.transform.rotation;
         
         }
 
         IEnumerator Timer() {
 
 
-            yield return new WaitForSeconds(15f);
+            yield return new WaitForSeconds(3f);
+            Loader.local.protegoSpawned = false;
+            item.Despawn();
         }
     }
 
     public class ProtegoHandler : Spell
     {
-        public static SpellType spellType = SpellType.Raycast;
+        public static SpellType spellType = SpellType.Shoot;
         private float expelliarmusPower = 30f;
         //AudioSource sourceCurrent;
 
@@ -91,40 +90,50 @@ namespace WandSpellss
 
         public override void SpawnSpell(Type type, string name, Item wand, float spellSpeed)
         {
-            try
+            if (!Loader.local.protegoSpawned)
             {
-                Catalog.GetData<ItemData>(name + "Object")?.SpawnAsync(projectile =>
+                try
                 {
-                    projectile.gameObject.AddComponent(type);
-
-                    projectile.transform.position = wand.flyDirRef.transform.position;
-                    projectile.transform.rotation = wand.flyDirRef.transform.rotation;
-                    projectile.IgnoreObjectCollision(wand);
-                    projectile.IgnoreRagdollCollision(Player.currentCreature.ragdoll);
-
-                    projectile.Throw();
-
-                    projectile.physicBody.rigidBody.useGravity = false;
-                    projectile.physicBody.rigidBody.drag = 0.0f;
-
-                    foreach (AudioSource c in wand.GetComponentsInChildren<AudioSource>())
+                    Catalog.GetData<ItemData>(name + "Object")?.SpawnAsync(projectile =>
                     {
+                        Loader.local.protegoSpawned = true;
+                        projectile.gameObject.AddComponent(type);
 
-                        if (c.name == name) c.Play();
-                    }
-                    if (projectile.gameObject.GetComponent<Protego>() is Protego protego)
-                    {
-                        protego.GetWand(wand);
-                    }
-                });
+
+                        projectile.transform.position = wand.flyDirRef.transform.position;
+                        projectile.transform.rotation = wand.flyDirRef.transform.rotation;
+                        projectile.IgnoreObjectCollision(wand);
+                        projectile.IgnoreRagdollCollision(Player.currentCreature.ragdoll);
+
+                        projectile.Throw();
+
+                        projectile.physicBody.rigidBody.useGravity = false;
+                        projectile.physicBody.rigidBody.drag = 0.0f;
+
+                        foreach (AudioSource c in wand.GetComponentsInChildren<AudioSource>())
+                        {
+
+                            if (c.name == name) c.Play();
+                        }
+
+                        if (projectile.gameObject.GetComponent<Protego>() is Protego protego)
+                        {
+                            protego.GetWand(wand);
+                        }
+                    });
+                }
+                catch (NullReferenceException e)
+                {
+                    Debug.Log(e.Message);
+                }
             }
-            catch (NullReferenceException e) { Debug.Log(e.Message); }
         }
 
         public override void UpdateSpell(Type type, string name, Item wand)
         {
-            if (wand.gameObject.GetComponent(type)) UnityEngine.Object.Destroy(wand.gameObject.GetComponent(type));
-            wand.gameObject.AddComponent(type);
+            /*if (wand.gameObject.GetComponent(type)) UnityEngine.Object.Destroy(wand.gameObject.GetComponent(type));
+            wand.gameObject.AddComponent(type);*/
+            throw new NotImplementedException();
         }
     }
 

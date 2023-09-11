@@ -61,6 +61,8 @@ namespace WandSpellss
                 sdf = Loader.local.sdfg.Generate();
                 Debug.Log("SDF: " + sdf);
                 vfx.SetTexture("sdf", sdf);
+                vfx.SetVector3("lineStart", item.flyDirRef.transform.position);
+                vfx.SetVector3("lineEnd", currentRigidbody.transform.position);
             }
         }
 
@@ -148,7 +150,7 @@ namespace WandSpellss
         {
             direction = item.flyDirRef.forward;
 
-                if (canLift == true)
+                if (canLift)
                 {
                     UpdateVFX();
                     currentRigidbody.velocity = ((item.flyDirRef.position + (direction * distance)) - currentRigidbody.position) * (3f);

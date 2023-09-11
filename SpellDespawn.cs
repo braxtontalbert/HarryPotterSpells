@@ -25,8 +25,7 @@ namespace WandSpellss
         }
 
         public void OnCollisionEnter(Collision c) {
-
-
+            
             if (c.collider.GetComponentInParent<IgnoreCollider>()) { }
             else item.Despawn();
         

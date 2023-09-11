@@ -118,3 +118,5 @@ C:\Users\braxt\source\repos\WandSpellss\bin\Debug\UnityEngine.TextCoreFontEngine
 C:\Users\braxt\source\repos\WandSpellss\bin\Debug\UnityEngine.UnityAnalyticsCommonModule.dll
 C:\Users\braxt\source\repos\WandSpellss\bin\Debug\UnityEngine.NVIDIAModule.dll
 C:\Users\braxt\source\repos\WandSpellss\bin\Debug\UnityEngine.TextCoreTextEngineModule.dll
+C:\Users\braxt\source\repos\WandSpellss\bin\Debug\Bhaptics.SDK2.dll
+C:\Users\braxt\source\repos\WandSpellss\bin\Debug\BroomHandling.dll

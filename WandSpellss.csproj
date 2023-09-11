@@ -105,6 +105,7 @@
     <Compile Include="Accio.cs" />
     <Compile Include="AvadaTest.cs" />
     <Compile Include="BrainModuleHPWands.cs" />
+    <Compile Include="Confringo.cs" />
     <Compile Include="Coroutines.cs" />
     <Compile Include="CustomDebug.cs" />
     <Compile Include="DarkMark.cs" />

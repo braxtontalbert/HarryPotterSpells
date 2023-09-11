@@ -47,9 +47,9 @@ namespace WandSpellss
                 subs.disallowDespawn = true;
                 List<Item> others = returnList.Where(item => item != subs).ToList();
                 subs.gameObject.GetComponentInParent<Item>().gameObject.AddComponent<BreakableUpdated>().Setup(
-                    breakable.linkedItem.data,
-                    breakable.linkedItem.transform.position,
-                    breakable.linkedItem.transform.rotation, tempr.gameObject.GetComponent<TrackPieces>(), others);
+                    breakable.LinkedItem.data,
+                    breakable.LinkedItem.transform.position,
+                    breakable.LinkedItem.transform.rotation, tempr.gameObject.GetComponent<TrackPieces>(), others);
             }
         }
     }

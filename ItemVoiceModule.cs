@@ -14,6 +14,8 @@ namespace WandSpellss
         public float spellSpeed;
         public bool magicEffect;
         public float expelliarmusPower;
+        internal double castDelay;
+        internal float castHaptic = 1f;
         
         public override void OnItemLoaded(Item item)
         {

@@ -15,7 +15,7 @@ namespace WandSpellss
         Item wand;
         public static SpellType spellType = SpellType.Shoot;
         internal string command;
-
+        
         public void SetWand(Item item) {
 
             this.wand = item;
@@ -24,7 +24,7 @@ namespace WandSpellss
         void Start() {
 
             item = GetComponent<Item>();
-            Loader.local.currentTipper = item;
+            Loader.local.currentTippers.Add(item);
         }
 
         void Update() {
@@ -33,10 +33,7 @@ namespace WandSpellss
             {
                 item.transform.position = wand.flyDirRef.transform.position;
                 item.transform.rotation = wand.flyDirRef.transform.rotation;
-
             }
-
-        
         }
     }
 
@@ -51,13 +48,14 @@ namespace WandSpellss
 
         public override void SpawnSpell(Type type, string name, Item wand, float spellSpeed)
         {
-            
-            try
+            if (Loader.local.currentTippers.Count < 1 || Loader.local.currentTippers == null)
             {
-                if (!Loader.local.currentTipper)
+                if (Loader.local.currentTippers == null) Loader.local.currentTippers = new List<Item>();
+                try
                 {
-                    Catalog.GetData<ItemData>(name + "Object")?.SpawnAsync(projectile =>
+                Catalog.GetData<ItemData>(name + "Object")?.SpawnAsync(projectile =>
                     {
+                        CustomDebug.Debug("Lumos Projectile is: " + projectile);
                         projectile.gameObject.AddComponent(type);
 
                         projectile.transform.position = wand.flyDirRef.transform.position;
@@ -79,8 +77,8 @@ namespace WandSpellss
                         if (projectile.GetComponent<Lumos>() is Lumos lumos) lumos.SetWand(wand);
                     });
                 }
+                catch (NullReferenceException e) { Debug.Log(e.Message); }
             }
-            catch (NullReferenceException e) { Debug.Log(e.Message); }
         }
 
         public override void UpdateSpell(Type type, string name, Item wand)

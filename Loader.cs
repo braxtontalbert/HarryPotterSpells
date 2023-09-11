@@ -20,7 +20,7 @@ namespace WandSpellss
 
         public List<Creature> levicorpusedCreatures = new List<Creature>();
         public List<GameObject> floaters = new List<GameObject>();
-        public Item currentTipper;
+        public List<Item> currentTippers = new List<Item>();
         public Item currentWand;
         public Material evanescoDissolveMat;
         public Material dissimuloDissolveMat;
@@ -69,6 +69,9 @@ namespace WandSpellss
         public GameObject activeDisillusion;
         public List<Material[]> originalCreatureMaterial = new List<Material[]>();
         
+        //protego
+        public bool protegoSpawned { get; set; }
+
 
         public override void OnCatalogRefresh()
         {
@@ -115,7 +118,8 @@ namespace WandSpellss
                     "ComputeShader");
 
                 dissimuloActive = false;
-                
+                protegoSpawned = false;
+                EventManager.onItemEquip += OnItemEquip;
                 Choices spells = new Choices();
                 List<JSONSpell> loadedSpells = Catalog.GetData<SpellListData>("CustomSpells").spellList;
 
@@ -139,8 +143,21 @@ namespace WandSpellss
                 recognizer.RecognizeAsync(RecognizeMode.Multiple);
                 recognizer.SpeechRecognized += Recognizer_SpeechRecognized;
                 Application.quitting += () => Process.GetCurrentProcess().Kill();
+                foreach (string micName in Microphone.devices)
+                {
+                    Debug.Log("Default Microphone is: " + micName);   
+                }
             });
         }
+
+        private void OnItemEquip(Item item)
+        {
+            if (item.GetComponent<ItemVoiceModule>() != null)
+            {
+               this.currentlyHeldWands.Add(item);
+            }
+        }
+
         private void Recognizer_SpeechRecognized(object sender, SpeechRecognizedEventArgs e)
         {
 

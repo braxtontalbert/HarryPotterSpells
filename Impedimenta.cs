@@ -23,33 +23,24 @@ namespace WandSpellss
         private GameObject sender;
 
         void Start() {
-            item = GetComponent<ThunderRoad.Item>();
+            item = GetComponent<Item>();
             StartImpedimenta();
             if(go) Loader.local.couroutineManager.StartCustomCoroutine(DestroyImpedimentaEffect(go));
             
         }
-
         void StartImpedimenta() {
-            List<Creature> foundTargets = new List<Creature>();
-            try
+            foreach (var creature in Creature.allActive)
             {
-                foundTargets = Creature.allActive.Where(creature => !creature.isPlayer && (Player.currentCreature.transform.position - creature.transform.position).sqrMagnitude < 5f * 5f).ToList();
-                CustomDebug.Debug("Target list size is: " + foundTargets.Count );
-            } catch { }
-            if (foundTargets.Count <= 0) return;
-            foreach (Creature target in foundTargets)
-            {
-                CustomDebug.Debug("Got into loop");
-                target.locomotion.SetSpeedModifier(this, 0.3f, 0.3f, 0.3f, 0.3f, 0.3f);
-                target.animator.speed = 0.3f;
+                if((Player.currentCreature.transform.position - creature.transform.position).sqrMagnitude < 5f * 5f)
+                {
+                    creature.locomotion.SetSpeedModifier(this, 0.3f, 0.3f, 0.3f, 0.3f, 0.3f);
+                    creature.animator.speed = 0.3f;
+                    creature.gameObject.AddComponent<CreaturesReversalEvent>();
+                }
             }
-
-            sender = new GameObject();
-            sender.AddComponent<CreaturesReversalEvent>().Setup(foundTargets);
             sfx = Instantiate(Loader.local.impedimentaSoundFX);
+            Loader.local.impedimentaEffect.transform.position = item.flyDirRef.transform.position;
             go = GameObject.Instantiate(Loader.local.impedimentaEffect);
-            despawner = Instantiate(sender);
-            go.transform.position = item.flyDirRef.position;
 
         }
 
@@ -62,30 +53,26 @@ namespace WandSpellss
 
     public class CreaturesReversalEvent : MonoBehaviour
     {
-        private List<Creature> creature;
+        private Creature creature;
 
-        public void Setup(List<Creature> creature)
+        public void Setup(Creature creature)
         {
-            this.creature = creature.DeepCopyByExpressionTree();
-            
+            this.creature = creature;
+
         }
 
         private void Start()
         {
             if (creature != null)
             {
-                foreach (Creature temp in creature)
-                {
-                    temp.OnKillEvent += Target_OnKillEvent;
-                }
-                
+                creature.OnKillEvent += Target_OnKillEvent;
             }
         }
 
         private void Target_OnKillEvent(CollisionInstance collisionInstance, EventTime eventTime)
         {
-            collisionInstance.targetCollider.GetComponentInParent<Creature>().animator.speed = 100f;
-            collisionInstance.targetCollider.GetComponentInParent<Creature>().locomotion.RemoveSpeedModifier(this);
+            collisionInstance.targetCollider.GetComponentInParent<Creature>().animator.speed = 1f;
+            creature.locomotion.ClearSpeedModifiers();
             Destroy(this);
         }
         
