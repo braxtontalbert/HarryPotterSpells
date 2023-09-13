@@ -108,8 +108,6 @@ namespace WandSpellss
                 }
             });
         }
-    }
-}
 
         public override void UpdateSpell(Type type, string name, Item wand)
         {
