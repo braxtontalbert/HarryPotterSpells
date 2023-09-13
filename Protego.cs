@@ -32,24 +32,15 @@ namespace WandSpellss
         public void Start()
         {
             item = GetComponent<Item>();
-            playing = false;
             buttonPressed = false;
             item.transform.position = wand.flyDirRef.transform.position;
-            vfx = item.gameObject.GetComponentInChildren<VisualEffect>();
-            vfx.Play();
-            playing = true;
         }
 
         private void HeldActionEvent(RagdollHand ragdollhand, Handle handle, Interactable.Action action)
         {
             if (action == Interactable.Action.AlternateUseStart)
             {
-                if (playing)
-                {
-                    playing = false;
-                    vfx.Stop();
-                    StartCoroutine(Timer());
-                }
+                item.Despawn();
             }
         }
 
@@ -69,8 +60,6 @@ namespace WandSpellss
         }
 
         IEnumerator Timer() {
-
-
             yield return new WaitForSeconds(3f);
             Loader.local.protegoSpawned = false;
             item.Despawn();
@@ -80,6 +69,7 @@ namespace WandSpellss
     public class ProtegoHandler : Spell
     {
         public static SpellType spellType = SpellType.Shoot;
+
         private float expelliarmusPower = 30f;
         //AudioSource sourceCurrent;
 
@@ -90,44 +80,36 @@ namespace WandSpellss
 
         public override void SpawnSpell(Type type, string name, Item wand, float spellSpeed)
         {
-            if (!Loader.local.protegoSpawned)
+            Catalog.GetData<ItemData>(name + "Object")?.SpawnAsync(projectile =>
             {
-                try
+                Loader.local.protegoSpawned = true;
+                projectile.gameObject.AddComponent(type);
+
+
+                projectile.transform.position = wand.flyDirRef.transform.position;
+                projectile.transform.rotation = wand.flyDirRef.transform.rotation;
+                projectile.IgnoreObjectCollision(wand);
+                projectile.IgnoreRagdollCollision(Player.currentCreature.ragdoll);
+
+                projectile.Throw();
+
+                projectile.physicBody.rigidBody.useGravity = false;
+                projectile.physicBody.rigidBody.drag = 0.0f;
+
+                foreach (AudioSource c in wand.GetComponentsInChildren<AudioSource>())
                 {
-                    Catalog.GetData<ItemData>(name + "Object")?.SpawnAsync(projectile =>
-                    {
-                        Loader.local.protegoSpawned = true;
-                        projectile.gameObject.AddComponent(type);
 
-
-                        projectile.transform.position = wand.flyDirRef.transform.position;
-                        projectile.transform.rotation = wand.flyDirRef.transform.rotation;
-                        projectile.IgnoreObjectCollision(wand);
-                        projectile.IgnoreRagdollCollision(Player.currentCreature.ragdoll);
-
-                        projectile.Throw();
-
-                        projectile.physicBody.rigidBody.useGravity = false;
-                        projectile.physicBody.rigidBody.drag = 0.0f;
-
-                        foreach (AudioSource c in wand.GetComponentsInChildren<AudioSource>())
-                        {
-
-                            if (c.name == name) c.Play();
-                        }
-
-                        if (projectile.gameObject.GetComponent<Protego>() is Protego protego)
-                        {
-                            protego.GetWand(wand);
-                        }
-                    });
+                    if (c.name == name) c.Play();
                 }
-                catch (NullReferenceException e)
+
+                if (projectile.gameObject.GetComponent<Protego>() is Protego protego)
                 {
-                    Debug.Log(e.Message);
+                    protego.GetWand(wand);
                 }
-            }
+            });
         }
+    }
+}
 
         public override void UpdateSpell(Type type, string name, Item wand)
         {
