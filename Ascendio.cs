@@ -26,6 +26,10 @@ namespace WandSpellss
             ascendioPower = ascendioDefault;
             Player.local.creature.waterHandler.OnWaterEnter += WaterHandler_OnWaterEnter;
             Player.local.creature.waterHandler.OnWaterExit += WaterHandler_OnWaterExit;
+            if (Player.local.locomotion.isGrounded)
+            {
+                Player.local.locomotion.Jump(true);
+            }
 
             Ascend();
         }

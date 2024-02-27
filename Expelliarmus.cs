@@ -25,6 +25,7 @@ namespace WandSpellss
             item = GetComponent<Item>();
         }
 
+        //TODO: Affect how it functions based on which ragdoll part is hit.
         public void OnCollisionEnter(Collision c)
         {
             if (c.gameObject.GetComponentInParent<Creature>() is Creature creature)

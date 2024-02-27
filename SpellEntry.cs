@@ -8,6 +8,7 @@ using ThunderRoad;
 using System.Reflection;
 using System.Collections;
 using UnityEngine.VFX;
+//using FirearmAIFix;
 using static ThunderRoad.Creature;
 
 namespace WandSpellss
@@ -49,13 +50,14 @@ namespace WandSpellss
         }
         void Start() {
             wand = GetComponent<Item>();
-            /*module = wand.data.GetModule<ItemVoiceModule>();
+            module = wand.data.GetModule<ItemVoiceModule>();
             itemModuleAI = wand.data.GetModule<ItemModuleAI>();
-            AIFireable component = this.GetComponent<AIFireable>();
+            AIFireable component = GetComponent<AIFireable>();
+            //Debug.Log(component.gameObject.GetComponent<FirearmAIFix.AimVisualiserFireable>());
             if (component)
             {
-                component.OnAIFire = new AIFireable.FireableEvent(this.OnAiFire);
-            }*/
+                component.OnAIFire = OnAiFire;
+            }
             //recogWand = wand.gameObject.AddComponent<KeyWordRecogWand>();
             wand.OnGrabEvent += Wand_OnGrabEvent;
             wand.OnUngrabEvent += Wand_OnUngrabEvent;
@@ -63,15 +65,13 @@ namespace WandSpellss
             debug = false;
         }
 
-        /*public bool OnAiFire(AIFireable fireable, RagdollHand ragdollHand, bool finished)
+        public bool OnAiFire(AIFireable fireable, RagdollHand ragdollHand, bool finished)
         {
-            if (module.castDelay > 0.0)
-            {
-                this.castDelayTime = this.module.castDelay;
-                this.isDelayingCast = true;
-            }
-            
-        }*/
+            var spelLType = "Stupefy";
+            var spellType = Type.GetType("WandSpellss." + spelLType + "");
+            TypeSelection(spellType, "Stupefy", GetComponentInParent<Item>());
+            return true;
+        }
 
         private void Wand_OnUngrabEvent(Handle handle, RagdollHand ragdollHand, bool throwing)
         {
@@ -99,6 +99,7 @@ namespace WandSpellss
             Debug.Log(spellType);
             if ((SpellType)spellType == SpellType.Shoot)
             {
+                
                 SpellHandler.SpawnSpell(spellHandler, spell, name, wand, spellSpeed);
             }
 

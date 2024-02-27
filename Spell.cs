@@ -36,9 +36,6 @@ namespace WandSpellss
     public static class SpellHandler
     {
         public static void SpawnSpell(Type handler, Type type, string name, Item wand,float spellSpeed) {
-
-            Debug.Log("Invoking on wand");
-            Debug.Log(handler.GetMethod("SpawnSpell"));
             handler.GetMethod("SpawnSpell").Invoke(Activator.CreateInstance(handler), new object[] { type,name,wand,spellSpeed});
         }
 

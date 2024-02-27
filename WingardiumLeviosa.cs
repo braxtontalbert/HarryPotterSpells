@@ -13,7 +13,6 @@ namespace WandSpellss
     class WingardiumLeviosa : MonoBehaviour
     {
         Item item;
-        Item wand;
         internal bool canLift;
         internal GameObject parentLocal;
         Vector3 radius;
@@ -41,7 +40,7 @@ namespace WandSpellss
 
         private void Item_OnHeldActionEvent(RagdollHand ragdollHand, Handle handle, Interactable.Action action)
         {
-            if (action == Interactable.Action.AlternateUseStart && canLift == true) {
+            if (action == Interactable.Action.AlternateUseStart && canLift) {
 
                 canLift = false;
                 currentRigidbody = null;
@@ -98,6 +97,7 @@ namespace WandSpellss
                     currentRigidbody = item1.GetComponent<Rigidbody>();
                     canLift = true;
                     distance = Math.Abs(Vector3.Distance(parentLocal.transform.position, item.flyDirRef.position));
+                    item1.OnBreakStart += ItemsBrokeStart;
 
                 }
                 else if (parentLocal.gameObject.GetComponentInParent<Item>() is Item item2)
@@ -106,6 +106,7 @@ namespace WandSpellss
                     currentRigidbody = item2.GetComponent<Rigidbody>();
                     canLift = true;
                     distance = Math.Abs(Vector3.Distance(parentLocal.transform.position, item.flyDirRef.position));
+                    item2.OnBreakStart += ItemsBrokeStart;
 
                 }
                 else if (parentLocal.gameObject.GetComponentInChildren<Item>() is Item item3)
@@ -114,6 +115,7 @@ namespace WandSpellss
                     currentRigidbody = item3.GetComponent<Rigidbody>();
                     canLift = true;
                     distance = Math.Abs(Vector3.Distance(parentLocal.transform.position, item.flyDirRef.position));
+                    item3.OnBreakStart += ItemsBrokeStart;
 
                 }
                 else if (parentLocal.GetComponentInParent<Creature>() is Creature creature1) {
@@ -144,6 +146,12 @@ namespace WandSpellss
                     distance = Math.Abs(Vector3.Distance(parentLocal.transform.position, item.flyDirRef.position));
                 }
             }
+        }
+
+        private void ItemsBrokeStart(Breakable breakable)
+        {
+            canLift = false;
+            currentRigidbody = null;
         }
 
         void Update()

@@ -9,6 +9,7 @@ using ThunderRoad;
 using UnityEngine.VFX;
 using UnityEngine;
 using System.Diagnostics;
+//using FirearmAIFix;
 using Debug = UnityEngine.Debug;
 
 namespace WandSpellss
@@ -42,8 +43,10 @@ namespace WandSpellss
         public GameObject wingardiumLeviosaEffect;
         public GameObject imperioEffect;
         public GameObject depulsoEffect;
+        public GameObject explosion;
         public GameObject avadaTest;
         public GameObject protegoNew;
+        public GameObject crucioEffect;
         public List<Item> currentlyHeldWands = new List<Item>();
         public List<Type> spellsOnPlayer = new List<Type>();
         public List<Type> finiteSpells = new List<Type>();
@@ -68,6 +71,9 @@ namespace WandSpellss
         public bool dissimuloActive;
         public GameObject activeDisillusion;
         public List<Material[]> originalCreatureMaterial = new List<Material[]>();
+
+        public long epochTimeStart;
+        public long epochEndTime;
         
         //protego
         public bool protegoSpawned { get; set; }
@@ -106,6 +112,7 @@ namespace WandSpellss
                 Catalog.LoadAssetAsync<GameObject>("apoz123Wand.SpellEffect.Line",callback => { wingardiumLeviosaEffect = callback;}, "LineEffect");
                 Catalog.LoadAssetAsync<GameObject>("apoz123Wand.SpellEffect.ImperioHidden",callback => { imperioEffect = callback;}, "ImperioEffect");
                 Catalog.LoadAssetAsync<GameObject>("apoz123Wand.SpellEffect.ImperioShown",callback => { imperioShown = callback;}, "ImperioVisibleEffect");
+                Catalog.LoadAssetAsync<GameObject>("apoz123.SpellEffect.Explosion", callback => { explosion = callback;}, "ExplosionVisualEffect");
                 Catalog.LoadAssetAsync<GameObject>("apoz123Wand.SpellEffect.Depulso",
                     callback => { depulsoEffect = callback; Debug.Log(callback);}, "DepulsoEffect");
                 Catalog.LoadAssetAsync<GameObject>("apoz123.SpellEffect.ProtegoNew",
@@ -116,10 +123,11 @@ namespace WandSpellss
                 sdfg = new SDFGenerator();
                 Catalog.LoadAssetAsync<ComputeShader>("apoz123.GenerateSDF.Compute", callback => compute = callback,
                     "ComputeShader");
-
+                Catalog.LoadAssetAsync<GameObject>("apoz123Wand.SpellEffect.Crucio", callback => crucioEffect = callback,"CrucioEffect");
                 dissimuloActive = false;
                 protegoSpawned = false;
-                EventManager.onItemEquip += OnItemEquip;
+                EventManager.onItemEquip += OnItemEquip;/*
+                EventManager.onCreatureSpawn += OnCreatureSpawn;*/
                 Choices spells = new Choices();
                 List<JSONSpell> loadedSpells = Catalog.GetData<SpellListData>("CustomSpells").spellList;
 
@@ -150,6 +158,19 @@ namespace WandSpellss
             });
         }
 
+        private void OnCreatureSpawn(Creature creature)
+        {
+            if (creature.isPlayer)
+                return;
+            creature.gameObject.AddComponent<AimVisualizerBrainWand>();
+
+            /*if (creature.gameObject.GetComponent<AimVisualiserBrain>() is AimVisualiserBrain visualiser)
+            {
+                Debug.Log("Visualiser exists");
+                UnityEngine.GameObject.Destroy(visualiser);
+            }*/
+        }
+
         private void OnItemEquip(Item item)
         {
             if (item.GetComponent<ItemVoiceModule>() != null)
@@ -157,10 +178,8 @@ namespace WandSpellss
                this.currentlyHeldWands.Add(item);
             }
         }
-
         private void Recognizer_SpeechRecognized(object sender, SpeechRecognizedEventArgs e)
         {
-
             CustomDebug.Debug("Confidence: " + e.Result.Confidence);
             if (e.Result.Text != null && e.Result.Confidence > 0.93f)
             {

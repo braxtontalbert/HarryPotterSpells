@@ -19,7 +19,7 @@ namespace WandSpellss
             CustomDebug.Debug("Started custom coroutine manager.");
         }
         
-
+        
         public void StartCustomCoroutine(IEnumerator methodIn) {
 
             StartCoroutine(methodIn);

@@ -34,6 +34,7 @@ namespace WandSpellss
                 if((Player.currentCreature.transform.position - creature.transform.position).sqrMagnitude < 5f * 5f)
                 {
                     creature.locomotion.SetSpeedModifier(this, 0.3f, 0.3f, 0.3f, 0.3f, 0.3f);
+                    Debug.Log("Creature animator speed default: " + creature.animator.speed);
                     creature.animator.speed = 0.3f;
                     creature.gameObject.AddComponent<CreaturesReversalEvent>();
                 }
@@ -55,23 +56,16 @@ namespace WandSpellss
     {
         private Creature creature;
 
-        public void Setup(Creature creature)
-        {
-            this.creature = creature;
-
-        }
 
         private void Start()
         {
-            if (creature != null)
-            {
-                creature.OnKillEvent += Target_OnKillEvent;
-            }
+            creature = GetComponentInParent<Creature>();
+            creature.OnKillEvent += Target_OnKillEvent;
         }
 
         private void Target_OnKillEvent(CollisionInstance collisionInstance, EventTime eventTime)
         {
-            collisionInstance.targetCollider.GetComponentInParent<Creature>().animator.speed = 1f;
+            creature.animator.speed = 1f;
             creature.locomotion.ClearSpeedModifiers();
             Destroy(this);
         }

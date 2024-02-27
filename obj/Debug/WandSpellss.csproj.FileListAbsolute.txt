@@ -100,7 +100,6 @@ C:\Users\braxt\source\repos\WandSpellss\obj\Debug\WandSpellss.dll
 C:\Users\braxt\source\repos\WandSpellss\obj\Debug\WandSpellss.pdb
 C:\Users\braxt\source\repos\WandSpellss\bin\Debug\Unity.VisualEffectGraph.Runtime.dll
 C:\Users\braxt\source\repos\WandSpellss\bin\Debug\UnityEngine.TLSModule.dll
-C:\Users\braxt\source\repos\WandSpellss\bin\Debug\ThunderRoad.pdb
 C:\Users\braxt\source\repos\WandSpellss\bin\Debug\Newtonsoft.Json.xml
 C:\Users\braxt\source\repos\WandSpellss\bin\Debug\Unity.TextMeshPro.dll
 C:\Users\braxt\source\repos\WandSpellss\obj\Debug\WandSpellss.csproj.AssemblyReference.cache
@@ -120,3 +119,5 @@ C:\Users\braxt\source\repos\WandSpellss\bin\Debug\UnityEngine.NVIDIAModule.dll
 C:\Users\braxt\source\repos\WandSpellss\bin\Debug\UnityEngine.TextCoreTextEngineModule.dll
 C:\Users\braxt\source\repos\WandSpellss\bin\Debug\Bhaptics.SDK2.dll
 C:\Users\braxt\source\repos\WandSpellss\bin\Debug\BroomHandling.dll
+C:\Users\braxt\source\repos\WandSpellss\bin\Debug\FirearmAIFix.dll
+C:\Users\braxt\source\repos\WandSpellss\bin\Debug\FirearmAIFix.pdb
