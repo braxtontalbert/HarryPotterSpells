@@ -1,4 +1,4 @@
-﻿﻿using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,10 +7,9 @@ using UnityEngine;
 using ThunderRoad;
 using System.Collections;
 using UnityEngine.VFX;
-
 namespace WandSpellss
 {
-    class Expelliarmus : MonoBehaviour
+    class Evertestatum : MonoBehaviour
     {
         Item item;
         Item npcItem;
@@ -24,48 +23,25 @@ namespace WandSpellss
         {
             item = GetComponent<Item>();
         }
-        
-        //TODO: For Everte Statum
-        /*foreach (Rigidbody rigidbody in c.gameObject.GetComponentInParent<Creature>().ragdoll.parts.Select(part => part.physicBody.rigidBody))
-        {
-            var direction = (c.contacts[0].point - currentPosition).normalized;
-            CustomDebug.Debug("Rigidbody name: " + rigidbody.name);
-            rigidbody.AddForce(direction * (power), ForceMode.Impulse);
-        }*/
 
-        //TODO: Affect how it functions based on which ragdoll part is hit.
         public void OnCollisionEnter(Collision c)
         {
 
-            Item disarmedItem = new Item();
             if (c.gameObject.GetComponentInParent<Creature>() is Creature creature)
             {
-                disarmedItem = creature.handRight.grabbedHandle.item;
-                creature.handRight.UnGrab(false);
-                creature.handLeft.UnGrab(false);
-                //creature.ragdoll.SetState(Ragdoll.State.Destabilized);
+                creature.ragdoll.SetState(Ragdoll.State.Destabilized);
+                foreach (Rigidbody rigidbody in creature.ragdoll.parts.Select(part => part.physicBody.rigidBody))
+                {
+                    var direction = (c.contacts[0].point - currentPosition).normalized;
+                    rigidbody.AddForce(direction * (power), ForceMode.Impulse);
+                    rigidbody.AddForce(Vector3.up * (power / 1.5f), ForceMode.Impulse);
+                }
 
-            }
 
-            else if (c.gameObject.GetComponentInParent<Item>() is Item itemIn)
-            {
-
-                disarmedItem = item;
-                itemIn.mainHandler.otherHand.otherHand.UnGrab(false);
-                //itemIn.mainHandler.otherHand.creature.ragdoll.SetState(Ragdoll.State.Destabilized);
-
-            }
-
-            if (Loader.local.currentlyHeldWands.Count < 2)
-            {
-                RagdollHand oppositeHand = Loader.local.currentlyHeldWands[0].mainHandler.otherHand;
-                Vector3 direction =  oppositeHand.transform.position - disarmedItem.transform.position;
-                disarmedItem.physicBody.rigidBody.AddForce(direction.normalized * (disarmedItem.physicBody.mass * 1.35f) * Math.Min(Vector3.Distance(oppositeHand.transform.position,disarmedItem.transform.position), 15f), ForceMode.Impulse);
-                disarmedItem.physicBody.rigidBody.AddForce(Vector3.up * (disarmedItem.physicBody.mass * 1.35f) * Math.Min(Vector3.Distance(oppositeHand.transform.position,disarmedItem.transform.position),15f), ForceMode.Impulse);
             }
             
 
-            Loader.local.couroutineManager.StartCustomCoroutine(SpawnSparkEffect(Loader.local.expelliarmusSparks, c.contacts[0].point));
+            Loader.local.couroutineManager.StartCustomCoroutine(SpawnSparkEffect(Loader.local.evertestatumSparks, c.contacts[0].point));
 
         }
         
@@ -85,10 +61,10 @@ namespace WandSpellss
 
         }
     }
-    public class ExpelliarmusHandler : Spell
+    public class EvertestatumHandler : Spell
     {
         public static SpellType spellType = SpellType.Shoot;
-        private float expelliarmusPower = 30f;
+        private float evertestatumPower = 50f;
 
         public override Spell AddGameObject(GameObject gameObject)
         {
@@ -113,6 +89,13 @@ namespace WandSpellss
                     projectile.physicBody.rigidBody.useGravity = false;
                     projectile.physicBody.rigidBody.drag = 0.0f;
 
+                    if (projectile.gameObject.GetComponent<Evertestatum>() is Evertestatum exp)
+                    {
+                        exp.power = evertestatumPower;
+                        exp.currentPosition = wand.flyDirRef.position;
+
+                    }
+
                     foreach (AudioSource c in wand.GetComponentsInChildren<AudioSource>())
                     {
 
@@ -131,5 +114,4 @@ namespace WandSpellss
             throw new NotImplementedException();
         }
     }
-
 }

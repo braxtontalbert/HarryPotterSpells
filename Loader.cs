@@ -40,6 +40,7 @@ namespace WandSpellss
         public GameObject tarantallegraSparks;
         public GameObject flipendoSparks;
         public GameObject leviosoSparks;
+        public GameObject evertestatumSparks;
         public GameObject wingardiumLeviosaEffect;
         public GameObject imperioEffect;
         public GameObject depulsoEffect;
@@ -112,6 +113,7 @@ namespace WandSpellss
                 Catalog.LoadAssetAsync<GameObject>("apoz123Wand.SpellEffect.Line",callback => { wingardiumLeviosaEffect = callback;}, "LineEffect");
                 Catalog.LoadAssetAsync<GameObject>("apoz123Wand.SpellEffect.ImperioHidden",callback => { imperioEffect = callback;}, "ImperioEffect");
                 Catalog.LoadAssetAsync<GameObject>("apoz123Wand.SpellEffect.ImperioShown",callback => { imperioShown = callback;}, "ImperioVisibleEffect");
+                Catalog.LoadAssetAsync<GameObject>("apoz123Wand.SpellEffect.Sparks.Evertestatum", callback => {evertestatumSparks = callback;}, "EvertestatumSparks");
                 Catalog.LoadAssetAsync<GameObject>("apoz123.SpellEffect.Explosion", callback => { explosion = callback;}, "ExplosionVisualEffect");
                 Catalog.LoadAssetAsync<GameObject>("apoz123Wand.SpellEffect.Depulso",
                     callback => { depulsoEffect = callback; Debug.Log(callback);}, "DepulsoEffect");
