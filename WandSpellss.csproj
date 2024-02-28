@@ -123,6 +123,7 @@
     <Compile Include="EngorgioPerItem.cs" />
     <Compile Include="Evanesco.cs" />
     <Compile Include="EvanescoPerItem.cs" />
+    <Compile Include="Evertestatum.cs" />
     <Compile Include="FiniteIncantatum.cs" />
     <Compile Include="Flagrate.cs" />
     <Compile Include="Flipendo.cs" />
