@@ -129,10 +129,6 @@ namespace WandSpellss
                                     {
                                         toCompare.Add(selected, distance);
                                     }
-                                    else if(selected.data.category != null && selected.data.category.ToLower().Contains(itemType) && !toCompare.ContainsKey(selected))
-                                    {
-                                        toCompare.Add(selected, distance);
-                                    }
                                 }
                         }
                     }
