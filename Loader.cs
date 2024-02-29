@@ -55,6 +55,13 @@ namespace WandSpellss
         public SDFGenerator sdfg;
         public ComputeShader compute;
         
+        [ModOptionCategory("Spells", 1)]
+        [ModOptionOrder(1)]
+        [ModOption]
+        [ModOptionUI]
+        public static string spellList;
+        
+        
         //SOUNDFX
         public GameObject impedimentaSoundFX;
 
@@ -80,6 +87,8 @@ namespace WandSpellss
         public bool protegoSpawned { get; set; }
 
 
+        public List<String> itemNames = new List<string>();
+
         public override void OnCatalogRefresh()
         {
             //Only want one instance of the loader running
@@ -91,9 +100,11 @@ namespace WandSpellss
             CustomDebug.Debug("");
         }
 
+        public Choices spells = new Choices();
         async void AsyncSetup() {
 
-            await Task.Run(() => {
+            await Task.Run(() =>
+            {
                 couroutineManager = coroutineManagerGO.AddComponent<Coroutines>();
                 Catalog.LoadAssetAsync<Material>("apoz123Wand.SpellEffect.Evanesco.Mat", callback => { evanescoDissolveMat = callback; }, "Evanesco");
                 Catalog.LoadAssetAsync<Material>("apoz123Wand.SpellEffect.Dissimulo.Mat", callback => { dissimuloDissolveMat = callback; }, "Dissimulo");
@@ -130,7 +141,6 @@ namespace WandSpellss
                 protegoSpawned = false;
                 EventManager.onItemEquip += OnItemEquip;/*
                 EventManager.onCreatureSpawn += OnCreatureSpawn;*/
-                Choices spells = new Choices();
                 List<JSONSpell> loadedSpells = Catalog.GetData<SpellListData>("CustomSpells").spellList;
 
                 foreach (JSONSpell spell in loadedSpells)
@@ -141,9 +151,40 @@ namespace WandSpellss
                     spells.Add(spell.name);
                     CustomDebug.Debug("Choices count: " + spells.ToString());
                 }
-
+                
+                
                 spells.Add("Accio Wand");
                 spells.Add("Accio Nimbus");
+                List<ItemData> itemDatas = Catalog.GetDataList<ItemData>();
+                foreach (ItemData data in itemDatas)
+                {
+                    if (data.type == ItemData.Type.Weapon && data.type != null && data.displayName != null && data.category != null)
+                    {
+                        string displayName = data.displayName.ToLower();
+                        string categoryName = "";
+                        if (data.category.EndsWith("s"))
+                        {
+                            categoryName = data.category.Remove(data.category.Length - 1).ToLower();
+                        }
+                        else categoryName = data.category.ToLower();
+
+                        if (displayName.Contains(categoryName))
+                        {
+                                spells.Add("Accio " + categoryName.ToLower());
+                        }
+                        else
+                        {
+                            string[] allNames = displayName.Split(' ');
+
+                            for (int i = 0; i < allNames.Length; i++)
+                            {
+                                spells.Add("Accio " + allNames[i].ToLower());
+                            }
+                            spells.Add(displayName);
+                        }
+                    }
+                }
+                spells.Add("Accio " + "Weapon");
                 recognizer = new SpeechRecognitionEngine();
 
                 Grammar servicesGrammar = new Grammar(new GrammarBuilder(spells));
@@ -214,6 +255,18 @@ namespace WandSpellss
                         callback.transform.position = item.transform.forward * 30f;
                         callback.gameObject.AddComponent<AccioNimbus>().Setup(item.mainHandler.otherHand);
                     });
+                }
+
+                else if(e.Result.Text.Contains("Accio") & e.Result.Text.Length > "Accio".Length)
+                {
+                    Debug.Log("Accio with item name");
+                    foreach (Item wand in Loader.local.currentlyHeldWands)
+                    {
+                        Debug.Log("In wands loop");
+                        Type spellType = Type.GetType("WandSpellss." + "Accio" + "");
+                        Debug.Log(spellType);
+                        wand.gameObject.GetComponent<SpellEntry>().TypeSelection(spellType, e.Result.Text, wand, e.Result.Text);
+                    }
                 }
 
                 /*else if (e.Result.Text.Contains("Accio") && e.Result.Text.Length > 5 && currentlyHeldWands.Count == 1) {

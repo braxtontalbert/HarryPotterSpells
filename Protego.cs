@@ -115,6 +115,10 @@ namespace WandSpellss
             wand.gameObject.AddComponent(type);*/
             throw new NotImplementedException();
         }
+        public override void UpdateSpell(Type type, string name, Item wand, String itemType)
+        {
+            throw new NotImplementedException();
+        }
     }
 
 }

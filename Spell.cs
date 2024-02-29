@@ -27,6 +27,7 @@ namespace WandSpellss
         public abstract Spell AddGameObject(GameObject gameObject);
         public abstract void SpawnSpell(Type type, string name, Item wand, float spellSpeed);
         public abstract void UpdateSpell(Type type, string name, Item wand);
+        public abstract void UpdateSpell(Type type, string name, Item wand, String itemType);
 
         public virtual void CastRay() { }
 
@@ -41,7 +42,12 @@ namespace WandSpellss
 
         public static void UpdateSpell(Type handler, Type type, string name, Item wand) {
 
-            handler.GetMethod("UpdateSpell").Invoke(Activator.CreateInstance(handler), new object[] { type, name, wand});
+            handler.GetMethod("UpdateSpell",new Type[]{typeof(Type), typeof(string), typeof(Item)}).Invoke(Activator.CreateInstance(handler), new object[] { type, name, wand});
+        }
+        public static void UpdateSpell(Type handler, Type type, string name, Item wand, String itemType) {
+
+            Debug.Log("handler is: " + handler);
+            handler.GetMethod("UpdateSpell", new Type[]{typeof(Type), typeof(string), typeof(Item), typeof(String)}).Invoke(Activator.CreateInstance(handler), new object[] { type, name, wand, itemType});
         }
     }
 }

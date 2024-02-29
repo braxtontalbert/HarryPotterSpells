@@ -108,16 +108,27 @@ namespace WandSpellss
                 SpellHandler.UpdateSpell(spellHandler, spell, name, wand);
             }
         }
+        
+        public void TypeSelection(Type spell, string name, Item wand, String itemType)
+        {
+            Debug.Log("In Type selection");
+            name = name.Remove(5).Trim();
+            Debug.Log(name);
+            var spellHandler = Type.GetType(spell.Namespace + "." + name + "Handler");
+            Debug.Log("After handler");
+            var field = spellHandler.GetField("spellType", BindingFlags.Public | BindingFlags.Static);
+            Debug.Log("After field");
+            var spellType = field.GetValue(null);
+            Debug.Log("After spell type value");
+            if ((SpellType)spellType == SpellType.Shoot)
+            {
+                SpellHandler.SpawnSpell(spellHandler, spell, name, wand, spellSpeed);
+            }
 
-        public void UpdateSpell(Type spell, string name) {
-
-            if (wand.gameObject.GetComponent(spell)) UnityEngine.Object.Destroy(wand.gameObject.GetComponent(spell));
-            wand.gameObject.AddComponent(spell);
-        }
-        public void CastSpell(Type spell, string name) {
-            if (wand.gameObject.GetComponent(spell)) UnityEngine.GameObject.Destroy(wand.gameObject.GetComponent(spell));
-            wand.gameObject.AddComponent(spell);
-            
+            else if ((SpellType)spellType == SpellType.Raycast)
+            {
+                SpellHandler.UpdateSpell(spellHandler, spell, name, wand, itemType);
+            }
         }
         
         void Update() {

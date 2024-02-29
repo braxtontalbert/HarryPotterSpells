@@ -49,7 +49,6 @@ namespace WandSpellss
                     {
                         switch (componentLevel)
                         {
-
                             case "Mid":
                                 Player.currentCreature.GetHand(Side.Left).Grab(parentLocal.GetComponent<Item>().mainHandleRight);
                                 break;

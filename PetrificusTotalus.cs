@@ -88,6 +88,10 @@ namespace WandSpellss
         {
             throw new NotImplementedException();
         }
+        public override void UpdateSpell(Type type, string name, Item wand, String itemType)
+        {
+            throw new NotImplementedException();
+        }
     }
 
 }

@@ -107,5 +107,9 @@ namespace WandSpellss
             if (wand.gameObject.GetComponent(type)) UnityEngine.Object.Destroy(wand.gameObject.GetComponent(type));
             wand.gameObject.AddComponent(type);
         }
+        public override void UpdateSpell(Type type, string name, Item wand, String itemType)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

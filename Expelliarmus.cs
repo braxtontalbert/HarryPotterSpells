@@ -43,7 +43,6 @@ namespace WandSpellss
                 disarmedItem = creature.handRight.grabbedHandle.item;
                 creature.handRight.UnGrab(false);
                 creature.handLeft.UnGrab(false);
-                //creature.ragdoll.SetState(Ragdoll.State.Destabilized);
 
             }
 
@@ -52,7 +51,6 @@ namespace WandSpellss
 
                 disarmedItem = item;
                 itemIn.mainHandler.otherHand.otherHand.UnGrab(false);
-                //itemIn.mainHandler.otherHand.creature.ragdoll.SetState(Ragdoll.State.Destabilized);
 
             }
 
@@ -127,6 +125,10 @@ namespace WandSpellss
         }
 
         public override void UpdateSpell(Type type, string name, Item wand)
+        {
+            throw new NotImplementedException();
+        }
+        public override void UpdateSpell(Type type, string name, Item wand, String itemType)
         {
             throw new NotImplementedException();
         }
