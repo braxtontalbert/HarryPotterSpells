@@ -31,8 +31,6 @@ namespace WandSpellss
                 creature.ragdoll.SetState(Ragdoll.State.Destabilized);
                 foreach (Rigidbody rigidbody in c.gameObject.GetComponentInParent<Creature>().ragdoll.parts.Select(part => part.physicBody.rigidBody))
                 {
-
-                    CustomDebug.Debug("Rigidbody name: " + rigidbody.name);
                     rigidbody.AddForce(Vector3.up * 30f, ForceMode.Impulse);
                     if (rigidbody.name.Contains("Head"))
                     {
@@ -47,14 +45,14 @@ namespace WandSpellss
         {
 
             effect.transform.position = position;
-            effect = GameObject.Instantiate(effect);
+            effect = Instantiate(effect);
 
 
             effect.GetComponentInChildren<VisualEffect>().Play();
 
             yield return new WaitForSeconds(3f);
 
-            UnityEngine.GameObject.Destroy(effect);
+            Destroy(effect);
 
         }
 

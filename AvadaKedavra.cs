@@ -12,20 +12,10 @@ namespace WandSpellss
 {
     class AvadaKedavra : MonoBehaviour
     {
-        Item item;
         internal ItemData avadaLightning;
         internal AudioSource source;
         Item lightningItem;
-        public Creature hitCreatures;
-        public GameObject effect;
         public static SpellType spellType = SpellType.Shoot;
-        public void Awake()
-        {
-            item = GetComponent<Item>();
-            
-           
-            
-        }
 
         public void OnCollisionEnter(Collision c)
         {
@@ -42,14 +32,14 @@ namespace WandSpellss
         {
 
             effect.transform.position = position;
-            effect = GameObject.Instantiate(effect);
+            effect = Instantiate(effect);
 
 
             effect.GetComponentInChildren<VisualEffect>().Play();
 
             yield return new WaitForSeconds(3f);
 
-            UnityEngine.GameObject.Destroy(effect);
+            Destroy(effect);
 
         }
 

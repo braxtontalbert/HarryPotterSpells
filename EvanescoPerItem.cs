@@ -34,7 +34,6 @@ namespace WandSpellss
 
                 item = item3;
             
-            
             }
             cantEvanesco = false;
             dissolveVal = 0;
@@ -47,18 +46,15 @@ namespace WandSpellss
 
             if (cantEvanesco == false)
             {
-                if (item.gameObject.GetComponent<Renderer>() != null)
+                
+                if (item.gameObject.GetComponent<Renderer>() is Renderer renderer)
                 {
 
                     if (dissolveVal < 1)
                     {
-                        //dissolveVal += Time.deltaTime / 3f;
-
-                        //Debug.Log(dissolveVal);
                         dissolveVal += 0.01f;
-                        foreach (Material mat in item.gameObject.GetComponent<Renderer>().materials)
+                        foreach (Material mat in renderer.materials)
                         {
-                            CustomDebug.Debug("Evanesco Material: " + mat);
                             mat.SetFloat("_dissolve", dissolveVal);
                         }
 
@@ -71,54 +67,39 @@ namespace WandSpellss
                         dissolveVal = 0;
                         cantEvanesco = true;
                         Destroy(item.gameObject);
-
-
                     }
                 }
 
-                else if (item.gameObject.GetComponentInChildren<Renderer>() != null)
+                else if (item.gameObject.GetComponentInChildren<Renderer>() is Renderer rendererChild)
                 {
 
                     if (dissolveVal < 1)
                     {
-                        CustomDebug.Debug(dissolveVal);
                         dissolveVal += 0.01f;
-                        foreach (Material mat in item.gameObject.GetComponentInChildren<Renderer>().materials)
+                        foreach (Material mat in rendererChild.materials)
                         {
-                            CustomDebug.Debug("Evanesco Material: " + mat);
                             mat.SetFloat("_dissolve", dissolveVal);
                         }
 
                     }
-
-
                     else if (dissolveVal >= 1f)
                     {
-
-
                         dissolveVal = 0;
                         cantEvanesco = true;
                         Destroy(item.gameObject);
-
-
                     }
                 }
 
-                else if (item.gameObject.GetComponentInParent<Renderer>() != null)
+                else if (item.gameObject.GetComponentInParent<Renderer>() is Renderer rendererParent)
                 {
 
                     if (dissolveVal < 1)
                     {
-                        //dissolveVal += Time.deltaTime / 3f;
-
-                        //Debug.Log(dissolveVal);
                         dissolveVal += 0.01f;
-                        foreach (Material mat in item.gameObject.GetComponentInParent<Renderer>().materials)
+                        foreach (Material mat in rendererParent.materials)
                         {
-                            CustomDebug.Debug("Evanesco Material: " + mat);
                             mat.SetFloat("_dissolve", dissolveVal);
                         }
-
                     }
 
                     else if (dissolveVal >= 1f)
@@ -126,8 +107,6 @@ namespace WandSpellss
                         dissolveVal = 0;
                         cantEvanesco = true;
                         Destroy(item.gameObject);
-
-
                     }
                 }
 

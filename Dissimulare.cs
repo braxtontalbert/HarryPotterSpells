@@ -34,7 +34,6 @@ namespace WandSpellss
                         float horizontal = Loader.local.creaturesFOV[creature][1];
                         detector.sightDetectionHorizontalFov = horizontal;
                         detector.sightDetectionVerticalFov = vertical;
-                        Debug.Log("Creature: " + creature + " | " + "Values: {Horizontal | Vertical}" + detector.sightDetectionHorizontalFov + " | " + detector.sightDetectionVerticalFov);
                     }
                 }
             }

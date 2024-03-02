@@ -66,7 +66,8 @@ namespace WandSpellss
             
 
             Loader.local.explosion.transform.position = c.contacts[0].point;
-            Instantiate(Loader.local.explosion);
+            GameObject effect = Instantiate(Loader.local.explosion);
+            Loader.local.couroutineManager.StartCustomCoroutine(Loader.local.couroutineManager.DestroyVFX(effect));
         }
         
         public void OnCollisionEnter(Collision c)

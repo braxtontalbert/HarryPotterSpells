@@ -26,7 +26,6 @@ namespace WandSpellss
         public void Start()
         {
             item = GetComponent<Item>();
-            //Catalog.LoadAssetAsync<Material>("apoz123Wand.SpellEffect.Evanesco.Mat", callback => { this.evanescoDissolve = callback; }, "HarryPotterSpells");
             evanescoDissolve = Loader.local.evanescoDissolveMat.DeepCopyByExpressionTree();
             CastRay();
 
@@ -40,8 +39,6 @@ namespace WandSpellss
 
             if (Physics.Raycast(item.flyDirRef.transform.position, item.flyDirRef.transform.forward, out hit, float.MaxValue, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore))
             {
-
-
                 parent = hit.collider.gameObject.transform.parent;
                 parentLocal = hit.collider.gameObject;
                 if (parentLocal.GetComponentInParent<Item>() is Item evanescoItem)
@@ -53,23 +50,15 @@ namespace WandSpellss
 
                         for (int i = 0; i < myMaterials.Count; i++)
                         {
-                            //Debug.Log("Im in the " +i+ " iteration of the loop");
                             evanescoDissolve.SetTexture("_Albedo", myMaterials[i].GetTexture("_BaseMap"));
                             evanescoDissolve.SetColor("_color", myMaterials[i].GetColor("_BaseColor"));
-                            //Debug.Log(evanescoDissolve.GetTexture("_Albedo"));
                             evanescoDissolve.SetTexture("_Normal", myMaterials[i].GetTexture("_BumpMap"));
-                            //Debug.Log(evanescoDissolve.GetTexture("_Normal"));
                             evanescoDissolve.SetTexture("_Metallic", myMaterials[i].GetTexture("_MetallicGlossMap"));
-                            //Debug.Log(evanescoDissolve.GetTexture("_Metallic"));
 
                             matDefGood[i] = evanescoDissolve;
                         }
                         renderer.materials = matDefGood;
-
-
-
-
-
+                        
                         cantEvanesco = false;
                         evanescoItem.gameObject.AddComponent<EvanescoPerItem>();
 
@@ -82,14 +71,10 @@ namespace WandSpellss
 
                         for (int i = 0; i < myMaterials.Count; i++)
                         {
-                            //Debug.Log("Im in the " + i + " iteration of the loop");
                             evanescoDissolve.SetTexture("_Albedo", myMaterials[i].GetTexture("_BaseMap"));
                             evanescoDissolve.SetColor("_color", myMaterials[i].GetColor("_BaseColor"));
-                            //Debug.Log(evanescoDissolve.GetTexture("_Albedo"));
                             evanescoDissolve.SetTexture("_Normal", myMaterials[i].GetTexture("_BumpMap"));
-                            //Debug.Log(evanescoDissolve.GetTexture("_Normal"));
                             evanescoDissolve.SetTexture("_Metallic", myMaterials[i].GetTexture("_MetallicGlossMap"));
-                            //Debug.Log(evanescoDissolve.GetTexture("_Metallic"));
 
                             matDefGood[i] = evanescoDissolve;
                         }
@@ -104,14 +89,10 @@ namespace WandSpellss
 
                         for (int i = 0; i < myMaterials.Count; i++)
                         {
-                            //Debug.Log("Im in the " + i + " iteration of the loop");
                             evanescoDissolve.SetTexture("_Albedo", myMaterials[i].GetTexture("_BaseMap"));
                             evanescoDissolve.SetColor("_color", myMaterials[i].GetColor("_BaseColor"));
-                            //Debug.Log(evanescoDissolve.GetTexture("_Albedo"));
                             evanescoDissolve.SetTexture("_Normal", myMaterials[i].GetTexture("_BumpMap"));
-                            //Debug.Log(evanescoDissolve.GetTexture("_Normal"));
                             evanescoDissolve.SetTexture("_Metallic", myMaterials[i].GetTexture("_MetallicGlossMap"));
-                            //Debug.Log(evanescoDissolve.GetTexture("_Metallic"));
 
                             matDefGood[i] = evanescoDissolve;
                         }
@@ -131,23 +112,15 @@ namespace WandSpellss
 
                         for (int i = 0; i < myMaterials.Count; i++)
                         {
-                            //Debug.Log("Im in the " +i+ " iteration of the loop");
                             evanescoDissolve.SetTexture("_Albedo", myMaterials[i].GetTexture("_BaseMap"));
                             evanescoDissolve.SetColor("_color", myMaterials[i].GetColor("_BaseColor"));
-                            //Debug.Log(evanescoDissolve.GetTexture("_Albedo"));
                             evanescoDissolve.SetTexture("_Normal", myMaterials[i].GetTexture("_BumpMap"));
-                            //Debug.Log(evanescoDissolve.GetTexture("_Normal"));
                             evanescoDissolve.SetTexture("_Metallic", myMaterials[i].GetTexture("_MetallicGlossMap"));
-                            //Debug.Log(evanescoDissolve.GetTexture("_Metallic"));
 
                             matDefGood[i] = evanescoDissolve;
                         }
                         renderer.materials = matDefGood;
-
-
-
-
-
+                        
                         cantEvanesco = false;
                         evanescoItem1.gameObject.AddComponent<EvanescoPerItem>();
 
@@ -160,14 +133,10 @@ namespace WandSpellss
 
                         for (int i = 0; i < myMaterials.Count; i++)
                         {
-                            //Debug.Log("Im in the " + i + " iteration of the loop");
                             evanescoDissolve.SetTexture("_Albedo", myMaterials[i].GetTexture("_BaseMap"));
                             evanescoDissolve.SetColor("_color", myMaterials[i].GetColor("_BaseColor"));
-                            //Debug.Log(evanescoDissolve.GetTexture("_Albedo"));
                             evanescoDissolve.SetTexture("_Normal", myMaterials[i].GetTexture("_BumpMap"));
-                            //Debug.Log(evanescoDissolve.GetTexture("_Normal"));
                             evanescoDissolve.SetTexture("_Metallic", myMaterials[i].GetTexture("_MetallicGlossMap"));
-                            //Debug.Log(evanescoDissolve.GetTexture("_Metallic"));
 
                             matDefGood[i] = evanescoDissolve;
                         }
@@ -182,14 +151,10 @@ namespace WandSpellss
 
                         for (int i = 0; i < myMaterials.Count; i++)
                         {
-                            //Debug.Log("Im in the " + i + " iteration of the loop");
                             evanescoDissolve.SetTexture("_Albedo", myMaterials[i].GetTexture("_BaseMap"));
                             evanescoDissolve.SetColor("_color", myMaterials[i].GetColor("_BaseColor"));
-                            //Debug.Log(evanescoDissolve.GetTexture("_Albedo"));
                             evanescoDissolve.SetTexture("_Normal", myMaterials[i].GetTexture("_BumpMap"));
-                            //Debug.Log(evanescoDissolve.GetTexture("_Normal"));
                             evanescoDissolve.SetTexture("_Metallic", myMaterials[i].GetTexture("_MetallicGlossMap"));
-                            //Debug.Log(evanescoDissolve.GetTexture("_Metallic"));
 
                             matDefGood[i] = evanescoDissolve;
                         }

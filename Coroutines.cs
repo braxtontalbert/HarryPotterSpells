@@ -55,7 +55,7 @@ namespace WandSpellss
         {
             Debug.Log("Starting levioso timer");
             yield return new WaitForSeconds(10f);
-            UnityEngine.GameObject.Destroy(leviosoUpdate);
+            Destroy(leviosoUpdate);
             
         }
 

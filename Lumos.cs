@@ -29,7 +29,7 @@ namespace WandSpellss
 
         void Update() {
 
-            if (item != null)
+            if (item)
             {
                 item.transform.position = wand.flyDirRef.transform.position;
                 item.transform.rotation = wand.flyDirRef.transform.rotation;

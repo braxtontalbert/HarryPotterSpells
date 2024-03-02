@@ -30,18 +30,16 @@ namespace WandSpellss
 
                 if (hit.collider.GetComponentInParent<Creature>() is Creature creature && creature == Player.currentCreature)
                 {
-
-
                     foreach (Type spell in Loader.local.spellsOnPlayer)
                     {
-                        UnityEngine.GameObject.Destroy(item.GetComponent(spell));
+                        Destroy(item.GetComponent(spell));
                     }
                 }
                 else if(hit.collider.GetComponent<Item>() is Item spellItem){
 
                     foreach (Type spellType in Loader.local.finiteSpells) { 
                     
-                        if(spellItem.GetComponent(spellType) != null) UnityEngine.GameObject.Destroy(spellItem.gameObject);
+                        if(spellItem.GetComponent(spellType) != null) Destroy(spellItem.gameObject);
 
                         break;
                     }
@@ -49,11 +47,9 @@ namespace WandSpellss
                 }
                 else if (hit.collider.GetComponentInChildren<Item>() is Item spellItem2)
                 {
-
                     foreach (Type spellType in Loader.local.finiteSpells)
                     {
-
-                        if (spellItem2.GetComponent(spellType) != null) UnityEngine.GameObject.Destroy(spellItem2.gameObject);
+                        if (spellItem2.GetComponent(spellType) != null) Destroy(spellItem2.gameObject);
 
                         break;
                     }
@@ -65,7 +61,7 @@ namespace WandSpellss
                     foreach (Type spellType in Loader.local.finiteSpells)
                     {
 
-                        if (spellItem3.GetComponent(spellType) != null) UnityEngine.GameObject.Destroy(spellItem3.gameObject);
+                        if (spellItem3.GetComponent(spellType) != null) Destroy(spellItem3.gameObject);
 
                         break;
                     }

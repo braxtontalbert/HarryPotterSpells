@@ -9,6 +9,7 @@ using ThunderRoad;
 using UnityEngine.VFX;
 using UnityEngine;
 using System.Diagnostics;
+using JetBrains.Annotations;
 //using FirearmAIFix;
 using Debug = UnityEngine.Debug;
 
@@ -91,13 +92,11 @@ namespace WandSpellss
 
         public override void OnCatalogRefresh()
         {
-            //Only want one instance of the loader running
             if (local != null) return;
             local = this;
             AsyncSetup();
             
             CustomDebug.debugOn = true;
-            CustomDebug.Debug("");
         }
 
         public Choices spells = new Choices();
@@ -139,8 +138,7 @@ namespace WandSpellss
                 Catalog.LoadAssetAsync<GameObject>("apoz123Wand.SpellEffect.Crucio", callback => crucioEffect = callback,"CrucioEffect");
                 dissimuloActive = false;
                 protegoSpawned = false;
-                EventManager.onItemEquip += OnItemEquip;/*
-                EventManager.onCreatureSpawn += OnCreatureSpawn;*/
+                EventManager.onItemEquip += OnItemEquip;
                 List<JSONSpell> loadedSpells = Catalog.GetData<SpellListData>("CustomSpells").spellList;
 
                 foreach (JSONSpell spell in loadedSpells)
@@ -156,34 +154,7 @@ namespace WandSpellss
                 spells.Add("Accio Wand");
                 spells.Add("Accio Nimbus");
                 List<ItemData> itemDatas = Catalog.GetDataList<ItemData>();
-                foreach (ItemData data in itemDatas)
-                {
-                    if (data.type == ItemData.Type.Weapon && data.type != null && data.displayName != null && data.category != null)
-                    {
-                        string displayName = data.displayName.ToLower();
-                        string categoryName = "";
-                        if (data.category.EndsWith("s"))
-                        {
-                            categoryName = data.category.Remove(data.category.Length - 1).ToLower();
-                        }
-                        else categoryName = data.category.ToLower();
-
-                        if (displayName.Contains(categoryName))
-                        {
-                                spells.Add("Accio " + categoryName.ToLower());
-                        }
-                        else
-                        {
-                            string[] allNames = displayName.Split(' ');
-
-                            for (int i = 0; i < allNames.Length; i++)
-                            {
-                                spells.Add("Accio " + allNames[i].ToLower());
-                            }
-                            spells.Add(displayName);
-                        }
-                    }
-                }
+                parseItemWeapons(itemDatas);
                 spells.Add("Accio " + "Weapon");
                 recognizer = new SpeechRecognitionEngine();
 
@@ -201,52 +172,73 @@ namespace WandSpellss
             });
         }
 
-        private void OnCreatureSpawn(Creature creature)
+        private void parseItemWeapons(List<ItemData> itemDatas)
         {
-            if (creature.isPlayer)
-                return;
-            creature.gameObject.AddComponent<AimVisualizerBrainWand>();
-
-            /*if (creature.gameObject.GetComponent<AimVisualiserBrain>() is AimVisualiserBrain visualiser)
+            string accioString = "Accio";
+            foreach (ItemData data in itemDatas)
             {
-                Debug.Log("Visualiser exists");
-                UnityEngine.GameObject.Destroy(visualiser);
-            }*/
+                if (data.type == ItemData.Type.Weapon && data.type != null && data.displayName != null && data.category != null)
+                {
+                    string displayName = data.displayName.ToLower();
+                    string categoryName = "";
+                    if (data.category.EndsWith("s"))
+                    {
+                        categoryName = data.category.Remove(data.category.Length - 1).ToLower();
+                    }
+                    else categoryName = data.category.ToLower();
+
+                    if (displayName.Contains(categoryName))
+                    {
+                        spells.Add(accioString + " " + categoryName.ToLower());
+                    }
+                    else
+                    {
+                        string[] allNames = displayName.Split(' ');
+                        for (int i = 0; i < allNames.Length; i++)
+                        {
+                            spells.Add(accioString + " " + allNames[i].ToLower());
+                        }
+                        spells.Add(displayName);
+                    }
+                }
+            }
         }
 
         private void OnItemEquip(Item item)
         {
             if (item.GetComponent<ItemVoiceModule>() != null)
             {
-               this.currentlyHeldWands.Add(item);
+               currentlyHeldWands.Add(item);
             }
         }
         private void Recognizer_SpeechRecognized(object sender, SpeechRecognizedEventArgs e)
         {
             CustomDebug.Debug("Confidence: " + e.Result.Confidence);
-            if (e.Result.Text != null && e.Result.Confidence > 0.93f)
+            string result = e.Result.Text;
+            float confidence = e.Result.Confidence;
+            string accioString = "Accio";
+            if (result != null && confidence > 0.93f)
             {
-                CustomDebug.Debug(e.Result.Text);
-                if (spellDict.ContainsKey(e.Result.Text) && currentlyHeldWands.Count > 0)
+                CustomDebug.Debug(result);
+                if (spellDict.ContainsKey(result) && currentlyHeldWands.Count > 0)
                 {
                     foreach (Item wand in Loader.local.currentlyHeldWands)
                     {
-                        wand.gameObject.GetComponent<SpellEntry>().TypeSelection(spellDict[e.Result.Text], e.Result.Text, wand);
+                        wand.gameObject.GetComponent<SpellEntry>().TypeSelection(spellDict[result], result, wand);
                     }
                 }
 
-                else if (currentlyHeldWands.Count <= 0 && e.Result.Text == "Accio Wand")
+                else if (currentlyHeldWands.Count <= 0 && (result == accioString + " Wand" || result == accioString + " wand"))
                 {
-
                     try
                     {
-                        paramItem = Item.allActive.Where(item => item.GetComponent<SpellEntry>() != null).OrderBy(item => Vector3.Distance(item.transform.position, Player.currentCreature.handRight.transform.position)).First();
+                        paramItem = Item.allActive.Where(item => item.GetComponent<SpellEntry>() != null && !Player.currentCreature.equipment.GetAllHolsteredItems().Contains(item)).OrderBy(item =>  Vector3.Distance(item.transform.position, Player.currentCreature.handRight.transform.position)).First();
 
                     }
                     catch (InvalidOperationException) { }
 
                     if (paramItem) couroutineManager.StartAccio(paramItem, Player.currentCreature.handRight);
-                }
+                }/*
                 else if (currentlyHeldWands.Count > 0 && e.Result.Text == "Accio Nimbus")
                 {
                     Catalog.GetData<ItemData>("Nimbus2000BroomVersion").SpawnAsync(callback =>
@@ -255,34 +247,16 @@ namespace WandSpellss
                         callback.transform.position = item.transform.forward * 30f;
                         callback.gameObject.AddComponent<AccioNimbus>().Setup(item.mainHandler.otherHand);
                     });
-                }
-
-                else if(e.Result.Text.Contains("Accio") & e.Result.Text.Length > "Accio".Length)
-                {
-                    Debug.Log("Accio with item name");
-                    foreach (Item wand in Loader.local.currentlyHeldWands)
-                    {
-                        Debug.Log("In wands loop");
-                        Type spellType = Type.GetType("WandSpellss." + "Accio" + "");
-                        Debug.Log(spellType);
-                        wand.gameObject.GetComponent<SpellEntry>().TypeSelection(spellType, e.Result.Text, wand, e.Result.Text);
-                    }
-                }
-
-                /*else if (e.Result.Text.Contains("Accio") && e.Result.Text.Length > 5 && currentlyHeldWands.Count == 1) {
-
-                    try
-                    {
-                        paramItem = Item.allActive.Where(item => item.name.Contains(e.Result.Text.Split(' ')[1])).OrderBy(item => Vector3.Distance(item.transform.position, currentlyHeldWands[0].mainHandler.otherHand.transform.position)).First();
-
-                    }
-                    catch (InvalidOperationException) { }
-
-                    if (paramItem) couroutineManager.StartAccio(paramItem, Player.currentCreature.handRight);
-
                 }*/
 
-
+                else if(result.Contains(accioString) && currentlyHeldWands.Count > 0 && result.Length > accioString.Length)
+                {
+                    foreach (Item wand in currentlyHeldWands)
+                    {
+                        Type spellType = Type.GetType("WandSpellss." + accioString + "");
+                        wand.gameObject.GetComponent<SpellEntry>().TypeSelection(spellType, result, wand, result);
+                    }
+                }
             }
         }
         public void StartBubbleHeadDestroy(GameObject bubbleUpdate)
@@ -302,7 +276,6 @@ namespace WandSpellss
 
         public void DestroyLevicorpus()
         {
-
             foreach (Creature creature in levicorpusedCreatures)
             {
                 UnityEngine.Object.Destroy(creature.footLeft.GetComponent<SpringJoint>());

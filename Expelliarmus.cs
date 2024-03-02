@@ -7,8 +7,9 @@ using UnityEngine;
 using ThunderRoad;
 using System.Collections;
 using UnityEngine.VFX;
+ using Random = UnityEngine.Random;
 
-namespace WandSpellss
+ namespace WandSpellss
 {
     class Expelliarmus : MonoBehaviour
     {
@@ -25,32 +26,33 @@ namespace WandSpellss
             item = GetComponent<Item>();
         }
         
-        //TODO: For Everte Statum
-        /*foreach (Rigidbody rigidbody in c.gameObject.GetComponentInParent<Creature>().ragdoll.parts.Select(part => part.physicBody.rigidBody))
-        {
-            var direction = (c.contacts[0].point - currentPosition).normalized;
-            CustomDebug.Debug("Rigidbody name: " + rigidbody.name);
-            rigidbody.AddForce(direction * (power), ForceMode.Impulse);
-        }*/
-
-        //TODO: Affect how it functions based on which ragdoll part is hit.
         public void OnCollisionEnter(Collision c)
         {
 
             Item disarmedItem = new Item();
             if (c.gameObject.GetComponentInParent<Creature>() is Creature creature)
             {
-                disarmedItem = creature.handRight.grabbedHandle.item;
-                creature.handRight.UnGrab(false);
-                creature.handLeft.UnGrab(false);
+                int random = Random.Range(0, 1);
+                if (random == 0)
+                {
+                    disarmedItem = creature.handRight.grabbedHandle.item; 
+                    if(creature.handLeft.grabbedHandle) creature.handRight.UnGrab(false);
+                    if(creature.handLeft.grabbedHandle) creature.handLeft.UnGrab(false);
+                }
+                else
+                {
+                    disarmedItem = creature.handLeft.grabbedHandle.item;
+                    if(creature.handLeft.grabbedHandle) creature.handRight.UnGrab(false);
+                    if(creature.handLeft.grabbedHandle) creature.handLeft.UnGrab(false);
+                }
 
             }
 
             else if (c.gameObject.GetComponentInParent<Item>() is Item itemIn)
             {
-
                 disarmedItem = item;
-                itemIn.mainHandler.otherHand.otherHand.UnGrab(false);
+                disarmedItem.physicBody.velocity = new Vector3(0,0,0);
+                itemIn.mainHandler.otherHand.UnGrab(false);
 
             }
 
@@ -72,15 +74,12 @@ namespace WandSpellss
         {
 
             effect.transform.position = position;
-            effect = GameObject.Instantiate(effect);
-
-
+            effect = Instantiate(effect);
             effect.GetComponentInChildren<VisualEffect>().Play();
 
             yield return new WaitForSeconds(3f);
 
-            UnityEngine.GameObject.Destroy(effect);
-
+            Destroy(effect);
         }
     }
     public class ExpelliarmusHandler : Spell

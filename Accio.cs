@@ -37,11 +37,8 @@ namespace WandSpellss
             if (itemType != null)
             {
                 itemType = ParseItemType(this.itemType);
-                Debug.Log("In Accio " + this.itemType);
             }
-            else Debug.Log("In Accio");
 
-            //Debug.Log("Start method itemType value is: " + itemType);
             cantAccio = true;
             CastRay();
 
@@ -54,20 +51,10 @@ namespace WandSpellss
             if (currentItem)
             {
                 startPoint = currentItem.gameObject.transform.position;
-                //endPoint = wand.mainHandler.otherHand.transform.position;
 
                 if (currentItem.mainHandler && !currentItem.mainHandler.creature.isPlayer)
                 {
-                    currentItem.mainHandler.playerHand.ragdollHand.UnGrab(false);
-                }
-
-                if (currentItem.holder != null && currentItem.holder.creature && !currentItem.holder.creature.isPlayer)
-                {
-                    currentItem.holder.GrabFromHandle();
-                }
-                else if(currentItem.holder)
-                {
-                    currentItem.holder.GrabFromHandle();
+                    currentItem.mainHandler.creature.GetHand(currentItem.mainHandler.side).UnGrab(false);
                 }
                 if (currentItem.gameObject.GetComponent<AccioPerItem>() is AccioPerItem api)
                 {
@@ -118,7 +105,6 @@ namespace WandSpellss
                     componentLevel = "Mid";
                     foreach (Item selected in Item.allActive)
                     {
-                        Debug.Log("Item name: " + selected.name);
                         if(!Player.local.creature.equipment.GetAllHolsteredItems().Contains(selected))
                         {
                                 float distance = (selected.transform.position - hit)
@@ -138,6 +124,28 @@ namespace WandSpellss
                 
                 if (itemType != null && itemType.ToLower().Equals("weapon"))
                 {
+                    if (parentLocal.GetComponent<Item>() is Item accioItem1 &&
+                        accioItem1.name.ToLower().Contains(itemType))
+                    {
+                        componentLevel = "Mid";
+                        return accioItem1;
+                    }
+
+                    if (parentLocal.GetComponentInParent<Item>() is Item accioItem2 &&
+                        accioItem2.name.ToLower().Contains(itemType))
+                    {
+                        componentLevel = "Parent";
+                        return accioItem2;
+
+                    }
+
+                    if (parentLocal.GetComponentInChildren<Item>() is Item accioItem3 &&
+                        accioItem3.name.ToLower().Contains(itemType))
+                    {
+                        componentLevel = "Child";
+                        return accioItem3;
+                    }
+                    
                     componentLevel = "Mid";
                     Dictionary<Item, float> toCompare = new Dictionary<Item, float>();
                     foreach (Item selected in Item.allActive)
@@ -148,7 +156,7 @@ namespace WandSpellss
                                 .sqrMagnitude;
                             if (distance < 5f * 5f)
                             {
-                                if (selected.data.type.ToString().ToLower().Contains(itemType) && !toCompare.ContainsKey(selected))
+                                if (selected.data.type.ToString().ToLower().Contains(itemType.ToLower()) && !toCompare.ContainsKey(selected))
                                 {
                                     toCompare.Add(selected, distance);
                                 }
@@ -178,13 +186,22 @@ namespace WandSpellss
                         componentLevel = "Child";
                         return accioItem3;
                     }
-                    rayPoints.Reverse();
-                    foreach (Vector3 position in rayPoints.Keys)
+                    Dictionary<Item, float> toCompare = new Dictionary<Item, float>();
+                    componentLevel = "Mid";
+                    foreach (Item selected in Item.allActive)
                     {
-                        float found;
-                        rayPoints.TryGetValue(position, out found);
-                        return Item.allActive.Where(item => item != null && item != this.item && !Player.currentCreature.equipment.GetAllHolsteredItems().Contains(item) && (item.transform.position - position).magnitude < found).First();
+                        if(!Player.local.creature.equipment.GetAllHolsteredItems().Contains(selected))
+                        {
+                                float distance = (selected.transform.position - hit)
+                                    .sqrMagnitude;
+                                if (distance < 5f * 5f)
+                                {
+                                    toCompare.Add(selected, distance);
+                                }
+                        }
                     }
+
+                    return toCompare.Aggregate((l, r) => l.Value < r.Value ? l : r).Key;
                 }
 
             }
@@ -263,10 +280,8 @@ namespace WandSpellss
         }
         public override void UpdateSpell(Type type, string name, Item wand, String itemType)
         {
-            Debug.Log("before type check");
             if (type == Type.GetType("WandSpellss." +"Accio" +""))
             {
-                Debug.Log("Types are equal");
                 if (wand.gameObject.GetComponent(type)) UnityEngine.Object.Destroy(wand.gameObject.GetComponent(type));
                 wand.gameObject.AddComponent<Accio>().Setup(itemType);
             }

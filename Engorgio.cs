@@ -28,22 +28,17 @@ namespace WandSpellss
         public void Start()
         {
             item = GetComponent<Item>();
-            CustomDebug.Debug("Started " + command);
             CastRay();
         }
 
 
         internal void CastRay()
         {
-            CustomDebug.Debug("Called CastRay method");
             RaycastHit hit;
             Transform parent;
 
             if (Physics.Raycast(item.flyDirRef.transform.position, item.flyDirRef.transform.forward, out hit, float.MaxValue, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore))
             {
-
-                CustomDebug.Debug("Did hit.");
-                CustomDebug.Debug(hit.collider.gameObject.transform.parent.name);
 
                 parent = hit.collider.gameObject.transform.parent;
                 ogScale = parent.gameObject.transform.localScale;

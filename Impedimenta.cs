@@ -34,21 +34,20 @@ namespace WandSpellss
                 if((Player.currentCreature.transform.position - creature.transform.position).sqrMagnitude < 5f * 5f)
                 {
                     creature.locomotion.SetSpeedModifier(this, 0.3f, 0.3f, 0.3f, 0.3f, 0.3f);
-                    Debug.Log("Creature animator speed default: " + creature.animator.speed);
                     creature.animator.speed = 0.3f;
                     creature.gameObject.AddComponent<CreaturesReversalEvent>();
                 }
             }
             sfx = Instantiate(Loader.local.impedimentaSoundFX);
             Loader.local.impedimentaEffect.transform.position = item.flyDirRef.transform.position;
-            go = GameObject.Instantiate(Loader.local.impedimentaEffect);
+            go = Instantiate(Loader.local.impedimentaEffect);
 
         }
 
         IEnumerator DestroyImpedimentaEffect(GameObject effect) {
 
             yield return new WaitForSeconds(5f);
-            UnityEngine.GameObject.Destroy(effect);
+            Destroy(effect);
         }
     }
 

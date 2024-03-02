@@ -32,14 +32,10 @@ namespace WandSpellss
         }
         public void OnCollisionEnter(Collision c)
         {
-
-
             if (c.gameObject.GetComponentInParent<Creature>() is Creature creature)
             {
 
                 despawnCreature = creature;
-
-
                 floater1 = new GameObject();
                 floater1.AddComponent<Rigidbody>();
                 floater1.GetComponent<Rigidbody>().useGravity = false;
@@ -90,14 +86,14 @@ namespace WandSpellss
         {
 
             effect.transform.position = position;
-            effect = GameObject.Instantiate(effect);
+            effect = Instantiate(effect);
 
 
             effect.GetComponentInChildren<VisualEffect>().Play();
 
             yield return new WaitForSeconds(3f);
 
-            UnityEngine.GameObject.Destroy(effect);
+            Destroy(effect);
 
         }
         private void Creature_OnDespawnEvent(EventTime eventTime)

@@ -43,14 +43,14 @@ namespace WandSpellss
         {
 
             effect.transform.position = position;
-            effect = GameObject.Instantiate(effect);
+            effect = Instantiate(effect);
 
 
             effect.GetComponentInChildren<VisualEffect>().Play();
 
             yield return new WaitForSeconds(3f);
 
-            UnityEngine.GameObject.Destroy(effect);
+            Destroy(effect);
 
         }
     }

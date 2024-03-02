@@ -27,7 +27,6 @@ namespace WandSpellss
                         {
                             foreach (AudioSource c in wand.GetComponentsInChildren<AudioSource>())
                             {
-
                                 switch (c.name)
                                 {
                                     case "NoxSound":

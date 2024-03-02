@@ -36,11 +36,8 @@ namespace WandSpellss
                     rigidbody.AddForce(direction * (power), ForceMode.Impulse);
                     rigidbody.AddForce(Vector3.up * (power / 1.5f), ForceMode.Impulse);
                 }
-
-
+                
             }
-            
-
             Loader.local.couroutineManager.StartCustomCoroutine(SpawnSparkEffect(Loader.local.evertestatumSparks, c.contacts[0].point));
 
         }
@@ -50,14 +47,14 @@ namespace WandSpellss
         {
 
             effect.transform.position = position;
-            effect = GameObject.Instantiate(effect);
+            effect = Instantiate(effect);
 
 
             effect.GetComponentInChildren<VisualEffect>().Play();
 
             yield return new WaitForSeconds(3f);
 
-            UnityEngine.GameObject.Destroy(effect);
+            Destroy(effect);
 
         }
     }

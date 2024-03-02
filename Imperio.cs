@@ -52,12 +52,11 @@ namespace WandSpellss
         private ParticleSystem ps;
         void Start()
         {
-            ps = this.GetComponent<ParticleSystem>();
+            ps = GetComponent<ParticleSystem>();
         }
 
         void OnParticleCollision(GameObject other)
         {
-            Debug.Log("Particle Collided!");
             if (creature) return;
             creature = other.GetComponentInParent<Creature>();
             if (!creature.GetComponent<OnCreature>())
@@ -65,15 +64,6 @@ namespace WandSpellss
                 creature.gameObject.AddComponent<OnCreature>();
                 StartImperio(creature);
             }
-            /*int numCollisionEvents = go.GetComponent<ParticleSystem>().GetCollisionEvents(other, collisionEvents);
-
-            Creature creature = other.GetComponentInParent<Creature>();
-            
-
-            if (numCollisionEvents > 10)
-            {
-                StartImperio(creature);
-            }*/
         }
         void StartImperio(Creature creature)
         {

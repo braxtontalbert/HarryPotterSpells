@@ -26,17 +26,15 @@ namespace WandSpellss
                             
                             detector.sightDetectionHorizontalFov = 0f;
                             detector.sightDetectionVerticalFov = 0f;
-                            Debug.Log("Creature: " + creature + " | " + "Values: {Horizontal | Vertical}" + detector.sightDetectionHorizontalFov + " | " + detector.sightDetectionVerticalFov);
                         }
                         else
                         {
                             detector.sightDetectionHorizontalFov = 0f;
                             detector.sightDetectionVerticalFov = 0f;
-                            Debug.Log("Creature: " + creature + " | " + "Values: {Horizontal | Vertical}" + detector.sightDetectionHorizontalFov + " | " + detector.sightDetectionVerticalFov);
                         }
                     }
                     else {
-                        if (Vector3.Distance(Player.currentCreature.transform.position, creature.transform.position) < 1f)
+                        if ((Player.currentCreature.transform.position - creature.transform.position).sqrMagnitude < 1f * 1f)
                         {
                             if (Loader.local.creaturesFOV.ContainsKey(creature))
                             {
@@ -84,21 +82,15 @@ namespace WandSpellss
                 
                 for (int i = 0; i < myMaterials.Length; i++)
                 {
-                    //Debug.Log("Im in the " +i+ " iteration of the loop");
                     evanescoTemp.SetTexture("_Albedo", myMaterials[i].GetTexture("_BaseMap"));
                     evanescoTemp.SetColor("_color", myMaterials[i].GetColor("_BaseColor"));
-                    //Debug.Log(evanescoDissolve.GetTexture("_Albedo"));
                     evanescoTemp.SetTexture("_Normal", myMaterials[i].GetTexture("_BumpMap"));
-                    //Debug.Log(evanescoDissolve.GetTexture("_Normal"));
                     evanescoTemp.SetTexture("_Metallic", myMaterials[i].GetTexture("_MetallicGlossMap"));
-                    //Debug.Log(evanescoDissolve.GetTexture("_Metallic"));
 
                     matDefGood[i] = evanescoTemp.DeepCopyByExpressionTree();
                 }
 
                 data.renderer.materials = matDefGood;
-                
-                //data.renderer.gameObject.AddComponent<EvanescoPerItem>();
             }
         }
 
@@ -108,9 +100,6 @@ namespace WandSpellss
             {
                 if (dissolveVal < 1)
                 {
-                    //dissolveVal += Time.deltaTime / 3f;
-
-                    //Debug.Log(dissolveVal);
                     dissolveVal += 0.01f;
                     foreach (Creature.RendererData var in creature.renderers)
                     {
@@ -119,14 +108,8 @@ namespace WandSpellss
                             CustomDebug.Debug("Dissimulo Material: " + mat);
                             mat.SetFloat("_dissolve", dissolveVal);
                         }
-                        
                     }
-                    
-
-
                 }
-
-
                 else if (dissolveVal >= 1f)
                 {
                     dissolveVal = 0;

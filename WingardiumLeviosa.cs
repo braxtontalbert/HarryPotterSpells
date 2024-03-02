@@ -58,7 +58,6 @@ namespace WandSpellss
             {
                 Loader.local.sdfg.mesh = itemMesh;
                 sdf = Loader.local.sdfg.Generate();
-                Debug.Log("SDF: " + sdf);
                 vfx.SetTexture("sdf", sdf);
                 vfx.SetVector3("lineStart", item.flyDirRef.transform.position);
                 vfx.SetVector3("lineEnd", currentRigidbody.transform.position);
@@ -84,13 +83,9 @@ namespace WandSpellss
             
             if (Physics.Raycast(item.flyDirRef.transform.position,item.flyDirRef.transform.forward, out hit, float.MaxValue, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore))
             {
-                CustomDebug.Debug("Did hit.");
-                CustomDebug.Debug(hit.collider.gameObject.transform.parent.name);
-
                 parent = hit.collider.gameObject.transform.parent;
                 parentLocal = parent.gameObject;
                 
-
                 if (parentLocal.gameObject.GetComponent<Item>() is Item item1)
                 {
                     itemMesh = item1.gameObject.GetComponentInChildren<MeshFilter>().mesh;

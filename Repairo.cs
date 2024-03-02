@@ -16,7 +16,6 @@ namespace WandSpellss
         public int actualAmount = 0;
         public override void ScriptLoaded(ModManager.ModData modData)
         {
-            Debug.Log("LEVEL COROUTINE FOR ITEM TRACKER STARTED");
             local = this;
             EventManager.OnItemBrokenEnd += ItemsBrokeEnd;
             base.ScriptLoaded(modData);

@@ -46,19 +46,13 @@ namespace WandSpellss
                     
                     
                     }
-                    
-
                 }
-
             }
-
-
             item.gameObject.transform.LookAt(Player.local.transform);
         
         
         }
-
-
+        
         private void SetTimer()
         {
 

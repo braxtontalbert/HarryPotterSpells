@@ -19,7 +19,8 @@ namespace WandSpellss
             Vector3 currentItemPos = item.flyDirRef.transform.position;
             foreach (Collider collider in colliderArray)
             {
-                if (collider.GetComponentInParent<Creature>() is Creature creature && !creature.isPlayer && !destabilizedList.Contains(creature))
+                Creature creature = collider.GetComponentInParent<Creature>();
+                if (creature && !creature.isPlayer && !destabilizedList.Contains(creature))
                 {
                     creature.ragdoll.SetState(Ragdoll.State.Destabilized);
                     destabilizedList.Add(creature);
@@ -30,9 +31,8 @@ namespace WandSpellss
                     {
                         RagdollPart ragdollPart = collider.attachedRigidbody.gameObject.GetComponent<RagdollPart>();
 
-                        if (ragdollPart && collider.GetComponentInParent<Creature>() is Creature creature1 && !creature1.isPlayer)
+                        if (ragdollPart && creature && !creature.isPlayer)
                         {
-                            
                             Vector3 direction = ragdollPart.transform.position - currentItemPos;
                             float distance = Vector3.Distance(item.flyDirRef.position, ragdollPart.transform.position);
                             ragdollPart.ragdoll.creature.TryPush(Creature.PushType.Magic,  direction.normalized * 2f,
