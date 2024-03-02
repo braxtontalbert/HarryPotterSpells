@@ -32,27 +32,16 @@ using UnityEngine.VFX;
             Item disarmedItem = new Item();
             if (c.gameObject.GetComponentInParent<Creature>() is Creature creature)
             {
-                int random = Random.Range(0, 1);
-                if (random == 0)
-                {
                     disarmedItem = creature.handRight.grabbedHandle.item; 
-                    if(creature.handLeft.grabbedHandle) creature.handRight.UnGrab(false);
+                    if(creature.handRight.grabbedHandle) creature.handRight.UnGrab(false);
                     if(creature.handLeft.grabbedHandle) creature.handLeft.UnGrab(false);
-                }
-                else
-                {
-                    disarmedItem = creature.handLeft.grabbedHandle.item;
-                    if(creature.handLeft.grabbedHandle) creature.handRight.UnGrab(false);
-                    if(creature.handLeft.grabbedHandle) creature.handLeft.UnGrab(false);
-                }
-
             }
 
             else if (c.gameObject.GetComponentInParent<Item>() is Item itemIn)
             {
                 disarmedItem = item;
                 disarmedItem.physicBody.velocity = new Vector3(0,0,0);
-                itemIn.mainHandler.otherHand.UnGrab(false);
+                itemIn.mainHandler.otherHand.otherHand.UnGrab(false);
 
             }
 
